@@ -6,41 +6,41 @@ export default function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
   const [isVisible, setIsVisible] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
-  const scrollTimeoutRef = useRef(null);
+  const lastScrollY = useRef(0);
 
   useEffect(() => {
     const handleScroll = () => {
-      // 1. Show navbar immediately when scroll begins
-      setIsVisible(true);
+      const currentScrollY = window.scrollY;
 
-      // 2. Reset the scroll timeout
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
+      // 1. Hide on scroll down, show on scroll up
+      if (!isHovered && !isOpen) {
+        if (currentScrollY <= 50) {
+          setIsVisible(true);
+        } else if (currentScrollY > lastScrollY.current) {
+          setIsVisible(false);
+        } else {
+          setIsVisible(true);
+        }
       }
 
-      // 3. Set scroll inactivity timeout to hide navbar
-      scrollTimeoutRef.current = setTimeout(() => {
-        if (!isHovered && !isOpen && window.scrollY >= 50) {
-          setIsVisible(false);
-        }
-      }, 1500);
+      lastScrollY.current = currentScrollY;
 
-      // 4. Check if at the bottom of the page to auto-highlight Contact
-      const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
+      // 2. Check if at the bottom of the page to auto-highlight Contact
+      const isAtBottom = window.innerHeight + currentScrollY >= document.documentElement.scrollHeight - 80;
       if (isAtBottom) {
         setActiveSection('contact');
         return;
       }
 
-      // 5. Highlight sections based on absolute viewport position
-      const sections = ['home', 'about', 'projects', 'certificates', 'contact'];
-      const scrollPosition = window.scrollY + 280; // Offset for triggering highlight
+      // 3. Highlight sections based on absolute viewport position
+      const sections = ['home', 'about', 'education', 'projects', 'certificates', 'contact'];
+      const scrollPosition = currentScrollY + 280; // Offset for triggering highlight
 
       for (let i = sections.length - 1; i >= 0; i--) {
         const sectionId = sections[i];
         const el = document.getElementById(sectionId);
         if (el) {
-          const top = el.getBoundingClientRect().top + window.scrollY;
+          const top = el.getBoundingClientRect().top + currentScrollY;
           const height = el.offsetHeight;
           if (scrollPosition >= top && scrollPosition < top + height) {
             setActiveSection(sectionId);
@@ -51,13 +51,11 @@ export default function Navbar() {
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    lastScrollY.current = window.scrollY;
     handleScroll(); // Run on mount
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
     };
   }, [isHovered, isOpen]);
 
@@ -69,35 +67,22 @@ export default function Navbar() {
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
     }
   }, [isOpen]);
 
   const handleMouseEnter = () => {
     setIsHovered(true);
     setIsVisible(true);
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
-    }
   };
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
-    }
-    scrollTimeoutRef.current = setTimeout(() => {
-      if (!isOpen && window.scrollY >= 50) {
-        setIsVisible(false);
-      }
-    }, 1500);
   };
 
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'About Me', href: '#about' },
+    { name: 'Education', href: '#education' },
     { name: 'Projects', href: '#projects' },
     { name: 'Certificates', href: '#certificates' },
     { name: 'Contact', href: '#contact' },
