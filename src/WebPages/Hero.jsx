@@ -141,7 +141,7 @@ export default function Hero() {
           </h1>
 
           <h2 className="font-heading font-bold text-[0.8rem] sm:text-[0.9rem] text-accent-cyan tracking-wider mb-6 uppercase max-w-[580px] leading-relaxed">
-            AI Engineer | Machine Learning Engineer | Generative AI | NLP | Computer Vision | Python | AWS
+            AIMLEngineer | Generative AI
           </h2>
           
           <p className="font-sans text-base md:text-lg text-text-secondary mb-8 max-w-[580px] leading-relaxed">
