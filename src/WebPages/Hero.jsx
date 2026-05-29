@@ -220,22 +220,6 @@ export default function Hero() {
           </div>
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div className="absolute bottom-[30px] left-1/2 -translate-x-1/2 z-10 flex justify-center">
-        <a href="#about" aria-label="Scroll down">
-          <div className="w-[26px] h-[42px] border-2 border-text-muted hover:border-accent-cyan rounded-full flex justify-center pt-2 cursor-pointer transition-colors duration-200">
-            <div className="w-1 h-2 bg-accent-cyan rounded-full animate-[scroll-wheel_1.6s_infinite]"></div>
-          </div>
-        </a>
-      </div>
-
-      <style>{`
-        @keyframes scroll-wheel {
-          0% { opacity: 1; transform: translateY(0); }
-          100% { opacity: 0; transform: translateY(14px); }
-        }
-      `}</style>
     </section>
   );
 }
