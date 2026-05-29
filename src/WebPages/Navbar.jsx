@@ -10,22 +10,20 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // 1. Hide navbar immediately when scrolling down past top threshold
-      if (window.scrollY >= 50 && !isOpen && !isHovered) {
-        setIsVisible(false);
-      } else {
-        setIsVisible(true);
-      }
+      // 1. Show navbar immediately when scroll begins
+      setIsVisible(true);
 
       // 2. Reset the scroll timeout
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
       }
 
-      // 3. Set scroll inactivity timeout to show the navbar again
+      // 3. Set scroll inactivity timeout to hide navbar
       scrollTimeoutRef.current = setTimeout(() => {
-        setIsVisible(true);
-      }, 150);
+        if (!isHovered && !isOpen && window.scrollY >= 50) {
+          setIsVisible(false);
+        }
+      }, 1500);
 
       // 4. Check if at the bottom of the page to auto-highlight Contact
       const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
@@ -35,7 +33,7 @@ export default function Navbar() {
       }
 
       // 5. Highlight sections based on absolute viewport position
-      const sections = ['home', 'about', 'education', 'projects', 'certificates', 'contact'];
+      const sections = ['home', 'about', 'projects', 'certificates', 'contact'];
       const scrollPosition = window.scrollY + 280; // Offset for triggering highlight
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -87,12 +85,19 @@ export default function Navbar() {
 
   const handleMouseLeave = () => {
     setIsHovered(false);
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    scrollTimeoutRef.current = setTimeout(() => {
+      if (!isOpen && window.scrollY >= 50) {
+        setIsVisible(false);
+      }
+    }, 1500);
   };
 
   const navLinks = [
     { name: 'Home', href: '#home' },
     { name: 'About Me', href: '#about' },
-    { name: 'Education', href: '#education' },
     { name: 'Projects', href: '#projects' },
     { name: 'Certificates', href: '#certificates' },
     { name: 'Contact', href: '#contact' },
