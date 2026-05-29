@@ -98,7 +98,7 @@ export default function Projects() {
               </div>
 
               {/* Card Details */}
-              <div className="p-7 flex flex-col flex-grow text-left bg-black/5">
+              <div className="p-5 sm:p-7 flex flex-col flex-grow text-left bg-black/5">
                 <h3 className="text-[1.3rem] font-bold mb-3 text-text-primary font-heading group-hover:text-accent-cyan transition-colors">{project.title}</h3>
                 <p className="font-sans text-[0.95rem] text-text-secondary leading-relaxed mb-6 flex-grow">{project.description}</p>
                 

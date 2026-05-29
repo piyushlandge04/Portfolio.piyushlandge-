@@ -144,7 +144,7 @@ export default function About() {
           
           {/* Card 1: Biography & Neural Stats */}
           <div 
-            className="bento-card glass-card lg:col-span-2 p-8 md:p-10 flex flex-col gap-6" 
+            className="bento-card glass-card lg:col-span-2 p-6 sm:p-8 md:p-10 flex flex-col gap-6" 
             onMouseMove={handleMouseMove}
           >
             <div className="flex items-center gap-4 text-left">
@@ -166,7 +166,7 @@ export default function About() {
             </div>
             
             {/* About Me Stats */}
-            <div className="grid grid-cols-3 gap-4 border-t border-border-color/30 pt-6 mt-auto">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 border-t border-border-color/30 pt-6 mt-auto">
               <div className="text-center">
                 <span className="block font-mono text-3xl font-extrabold text-accent-cyan">3+ Yrs</span>
                 <span className="text-[0.7rem] text-text-muted uppercase tracking-wider font-bold">Operational Exp</span>
@@ -185,7 +185,7 @@ export default function About() {
           {/* Card 2: Core Stack Skills */}
           <div 
             id="skills"
-            className="bento-card glass-card lg:col-span-1 lg:row-span-2 p-8 flex flex-col gap-6 scroll-mt-24" 
+            className="bento-card glass-card lg:col-span-1 lg:row-span-2 p-6 sm:p-8 flex flex-col gap-6 scroll-mt-24" 
             onMouseMove={handleMouseMove}
           >
             <h3 className="font-heading font-bold text-xl text-text-primary text-left flex items-center gap-2">
@@ -259,7 +259,7 @@ export default function About() {
           {/* Card 4: Education & Experience */}
           <div 
             id="education"
-            className="bento-card glass-card lg:col-span-3 p-8 flex flex-col scroll-mt-24" 
+            className="bento-card glass-card lg:col-span-3 p-6 sm:p-8 flex flex-col scroll-mt-24" 
             onMouseMove={handleMouseMove}
           >
             <div className="w-full text-left">

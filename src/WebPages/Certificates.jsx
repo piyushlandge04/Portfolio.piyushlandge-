@@ -60,7 +60,7 @@ export default function Certificates() {
           {certificatesList.map((cert, index) => (
             <div 
               key={index} 
-              className="certificate-card glass-card p-6 rounded-[20px] flex items-start gap-5 hover:border-accent-cyan/40 hover:shadow-[0_8px_30px_rgba(0,255,255,0.08)] transition-all duration-300 text-left group"
+              className="certificate-card glass-card p-5 sm:p-6 rounded-[20px] flex flex-col sm:flex-row items-start gap-4 sm:gap-5 hover:border-accent-cyan/40 hover:shadow-[0_8px_30px_rgba(0,255,255,0.08)] transition-all duration-300 text-left group"
               onMouseMove={handleMouseMove}
             >
               {/* Icon Container */}

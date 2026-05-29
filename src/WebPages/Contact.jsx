@@ -170,7 +170,7 @@ export default function Contact() {
 
           {/* Form Column */}
           <div 
-            className="contact-form-wrapper glass-card p-8 md:p-10 rounded-[24px]" 
+            className="contact-form-wrapper glass-card p-6 sm:p-8 md:p-10 rounded-[24px]" 
             onMouseMove={handleMouseMove}
           >
             {submitted ? (
