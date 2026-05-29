@@ -10,20 +10,22 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // 1. Show navbar immediately when scroll begins
-      setIsVisible(true);
+      // 1. Hide navbar immediately when scrolling down past top threshold
+      if (window.scrollY >= 50 && !isOpen && !isHovered) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
 
       // 2. Reset the scroll timeout
       if (scrollTimeoutRef.current) {
         clearTimeout(scrollTimeoutRef.current);
       }
 
-      // 3. Set scroll inactivity timeout to hide navbar
+      // 3. Set scroll inactivity timeout to show the navbar again
       scrollTimeoutRef.current = setTimeout(() => {
-        if (!isHovered && !isOpen && window.scrollY >= 50) {
-          setIsVisible(false);
-        }
-      }, 1500);
+        setIsVisible(true);
+      }, 150);
 
       // 4. Check if at the bottom of the page to auto-highlight Contact
       const isAtBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 80;
@@ -85,14 +87,6 @@ export default function Navbar() {
 
   const handleMouseLeave = () => {
     setIsHovered(false);
-    if (scrollTimeoutRef.current) {
-      clearTimeout(scrollTimeoutRef.current);
-    }
-    scrollTimeoutRef.current = setTimeout(() => {
-      if (!isOpen && window.scrollY >= 50) {
-        setIsVisible(false);
-      }
-    }, 1500);
   };
 
   const navLinks = [
