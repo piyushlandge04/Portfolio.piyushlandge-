@@ -66,9 +66,9 @@ export default function Projects() {
       <div className="ambient-glow glow-green"></div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-text-primary text-center mb-4 tracking-tight">Neural <span className="bg-gradient-to-r from-accent-cyan via-accent-purple to-accent-pink bg-clip-text text-transparent">Deployments</span></h2>
+        <h2 className="text-4xl md:text-5xl font-heading font-extrabold text-text-primary text-center mb-4 tracking-tight">My <span className="bg-gradient-to-r from-accent-cyan via-accent-purple to-accent-pink bg-clip-text text-transparent">Projects</span></h2>
         <p className="text-center max-w-[600px] mx-auto text-text-secondary text-lg mb-16">
-          Explore some of my recent neural orchestration frameworks, visual LLM sandboxes, and vector analysis tools.
+          Explore some of my recent engineering projects, web applications, and AI integrations.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
