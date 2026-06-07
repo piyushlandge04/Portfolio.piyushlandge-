@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import Navbar from './WebPages/Navbar';
+import { useEffect } from 'react';
 import Hero from './WebPages/Hero';
 import About from './WebPages/About';
 import Projects from './WebPages/Projects';
@@ -14,15 +13,7 @@ function App() {
     }
     window.scrollTo({ top: 0 });
 
-    // 1. Mouse Coordinate Tracking
-    const handleMouseMove = (e) => {
-      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
-      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
-    };
-
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-
-    // 2. Scroll Progress Bar Update
+    // 1. Scroll Progress Bar Update
     const handleScroll = () => {
       const docHeight = document.documentElement.scrollHeight - window.innerHeight;
       if (docHeight > 0) {
@@ -36,7 +27,7 @@ function App() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     
-    // 3. IntersectionObserver Fallback for Scroll-driven animations
+    // 2. IntersectionObserver Fallback for Scroll-driven animations
     let observer;
     const supportsScrollTimeline = 
       typeof CSS !== 'undefined' && 
@@ -69,7 +60,6 @@ function App() {
     }
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('scroll', handleScroll);
       if (observer) {
         observer.disconnect();
@@ -79,25 +69,9 @@ function App() {
 
   return (
     <>
-      {/* Dynamic Cursor Glow Follower */}
-      <div 
-        className="cursor-glow" 
-        style={{ 
-          transform: 'translate3d(calc(var(--mouse-x, -999px) - 50%), calc(var(--mouse-y, -999px) - 50%), 0)',
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          pointerEvents: 'none',
-          zIndex: 9999
-        }} 
-        aria-hidden="true"
-      ></div>
-
       {/* Scroll Progress Bar */}
       <div className="scroll-progress" aria-hidden="true"></div>
 
-      {/* Main Sections */}
-      <Navbar />
       <main>
         <Hero />
         <About />
@@ -105,7 +79,6 @@ function App() {
         <Certificates />
         <Contact />
       </main>
-
     </>
   );
 }
