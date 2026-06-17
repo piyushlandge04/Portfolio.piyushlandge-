@@ -88,7 +88,6 @@ export default function Contact() {
   // Settings values to sync with state
   const [bgVideo, setBgVideo] = useState(() => localStorage.getItem('bg_video_enabled') !== 'false');
   const [ambientGlow, setAmbientGlow] = useState(() => localStorage.getItem('ambient_glows_enabled') !== 'false');
-
   const [ambientEnabled, setAmbientEnabled] = useState(() => {
     return localStorage.getItem('ambient_glows_enabled') !== 'false';
   });
@@ -234,7 +233,6 @@ export default function Contact() {
       if (stored) {
         setAdminMessages(JSON.parse(stored));
       } else {
-        // Fallback realistic mock data
         const fallback = [
           {
             id: 1,
@@ -350,80 +348,106 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="pt-10 pb-0 md:pt-12 md:pb-0 relative scroll-reveal scroll-reveal-init overflow-hidden">
+    <section id="contact" className="pt-20 pb-0 md:pt-28 md:pb-0 relative scroll-reveal scroll-reveal-init overflow-hidden bg-bg-primary">
       {/* Background Ambience */}
       {ambientEnabled && (
-        <div className="ambient-glow glow-purple" style={{ bottom: '5%', left: '5%', opacity: 0.08 }}></div>
+        <div aria-hidden="true" className="ambient-glow glow-purple" style={{ bottom: '10%', left: '10%', opacity: 0.05, width: '450px', height: '450px' }}></div>
       )}
 
       <div className="max-w-7xl mx-auto px-6 md:px-8">
-        <h2 className="text-4xl md:text-5xl font-heading font-black text-text-primary text-center mb-4 tracking-tight">Get in <span className="bg-linear-to-r from-white via-neutral-100 to-neutral-400 bg-clip-text text-transparent">Touch</span></h2>
-        <p className="text-center max-w-[600px] mx-auto text-text-secondary text-base md:text-lg mb-16 font-sans">
+        <h2 className="text-4xl md:text-6xl font-heading font-black text-text-primary text-center mb-4 tracking-tight">
+          Get in <span style={{
+            background: 'linear-gradient(135deg, #ffffff 0%, #a3a3a3 60%, #525252 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+          }}>Touch</span>
+        </h2>
+        <p className="text-center max-w-[600px] mx-auto text-text-secondary text-base md:text-xl mb-20 font-sans leading-relaxed opacity-90">
           Have an exciting project idea, a position to fill, or simply want to say hello? Drop me a message below.
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start max-w-5xl mx-auto">
           {/* Info Column */}
-          <div className="flex flex-col gap-6 text-left">
-            <h3 className="text-2xl font-heading font-black text-white">Contact Information</h3>
-            <p className="font-sans text-[1.05rem] text-text-secondary leading-relaxed">
-              Feel free to reach out via email, social links, or phone. Let's create something together!
-            </p>
+          <div className="lg:col-span-5 flex flex-col gap-8 text-left">
+            <div>
+              <h3 className="text-2xl font-heading font-black text-white mb-3 tracking-tight">Contact Information</h3>
+              <p className="font-sans text-[1.05rem] text-text-secondary leading-relaxed opacity-85">
+                Feel free to reach out via email, social links, or phone. Let's create something together!
+              </p>
+            </div>
 
-            <div className="flex flex-col gap-6 mt-3">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center text-white shadow-sm">
-                  <Mail size={20} />
+            <div className="flex flex-col gap-4">
+              {/* Email micro-card */}
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/1 border border-white/5 hover:border-white/10 hover:bg-white/2 transition-all duration-300">
+                <div className="w-11 h-11 rounded-xl bg-white/3 border border-white/5 flex items-center justify-center text-text-secondary">
+                  <Mail size={16} />
                 </div>
                 <div>
-                  <h4 className="text-[0.95rem] font-bold text-white">Email</h4>
-                  <p className="text-text-secondary text-sm">piyushlandge4444@gmail.com</p>
+                  <h4 className="text-[0.62rem] font-bold text-text-muted font-mono uppercase tracking-wider">Email</h4>
+                  <a href="mailto:piyushlandge4444@gmail.com" className="text-white text-sm hover:underline font-semibold mt-0.5 block">piyushlandge4444@gmail.com</a>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center text-white shadow-sm">
-                  <MapPin size={20} />
+              {/* Location micro-card */}
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/1 border border-white/5 hover:border-white/10 hover:bg-white/2 transition-all duration-300">
+                <div className="w-11 h-11 rounded-xl bg-white/3 border border-white/5 flex items-center justify-center text-text-secondary">
+                  <MapPin size={16} />
                 </div>
                 <div>
-                  <h4 className="text-[0.95rem] font-bold text-white">Location</h4>
-                  <p className="text-text-secondary text-sm">Pune, Maharashtra</p>
+                  <h4 className="text-[0.62rem] font-bold text-text-muted font-mono uppercase tracking-wider">Location</h4>
+                  <p className="text-white text-sm font-semibold mt-0.5">Pune, Maharashtra</p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center text-white shadow-sm">
-                  <Phone size={20} />
+              {/* Phone micro-card */}
+              <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/1 border border-white/5 hover:border-white/10 hover:bg-white/2 transition-all duration-300">
+                <div className="w-11 h-11 rounded-xl bg-white/3 border border-white/5 flex items-center justify-center text-text-secondary">
+                  <Phone size={16} />
                 </div>
                 <div>
-                  <h4 className="text-[0.95rem] font-bold text-white">Phone</h4>
-                  <p className="text-text-secondary text-sm">+91 87 67 87 8004</p>
+                  <h4 className="text-[0.62rem] font-bold text-text-muted font-mono uppercase tracking-wider">Phone</h4>
+                  <a href="tel:+918767878004" className="text-white text-sm hover:underline font-semibold mt-0.5 block">+91 87 67 87 8004</a>
                 </div>
               </div>
             </div>
 
             {/* Socials */}
-            <div className="flex gap-4 mt-6">
-              <a href="https://github.com/piyushlandge04" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center text-text-secondary hover:text-white hover:border-white/20 hover:shadow-md transition-all duration-200" aria-label="GitHub"><Github size={20} /></a>
-              <a href="https://www.linkedin.com/in/piyushlandge04/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center text-text-secondary hover:text-white hover:border-white/20 hover:shadow-md transition-all duration-200" aria-label="LinkedIn"><Linkedin size={20} /></a>
-              <a href="https://www.instagram.com/piyushlandge_04/" target="_blank" rel="noopener noreferrer" className="w-11 h-11 rounded-xl bg-neutral-900 border border-white/5 flex items-center justify-center text-text-secondary hover:text-white hover:border-white/20 hover:shadow-md transition-all duration-200" aria-label="Instagram"><Instagram size={20} /></a>
+            <div className="flex gap-4 items-center">
+              <a href="https://github.com/piyushlandge04" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-white/1 border border-white/5 flex items-center justify-center text-text-secondary hover:text-white hover:border-white/20 hover:bg-white/5 transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.06)]" aria-label="GitHub"><Github size={18} /></a>
+              <a href="https://www.linkedin.com/in/piyushlandge04/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-white/1 border border-white/5 flex items-center justify-center text-text-secondary hover:text-white hover:border-white/20 hover:bg-white/5 transition-all duration-300 hover:shadow-[0_0_15px_rgba(66,133,244,0.1)]" aria-label="LinkedIn"><Linkedin size={18} /></a>
+              <a href="https://www.instagram.com/piyushlandge_04/" target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-2xl bg-white/1 border border-white/5 flex items-center justify-center text-text-secondary hover:text-white hover:border-white/20 hover:bg-white/5 transition-all duration-300 hover:shadow-[0_0_15px_rgba(238,76,44,0.08)]" aria-label="Instagram"><Instagram size={18} /></a>
             </div>
           </div>
 
           {/* Form Column */}
           <div 
-            className="contact-form-wrapper glass-card p-6 sm:p-8 md:p-10 rounded-[28px] border border-white/5" 
+            className="lg:col-span-7 contact-form-wrapper glass-card p-6 sm:p-9 md:p-11 rounded-[32px] border border-white/5 relative overflow-hidden" 
             onMouseMove={handleMouseMove}
+            style={{
+              background: 'rgba(255, 255, 255, 0.02)',
+              backdropFilter: 'blur(20px)',
+              WebkitBackdropFilter: 'blur(20px)'
+            }}
           >
+            {/* Shimmer overlay */}
+            <div 
+              aria-hidden="true"
+              className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              style={{
+                background: `radial-gradient(400px circle at var(--mouse-x-relative, 0px) var(--mouse-y-relative, 0px), rgba(255, 255, 255, 0.03), transparent 75%)`
+              }}
+            />
+
             {submitted ? (
-              <div className="flex flex-col items-center text-center py-10 gap-5">
-                <CheckCircle size={48} className="text-white drop-shadow-[0_0_8px_rgba(255,255,255,0.2)] animate-[scaleIn_0.5s_cubic-bezier(0.16,1,0.3,1)_forwards]" />
-                <h3 className="text-2xl font-black text-white">Message Dispatched</h3>
-                <p className="text-text-secondary max-w-[340px] text-sm leading-relaxed">System sync successful. I have received your request and will establish communications shortly.</p>
+              <div className="flex flex-col items-center text-center py-12 gap-5 relative z-10">
+                <CheckCircle size={52} className="text-white drop-shadow-[0_0_12px_rgba(255,255,255,0.3)] animate-[scaleIn_0.5s_cubic-bezier(0.16,1,0.3,1)_forwards]" />
+                <h3 className="text-2xl font-black text-white font-heading">Message Dispatched</h3>
+                <p className="text-text-secondary max-w-[340px] text-sm leading-relaxed font-sans opacity-95">
+                  System sync successful. I have received your request and will establish communications shortly.
+                </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-                
+              <form onSubmit={handleSubmit} className="flex flex-col gap-6 relative z-10">
                 {/* Floating Label Name Input */}
                 <div className="form-group relative w-full text-left">
                   <input
@@ -433,7 +457,7 @@ export default function Contact() {
                     placeholder=" "
                     value={formData.name}
                     onChange={handleChange}
-                    className="peer w-full bg-neutral-900/50 border border-white/5 rounded-xl p-3.5 pt-6 pb-2 text-white focus:outline-none focus:border-white focus:bg-neutral-900 transition-all duration-200 font-medium text-[0.88rem]"
+                    className="peer w-full bg-neutral-950/40 border border-white/5 rounded-2xl p-4 pt-6 pb-2 text-white focus:outline-none focus:border-white/30 focus:bg-neutral-950/70 transition-all duration-300 font-medium text-[0.88rem]"
                     required
                   />
                   <label 
@@ -453,7 +477,7 @@ export default function Contact() {
                     placeholder=" "
                     value={formData.email}
                     onChange={handleChange}
-                    className="peer w-full bg-neutral-900/50 border border-white/5 rounded-xl p-3.5 pt-6 pb-2 text-white focus:outline-none focus:border-white focus:bg-neutral-900 transition-all duration-200 font-medium text-[0.88rem]"
+                    className="peer w-full bg-neutral-950/40 border border-white/5 rounded-2xl p-4 pt-6 pb-2 text-white focus:outline-none focus:border-white/30 focus:bg-neutral-950/70 transition-all duration-300 font-medium text-[0.88rem]"
                     required
                   />
                   <label 
@@ -473,7 +497,7 @@ export default function Contact() {
                     rows="5"
                     value={formData.message}
                     onChange={handleChange}
-                    className="peer w-full bg-neutral-900/50 border border-white/5 rounded-xl p-4 pt-6 pb-2 text-white focus:outline-none focus:border-white focus:bg-neutral-900 transition-all duration-200 resize-none font-medium text-[0.88rem] h-32"
+                    className="peer w-full bg-neutral-950/40 border border-white/5 rounded-2xl p-4 pt-6 pb-2 text-white focus:outline-none focus:border-white/30 focus:bg-neutral-950/70 transition-all duration-300 resize-none font-medium text-[0.88rem] h-32"
                     required
                   ></textarea>
                   <label 
@@ -486,16 +510,16 @@ export default function Contact() {
 
                 <button
                   type="submit"
-                  className="btn btn-primary bg-white text-black w-full py-3.5 rounded-xl font-heading font-bold inline-flex items-center justify-center gap-2 hover:bg-neutral-200 hover:scale-[1.02] active:scale-95 transition-all duration-300 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed mt-2 uppercase text-[0.68rem] tracking-wider shadow-sm"
+                  className="btn btn-primary bg-white text-black w-full py-4 rounded-2xl font-black inline-flex items-center justify-center gap-2 hover:bg-neutral-200 active:scale-98 transition-all duration-300 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed mt-2 uppercase text-[0.7rem] tracking-wider shadow-lg hover:shadow-[0_4px_20px_rgba(255,255,255,0.15)] font-sans"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 size={14} className="animate-spin" /> Sending...
+                      <Loader2 size={14} className="animate-spin text-black" /> Sending...
                     </>
                   ) : (
                     <>
-                      Send Message <Send size={13} />
+                      Send Message <Send size={13} className="text-black" />
                     </>
                   )}
                 </button>
@@ -506,9 +530,9 @@ export default function Contact() {
       </div>
  
       {/* Modern Premium Footer */}
-      <footer className="border-t border-white/5 bg-neutral-950/60 backdrop-blur-md py-10 mt-12 md:mt-16 w-full">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 font-sans text-[0.68rem]">
-          <p className="text-text-muted font-bold tracking-wide">&copy; {new Date().getFullYear()} PORTFOLIO.PIYUSHLANDGE. ALL RIGHTS RESERVED.</p>
+      <footer className="border-t border-white/5 bg-neutral-950/60 backdrop-blur-md py-12 mt-20 md:mt-28 w-full relative z-10">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 flex flex-col sm:flex-row items-center justify-between gap-6 font-sans text-[0.68rem]">
+          <p className="text-text-muted font-bold tracking-wider">&copy; {new Date().getFullYear()} PORTFOLIO.PIYUSHLANDGE. ALL RIGHTS RESERVED.</p>
           <div className="flex gap-6 text-text-muted font-bold tracking-wider uppercase items-center">
             <a href="#home" className="hover:text-white transition-colors">Back to Top</a>
             <a href="#about" className="hover:text-white transition-colors">About</a>
@@ -516,7 +540,7 @@ export default function Contact() {
             <a href="#contact" className="hover:text-white transition-colors">Get in Touch</a>
             <button 
               onClick={() => setIsAdminOpen(true)} 
-              className="hover:text-white transition-colors cursor-pointer flex items-center gap-1 font-bold text-[0.68rem] uppercase bg-transparent border-0"
+              className="hover:text-white transition-colors cursor-pointer flex items-center gap-1.5 font-bold text-[0.68rem] uppercase bg-transparent border-0 p-0"
             >
               🔒 Admin
             </button>
@@ -526,8 +550,8 @@ export default function Contact() {
 
       {/* Admin Panel Modal Overlay */}
       {isAdminOpen && (
-        <div className="fixed inset-0 z-999 flex items-center justify-center bg-black/80 backdrop-blur-md p-4 animate-[fadeIn_0.25s_ease-out_forwards]">
-          <div className="relative w-full max-w-2xl bg-neutral-900/90 border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh] font-sans">
+        <div className="fixed inset-0 z-9999 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 animate-[fadeIn_0.25s_ease-out_forwards]">
+          <div className="relative w-full max-w-2xl bg-neutral-950/95 border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh] font-sans">
             
             {/* Modal Header */}
             <div className="p-5 border-b border-white/5 bg-black/40 flex items-center justify-between">
@@ -541,7 +565,7 @@ export default function Contact() {
                   setIsAdminUnlocked(false);
                   setPasscode('');
                 }} 
-                className="p-1 rounded-lg text-text-muted hover:text-white hover:bg-white/5 transition-all cursor-pointer"
+                className="p-1 rounded-lg text-text-muted hover:text-white hover:bg-white/5 transition-all cursor-pointer bg-transparent border-0"
               >
                 <X size={16} />
               </button>
@@ -550,12 +574,12 @@ export default function Contact() {
             {/* Modal Content */}
             {!isAdminUnlocked ? (
               /* Passcode Screen */
-              <div className="p-8 flex flex-col items-center justify-center text-center gap-6 py-12">
+              <div className="p-8 flex flex-col items-center justify-center text-center gap-6 py-14">
                 <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-text-muted">
                   <Lock size={24} />
                 </div>
                 <div>
-                  <h4 className="text-white font-bold text-[0.95rem] mb-1">Enter Passcode</h4>
+                  <h4 className="text-white font-bold text-[0.95rem] mb-1 font-heading">Enter Passcode</h4>
                   <p className="text-text-muted text-xs">Access is restricted to the administrator of this system.</p>
                 </div>
                 <form onSubmit={handleUnlock} className="w-full max-w-xs flex flex-col gap-3">
@@ -564,7 +588,7 @@ export default function Contact() {
                     placeholder="Enter system passcode..."
                     value={passcode}
                     onChange={(e) => setPasscode(e.target.value)}
-                    className={`w-full bg-black/50 border ${passcodeError ? 'border-red-500 animate-shake' : 'border-white/10'} rounded-xl p-3 text-center text-white text-sm focus:outline-none focus:border-white transition-all`}
+                    className={`w-full bg-black/50 border ${passcodeError ? 'border-red-500 animate-shake' : 'border-white/10'} rounded-xl p-3.5 text-center text-white text-sm focus:outline-none focus:border-white transition-all`}
                     autoFocus
                   />
                   {passcodeError && (
@@ -572,7 +596,7 @@ export default function Contact() {
                   )}
                   <button 
                     type="submit"
-                    className="w-full bg-white text-black py-3 rounded-xl font-bold uppercase text-[0.68rem] tracking-wider hover:bg-neutral-200 transition-all cursor-pointer"
+                    className="w-full bg-white text-black py-3 rounded-xl font-bold uppercase text-[0.68rem] tracking-wider hover:bg-neutral-200 transition-all cursor-pointer border-0"
                   >
                     Authenticate
                   </button>
@@ -585,7 +609,7 @@ export default function Contact() {
                 <div className="bg-black/20 px-5 border-b border-white/5 flex gap-4 text-xs font-mono">
                   <button
                     onClick={() => setAdminTab('messages')}
-                    className={`py-3.5 border-b-2 flex items-center gap-1.5 transition-all cursor-pointer ${
+                    className={`py-3.5 border-b-2 flex items-center gap-1.5 transition-all cursor-pointer bg-transparent border-0 ${
                       adminTab === 'messages'
                         ? 'border-white text-white font-bold'
                         : 'border-transparent text-text-muted hover:text-white'
@@ -595,7 +619,7 @@ export default function Contact() {
                   </button>
                   <button
                     onClick={() => setAdminTab('certificates')}
-                    className={`py-3.5 border-b-2 flex items-center gap-1.5 transition-all cursor-pointer ${
+                    className={`py-3.5 border-b-2 flex items-center gap-1.5 transition-all cursor-pointer bg-transparent border-0 ${
                       adminTab === 'certificates'
                         ? 'border-white text-white font-bold'
                         : 'border-transparent text-text-muted hover:text-white'
@@ -605,7 +629,7 @@ export default function Contact() {
                   </button>
                   <button
                     onClick={() => setAdminTab('settings')}
-                    className={`py-3.5 border-b-2 flex items-center gap-1.5 transition-all cursor-pointer ${
+                    className={`py-3.5 border-b-2 flex items-center gap-1.5 transition-all cursor-pointer bg-transparent border-0 ${
                       adminTab === 'settings'
                         ? 'border-white text-white font-bold'
                         : 'border-transparent text-text-muted hover:text-white'
@@ -616,7 +640,7 @@ export default function Contact() {
                 </div>
 
                 {/* Tab Views */}
-                <div className="flex-1 overflow-y-auto p-5 min-h-[300px]">
+                <div className="flex-1 overflow-y-auto p-5 min-h-[350px] custom-scrollbar">
                   {adminTab === 'messages' ? (
                     <div className="flex flex-col gap-4">
                       <div className="flex justify-between items-center text-[0.7rem] font-mono">
@@ -650,7 +674,7 @@ export default function Contact() {
                                   <span className="text-[0.65rem] text-text-muted font-mono">{msg.date}</span>
                                   <button 
                                     onClick={() => handleDeleteMessage(msg.id)}
-                                    className="p-1 rounded-md text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-all cursor-pointer opacity-0 group-hover:opacity-100"
+                                    className="p-1 rounded-md text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-all cursor-pointer opacity-0 group-hover:opacity-100 bg-transparent border-0"
                                     title="Delete Message"
                                   >
                                     <Trash2 size={12} />
@@ -756,14 +780,14 @@ export default function Contact() {
 
                         <button
                           type="submit"
-                          className="w-full bg-white text-black py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-neutral-200 transition-all cursor-pointer flex items-center justify-center gap-1.5 mt-1"
+                          className="w-full bg-white text-black py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider hover:bg-neutral-200 transition-all cursor-pointer flex items-center justify-center gap-1.5 mt-1 border-0"
                         >
                           <Plus size={14} /> Add Certificate
                         </button>
                       </form>
 
                       {/* Current Certificates List */}
-                      <div className="flex flex-col gap-2.5 mt-2">
+                      <div className="flex flex-col gap-2.5 mt-2 font-sans">
                         {adminCertificates.map((cert, idx) => (
                           <div key={idx} className="p-3.5 bg-white/2 border border-white/5 rounded-xl flex items-center justify-between gap-4">
                             <div className="flex items-center gap-3">
@@ -785,7 +809,7 @@ export default function Contact() {
                             <button
                               type="button"
                               onClick={() => handleDeleteCertificate(idx)}
-                              className="p-2 rounded-lg text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-all cursor-pointer"
+                              className="p-2 rounded-lg text-text-muted hover:text-red-400 hover:bg-red-500/10 transition-all cursor-pointer bg-transparent border-0"
                               title="Delete Certificate"
                             >
                               <Trash2 size={13} />
@@ -800,15 +824,11 @@ export default function Contact() {
                       <p className="text-[0.7rem] text-text-muted font-mono tracking-wider uppercase mb-1">LOCAL RUNTIME FEATURE TOGGLES</p>
                       
                       <div className="flex flex-col gap-4">
-                        
-                        {/* Glow Toggle */}
-
-
                         {/* Video Toggle */}
                         <div className="flex items-center justify-between p-4 bg-white/2 border border-white/5 rounded-2xl">
                           <div>
-                            <h4 className="text-white font-bold text-xs">Hero Background Video</h4>
-                            <p className="text-text-muted text-[0.68rem] mt-0.5">Toggle the loops of ambient particle background videos on the landing page.</p>
+                            <h4 className="text-white font-bold text-xs font-heading">Hero Background Video</h4>
+                            <p className="text-text-muted text-[0.68rem] mt-0.5 font-sans">Toggle the loops of ambient particle background videos on the landing page.</p>
                           </div>
                           <button
                             onClick={() => toggleSetting('bgVideo')}
@@ -827,8 +847,8 @@ export default function Contact() {
                         {/* Ambient Glows Toggle */}
                         <div className="flex items-center justify-between p-4 bg-white/2 border border-white/5 rounded-2xl">
                           <div>
-                            <h4 className="text-white font-bold text-xs">Dark Ambient Glow Circles</h4>
-                            <p className="text-text-muted text-[0.68rem] mt-0.5">Toggle soft colored gradient background ambience spheres inside pages.</p>
+                            <h4 className="text-white font-bold text-xs font-heading">Dark Ambient Glow Circles</h4>
+                            <p className="text-text-muted text-[0.68rem] mt-0.5 font-sans">Toggle soft colored gradient background ambience spheres inside pages.</p>
                           </div>
                           <button
                             onClick={() => toggleSetting('ambientGlow')}
@@ -843,7 +863,6 @@ export default function Contact() {
                             </div>
                           </button>
                         </div>
-
                       </div>
                     </div>
                   )}
