@@ -293,7 +293,7 @@ export default function Projects() {
     : projectsList.filter(project => project.categories.includes(activeFilter));
 
   return (
-    <section id="projects" className="pt-24 pb-24 md:pt-32 md:pb-32 relative scroll-reveal bg-bg-primary overflow-hidden">
+    <section id="projects" className="pt-24 pb-10 md:pt-32 md:pb-32 relative scroll-reveal bg-bg-primary overflow-hidden">
       {/* Background Ambience Glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-20">
         <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[60%] rounded-full bg-purple-500/5 blur-[140px]"></div>

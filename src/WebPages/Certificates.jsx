@@ -135,7 +135,7 @@ export default function Certificates() {
   return (
     <section
       id="certificates"
-      className="pt-24 pb-24 md:pt-32 md:pb-32 relative scroll-reveal overflow-hidden bg-bg-primary"
+      className="pt-10 pb-10 md:pt-32 md:pb-32 relative scroll-reveal overflow-hidden bg-bg-primary"
     >
       {/* Background radial overlays for hyper-premium visual depth */}
       <div
@@ -167,7 +167,7 @@ export default function Certificates() {
 
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-16">
+        <div className="text-center mb-8 md:mb-16">
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 relative overflow-hidden"
             style={{

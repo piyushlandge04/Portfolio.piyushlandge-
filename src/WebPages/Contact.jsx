@@ -480,7 +480,7 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="pt-24 pb-0 md:pt-32 md:pb-0 relative scroll-reveal overflow-hidden bg-bg-primary">
+    <section id="contact" className="pt-10 pb-0 md:pt-32 md:pb-0 relative scroll-reveal overflow-hidden bg-bg-primary">
       {/* Background Ambience */}
       {ambientEnabled && (
         <div aria-hidden="true" className="ambient-glow glow-purple" style={{ position: 'absolute', bottom: '10%', left: '10%', opacity: 0.05, width: '450px', height: '450px', borderRadius: '9999px', background: 'radial-gradient(circle, rgba(168,85,247,0.3) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
@@ -494,7 +494,7 @@ export default function Contact() {
             WebkitTextFillColor: 'transparent',
           }}>Touch</span>
         </h2>
-        <p className="text-center max-w-[600px] mx-auto text-text-secondary text-base md:text-xl mb-16 font-sans leading-relaxed opacity-90">
+        <p className="text-center max-w-[600px] mx-auto text-text-secondary text-base md:text-xl mb-8 md:mb-16 font-sans leading-relaxed opacity-90">
           Have an exciting project idea, a position to fill, or simply want to say hello? Drop me a message below.
         </p>
 
