@@ -205,14 +205,22 @@ export default function Hero() {
         </h1>
 
         {/* Role tag */}
-        <p className="font-heading text-[0.58rem] sm:text-[0.68rem] md:text-[0.72rem] font-bold uppercase tracking-[0.15em] sm:tracking-[0.22em] text-white/80 mt-3 sm:mt-4 text-center px-2">
-          AI Engineer &nbsp;|&nbsp; ML&amp;DL &nbsp;|&nbsp; Generative AI &nbsp;|&nbsp; LLM &nbsp;|&nbsp; AWS
+        <p className="font-heading text-[0.55rem] sm:text-[0.68rem] md:text-[0.72rem] font-bold uppercase tracking-[0.12em] sm:tracking-[0.22em] text-white/80 mt-3 sm:mt-4 text-center px-2 max-w-xl mx-auto leading-relaxed">
+          <span className="inline-block whitespace-nowrap">AI Engineer</span>
+          <span className="text-white/20 mx-2">|</span>
+          <span className="inline-block whitespace-nowrap">ML &amp; DL</span>
+          <span className="text-white/20 mx-2">|</span>
+          <span className="inline-block whitespace-nowrap">Generative AI</span>
+          <span className="text-white/20 mx-2">|</span>
+          <span className="inline-block whitespace-nowrap">LLM</span>
+          <span className="text-white/20 mx-2">|</span>
+          <span className="inline-block whitespace-nowrap">AWS</span>
         </p>
 
         {/* Description */}
-        <p className="font-sans text-white/90 text-[0.85rem] sm:text-[0.92rem] md:text-[0.98rem] leading-relaxed max-w-5xl mt-4 text-center px-4">
+        <p className="font-sans text-white/90 text-[0.82rem] sm:text-[0.92rem] md:text-[0.98rem] leading-relaxed max-w-5xl mt-4 text-center px-4">
           AI Engineer focused on building intelligent applications using Machine Learning,
-          <br />
+          <br className="hidden sm:inline" />
           Generative AI, LLMs, FastAPI, and Cloud Technologies.
         </p>
 

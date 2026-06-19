@@ -42,7 +42,7 @@ export default function Navbar() {
         <div className="flex items-center gap-3">
           <a
             href="#contact"
-            className="btn-hero-secondary rounded-full px-4 sm:px-5 py-2 text-xs font-semibold cursor-pointer inline-block text-center"
+            className="btn-hero-secondary rounded-full px-4 sm:px-5 py-2 text-xs font-semibold cursor-pointer hidden md:inline-block text-center"
           >
             💬 Contact Me
           </a>
@@ -66,11 +66,18 @@ export default function Navbar() {
               key={href}
               href={href}
               onClick={() => setOpen(false)}
-              className="text-[0.95rem] font-medium text-text-primary/80 hover:text-white py-3 border-b border-white/5 last:border-0 transition-colors cursor-pointer"
+              className="text-[0.95rem] font-medium text-text-primary/80 hover:text-white py-3 border-b border-white/5 transition-colors cursor-pointer"
             >
               {label}
             </a>
           ))}
+          <a
+            href="#contact"
+            onClick={() => setOpen(false)}
+            className="text-[0.95rem] font-bold text-white py-3 transition-colors cursor-pointer"
+          >
+            💬 Contact Me
+          </a>
         </div>
       )}
 
