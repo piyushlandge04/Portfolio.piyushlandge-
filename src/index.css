@@ -44,8 +44,6 @@ body {
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: clip;
-  max-width: 100%;
 }
 
 main {
@@ -176,8 +174,6 @@ html {
   scroll-behavior: smooth;
   /* Large padding on mobile for sticky navbars, smaller on desktop */
   scroll-padding-top: 70px;
-  overflow-x: clip;
-  max-width: 100%;
 }
 
 @media (min-width: 768px) {
