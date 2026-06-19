@@ -27,43 +27,29 @@ function App() {
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     
-    // 2. IntersectionObserver Fallback for Scroll-driven animations
-    let observer;
-    const supportsScrollTimeline = 
-      typeof CSS !== 'undefined' && 
-      CSS.supports && 
-      CSS.supports('(animation-timeline: view()) and (animation-range: entry)');
+    // 2. IntersectionObserver for scroll-reveal animations (all browsers)
+    const revealElements = document.querySelectorAll('.scroll-reveal');
 
-    if (!supportsScrollTimeline) {
-      const revealElements = document.querySelectorAll('.scroll-reveal');
-      
-      revealElements.forEach((el) => {
-        el.classList.add('scroll-reveal-init');
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('scroll-reveal-visible');
+        }
       });
+    };
 
-      const observerCallback = (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('scroll-reveal-visible');
-          }
-        });
-      };
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.08,
+      rootMargin: '0px 0px -30px 0px'
+    });
 
-      observer = new IntersectionObserver(observerCallback, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-
-      revealElements.forEach((el) => {
-        observer.observe(el);
-      });
-    }
+    revealElements.forEach((el) => {
+      observer.observe(el);
+    });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      if (observer) {
-        observer.disconnect();
-      }
+      observer.disconnect();
     };
   }, []);
 

@@ -12,6 +12,15 @@ const DEFAULT_CERTIFICATES = [
     logoText: 'DL',
   },
   {
+    title: 'Generative AI Leader Specialization',
+    issuer: 'Vanderbilt University (Coursera)',
+    date: 'May 2026',
+    credentialId: 'COURSERA-GENAI-LD-889',
+    link: 'https://coursera.org/verify/specialization/gen-ai-leader',
+    color: '#a855f7',
+    logoText: 'GAI',
+  },
+  {
     title: 'AWS Certified Machine Learning – Specialty',
     issuer: 'Amazon Web Services (AWS)',
     date: 'January 2026',
@@ -21,6 +30,15 @@ const DEFAULT_CERTIFICATES = [
     logoText: 'AWS',
   },
   {
+    title: 'Advanced NLP & Prompt Engineering',
+    issuer: 'Stanford Online',
+    date: 'February 2026',
+    credentialId: 'STANFORD-NLP-PE-119',
+    link: 'https://online.stanford.edu/verification',
+    color: '#ec4899',
+    logoText: 'PE',
+  },
+  {
     title: 'Professional Machine Learning Engineer',
     issuer: 'Google Cloud (GCP)',
     date: 'November 2025',
@@ -28,6 +46,15 @@ const DEFAULT_CERTIFICATES = [
     link: 'https://google.acredible.com',
     color: '#4285F4',
     logoText: 'GCP',
+  },
+  {
+    title: 'MLOps Deployment & Pipeline Systems',
+    issuer: 'Duke University (Coursera)',
+    date: 'December 2025',
+    credentialId: 'COURSERA-MLOPS-DK-404',
+    link: 'https://coursera.org/verify/specialization/mlops-pipeline',
+    color: '#10b981',
+    logoText: 'OPS',
   },
   {
     title: 'Natural Language Processing Specialization',
@@ -43,15 +70,33 @@ const DEFAULT_CERTIFICATES = [
 export default function Certificates() {
   const [copiedId, setCopiedId] = useState(null);
   const [certificatesList, setCertificatesList] = useState(() => {
-    const stored = localStorage.getItem('portfolio_certificates');
-    if (stored) return JSON.parse(stored);
+    try {
+      const stored = localStorage.getItem('portfolio_certificates');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+      }
+    } catch (e) {
+      /* corrupted localStorage — ignore */
+    }
     return DEFAULT_CERTIFICATES;
   });
 
   useEffect(() => {
     const handleUpdate = () => {
-      const stored = localStorage.getItem('portfolio_certificates');
-      setCertificatesList(stored ? JSON.parse(stored) : DEFAULT_CERTIFICATES);
+      try {
+        const stored = localStorage.getItem('portfolio_certificates');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setCertificatesList(parsed);
+            return;
+          }
+        }
+      } catch (e) {
+        /* ignore */
+      }
+      setCertificatesList(DEFAULT_CERTIFICATES);
     };
     window.addEventListener('portfolio-certificates-changed', handleUpdate);
     return () => window.removeEventListener('portfolio-certificates-changed', handleUpdate);
@@ -90,7 +135,7 @@ export default function Certificates() {
   return (
     <section
       id="certificates"
-      className="pt-20 pb-16 md:pt-28 md:pb-24 relative scroll-reveal scroll-reveal-init overflow-hidden bg-bg-primary"
+      className="pt-24 pb-24 md:pt-32 md:pb-32 relative scroll-reveal overflow-hidden bg-bg-primary"
     >
       {/* Background radial overlays for hyper-premium visual depth */}
       <div
@@ -122,7 +167,7 @@ export default function Certificates() {
 
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
         {/* Section Header */}
-        <div className="text-center mb-20">
+        <div className="text-center mb-16">
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 relative overflow-hidden"
             style={{

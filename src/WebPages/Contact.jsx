@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Send, Mail, MapPin, Phone, CheckCircle, Loader2, Lock, ShieldCheck, MessageSquare, Settings, Trash2, X, Award, Plus } from 'lucide-react';
+import { supabase, isSupabaseConfigured } from '../supabaseClient';
 
 const Github = ({ size = 20, className }) => (
   <svg
@@ -103,10 +104,20 @@ export default function Contact() {
   // Load certificates list for editing
   useEffect(() => {
     if (isAdminOpen && isAdminUnlocked) {
-      const stored = localStorage.getItem('portfolio_certificates');
-      if (stored) {
-        setAdminCertificates(JSON.parse(stored));
-      } else {
+      let loaded = false;
+      try {
+        const stored = localStorage.getItem('portfolio_certificates');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            setAdminCertificates(parsed);
+            loaded = true;
+          }
+        }
+      } catch (e) {
+        /* corrupted localStorage — ignore */
+      }
+      if (!loaded) {
         const fallback = [
           {
             title: 'Deep Learning Specialization',
@@ -118,6 +129,15 @@ export default function Contact() {
             logoText: 'DL'
           },
           {
+            title: 'Generative AI Leader Specialization',
+            issuer: 'Vanderbilt University (Coursera)',
+            date: 'May 2026',
+            credentialId: 'COURSERA-GENAI-LD-889',
+            link: 'https://coursera.org/verify/specialization/gen-ai-leader',
+            color: '#a855f7',
+            logoText: 'GAI'
+          },
+          {
             title: 'AWS Certified Machine Learning – Specialty',
             issuer: 'Amazon Web Services (AWS)',
             date: 'January 2026',
@@ -127,6 +147,15 @@ export default function Contact() {
             logoText: 'AWS'
           },
           {
+            title: 'Advanced NLP & Prompt Engineering',
+            issuer: 'Stanford Online',
+            date: 'February 2026',
+            credentialId: 'STANFORD-NLP-PE-119',
+            link: 'https://online.stanford.edu/verification',
+            color: '#ec4899',
+            logoText: 'PE'
+          },
+          {
             title: 'Professional Machine Learning Engineer',
             issuer: 'Google Cloud (GCP)',
             date: 'November 2025',
@@ -134,6 +163,15 @@ export default function Contact() {
             link: 'https://google.acredible.com',
             color: '#4285F4',
             logoText: 'GCP'
+          },
+          {
+            title: 'MLOps Deployment & Pipeline Systems',
+            issuer: 'Duke University (Coursera)',
+            date: 'December 2025',
+            credentialId: 'COURSERA-MLOPS-DK-404',
+            link: 'https://coursera.org/verify/specialization/mlops-pipeline',
+            color: '#10b981',
+            logoText: 'OPS'
           },
           {
             title: 'Natural Language Processing Specialization',
@@ -192,6 +230,15 @@ export default function Contact() {
           logoText: 'DL'
         },
         {
+          title: 'Generative AI Leader Specialization',
+          issuer: 'Vanderbilt University (Coursera)',
+          date: 'May 2026',
+          credentialId: 'COURSERA-GENAI-LD-889',
+          link: 'https://coursera.org/verify/specialization/gen-ai-leader',
+          color: '#a855f7',
+          logoText: 'GAI'
+        },
+        {
           title: 'AWS Certified Machine Learning – Specialty',
           issuer: 'Amazon Web Services (AWS)',
           date: 'January 2026',
@@ -201,6 +248,15 @@ export default function Contact() {
           logoText: 'AWS'
         },
         {
+          title: 'Advanced NLP & Prompt Engineering',
+          issuer: 'Stanford Online',
+          date: 'February 2026',
+          credentialId: 'STANFORD-NLP-PE-119',
+          link: 'https://online.stanford.edu/verification',
+          color: '#ec4899',
+          logoText: 'PE'
+        },
+        {
           title: 'Professional Machine Learning Engineer',
           issuer: 'Google Cloud (GCP)',
           date: 'November 2025',
@@ -208,6 +264,15 @@ export default function Contact() {
           link: 'https://google.acredible.com',
           color: '#4285F4',
           logoText: 'GCP'
+        },
+        {
+          title: 'MLOps Deployment & Pipeline Systems',
+          issuer: 'Duke University (Coursera)',
+          date: 'December 2025',
+          credentialId: 'COURSERA-MLOPS-DK-404',
+          link: 'https://coursera.org/verify/specialization/mlops-pipeline',
+          color: '#10b981',
+          logoText: 'OPS'
         },
         {
           title: 'Natural Language Processing Specialization',
@@ -226,31 +291,54 @@ export default function Contact() {
     }
   };
 
-  // Load messages from localStorage on panel open
+  // Load messages on panel open
   useEffect(() => {
     if (isAdminOpen && isAdminUnlocked) {
-      const stored = localStorage.getItem('contact_messages');
-      if (stored) {
-        setAdminMessages(JSON.parse(stored));
-      } else {
-        const fallback = [
-          {
-            id: 1,
-            name: "John Doe",
-            email: "john@example.com",
-            message: "Hey Piyush, love your portfolio! We are looking for an AI engineer who knows PyTorch and Generative AI for a contract role. Let's connect.",
-            date: new Date(Date.now() - 3600000 * 3).toLocaleString()
-          },
-          {
-            id: 2,
-            name: "Sarah Jenkins",
-            email: "sjenkins@tech-innovations.io",
-            message: "Hi there, I saw your project pipeline and the custom attention layers. I'd love to chat about potential collaboration on an LLM fine-tuning project.",
-            date: new Date(Date.now() - 3600000 * 25).toLocaleString()
+      if (isSupabaseConfigured) {
+        const fetchSupabaseMessages = async () => {
+          try {
+            const { data, error } = await supabase
+              .from('contact_messages')
+              .select('*')
+              .order('created_at', { ascending: false });
+            if (error) throw error;
+            const mapped = data.map(msg => ({
+              id: msg.id,
+              name: msg.name,
+              email: msg.email,
+              message: msg.message,
+              date: new Date(msg.created_at).toLocaleString()
+            }));
+            setAdminMessages(mapped);
+          } catch (err) {
+            console.error("Error fetching messages from Supabase:", err);
           }
-        ];
-        localStorage.setItem('contact_messages', JSON.stringify(fallback));
-        setAdminMessages(fallback);
+        };
+        fetchSupabaseMessages();
+      } else {
+        const stored = localStorage.getItem('contact_messages');
+        if (stored) {
+          setAdminMessages(JSON.parse(stored));
+        } else {
+          const fallback = [
+            {
+              id: 1,
+              name: "John Doe",
+              email: "john@example.com",
+              message: "Hey Piyush, love your portfolio! We are looking for an AI engineer who knows PyTorch and Generative AI for a contract role. Let's connect.",
+              date: new Date(Date.now() - 3600000 * 3).toLocaleString()
+            },
+            {
+              id: 2,
+              name: "Sarah Jenkins",
+              email: "sjenkins@tech-innovations.io",
+              message: "Hi there, I saw your project pipeline and the custom attention layers. I'd love to chat about potential collaboration on an LLM fine-tuning project.",
+              date: new Date(Date.now() - 3600000 * 25).toLocaleString()
+            }
+          ];
+          localStorage.setItem('contact_messages', JSON.stringify(fallback));
+          setAdminMessages(fallback);
+        }
       }
     }
   }, [isAdminOpen, isAdminUnlocked]);
@@ -266,16 +354,44 @@ export default function Contact() {
     }
   };
 
-  const handleDeleteMessage = (id) => {
-    const updated = adminMessages.filter(msg => msg.id !== id);
-    setAdminMessages(updated);
-    localStorage.setItem('contact_messages', JSON.stringify(updated));
+  const handleDeleteMessage = async (id) => {
+    if (isSupabaseConfigured) {
+      try {
+        const { error } = await supabase
+          .from('contact_messages')
+          .delete()
+          .eq('id', id);
+        if (error) throw error;
+        setAdminMessages(prev => prev.filter(msg => msg.id !== id));
+      } catch (err) {
+        console.error("Error deleting message from Supabase:", err);
+        alert("Failed to delete message from Supabase.");
+      }
+    } else {
+      const updated = adminMessages.filter(msg => msg.id !== id);
+      setAdminMessages(updated);
+      localStorage.setItem('contact_messages', JSON.stringify(updated));
+    }
   };
 
-  const handleClearAllMessages = () => {
+  const handleClearAllMessages = async () => {
     if (window.confirm("Are you sure you want to clear all messages?")) {
-      setAdminMessages([]);
-      localStorage.setItem('contact_messages', JSON.stringify([]));
+      if (isSupabaseConfigured) {
+        try {
+          const { error } = await supabase
+            .from('contact_messages')
+            .delete()
+            .neq('id', 0);
+          if (error) throw error;
+          setAdminMessages([]);
+        } catch (err) {
+          console.error("Error clearing messages from Supabase:", err);
+          alert("Failed to clear messages from Supabase.");
+        }
+      } else {
+        setAdminMessages([]);
+        localStorage.setItem('contact_messages', JSON.stringify([]));
+      }
     }
   };
 
@@ -304,40 +420,56 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        headers: { 
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          access_key: "df3f120f-1474-4070-ba46-54c32895755f",
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          subject: `New Portfolio Message from ${formData.name}`
-        })
-      });
-
-      const data = await response.json();
-
-      if (data.success) {
-        // Save submission to localStorage for admin panel
-        const newMsg = {
-          id: Date.now(),
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-          date: new Date().toLocaleString()
-        };
-        const existing = JSON.parse(localStorage.getItem('contact_messages') || '[]');
-        localStorage.setItem('contact_messages', JSON.stringify([newMsg, ...existing]));
-
+      if (isSupabaseConfigured) {
+        const { error } = await supabase
+          .from('contact_messages')
+          .insert([
+            {
+              name: formData.name,
+              email: formData.email,
+              message: formData.message
+            }
+          ]);
+        if (error) throw error;
         setSubmitted(true);
         setFormData({ name: '', email: '', message: '' });
         setTimeout(() => setSubmitted(false), 5000);
       } else {
-        alert(data.message || "Failed to send message. Please try again or contact me directly via email.");
+        const response = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            access_key: "df3f120f-1474-4070-ba46-54c32895755f",
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            subject: `New Portfolio Message from ${formData.name}`
+          })
+        });
+
+        const data = await response.json();
+
+        if (data.success) {
+          // Save submission to localStorage for admin panel
+          const newMsg = {
+            id: Date.now(),
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+            date: new Date().toLocaleString()
+          };
+          const existing = JSON.parse(localStorage.getItem('contact_messages') || '[]');
+          localStorage.setItem('contact_messages', JSON.stringify([newMsg, ...existing]));
+
+          setSubmitted(true);
+          setFormData({ name: '', email: '', message: '' });
+          setTimeout(() => setSubmitted(false), 5000);
+        } else {
+          alert(data.message || "Failed to send message. Please try again or contact me directly via email.");
+        }
       }
     } catch (error) {
       console.error("Error sending message:", error);
@@ -348,10 +480,10 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="pt-20 pb-0 md:pt-28 md:pb-0 relative scroll-reveal scroll-reveal-init overflow-hidden bg-bg-primary">
+    <section id="contact" className="pt-24 pb-0 md:pt-32 md:pb-0 relative scroll-reveal overflow-hidden bg-bg-primary">
       {/* Background Ambience */}
       {ambientEnabled && (
-        <div aria-hidden="true" className="ambient-glow glow-purple" style={{ bottom: '10%', left: '10%', opacity: 0.05, width: '450px', height: '450px' }}></div>
+        <div aria-hidden="true" className="ambient-glow glow-purple" style={{ position: 'absolute', bottom: '10%', left: '10%', opacity: 0.05, width: '450px', height: '450px', borderRadius: '9999px', background: 'radial-gradient(circle, rgba(168,85,247,0.3) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
       )}
 
       <div className="max-w-7xl mx-auto px-6 md:px-8">
@@ -362,7 +494,7 @@ export default function Contact() {
             WebkitTextFillColor: 'transparent',
           }}>Touch</span>
         </h2>
-        <p className="text-center max-w-[600px] mx-auto text-text-secondary text-base md:text-xl mb-20 font-sans leading-relaxed opacity-90">
+        <p className="text-center max-w-[600px] mx-auto text-text-secondary text-base md:text-xl mb-16 font-sans leading-relaxed opacity-90">
           Have an exciting project idea, a position to fill, or simply want to say hello? Drop me a message below.
         </p>
 
@@ -644,7 +776,14 @@ export default function Contact() {
                   {adminTab === 'messages' ? (
                     <div className="flex flex-col gap-4">
                       <div className="flex justify-between items-center text-[0.7rem] font-mono">
-                        <span className="text-text-muted">MANAGE SUBMISSIONS</span>
+                        <span className="text-text-muted flex items-center gap-1.5">
+                          MANAGE SUBMISSIONS
+                          {isSupabaseConfigured ? (
+                            <span className="text-[0.62rem] text-emerald-400 font-bold bg-emerald-500/10 px-1.5 py-px border border-emerald-500/25 rounded animate-pulse">Supabase Connected</span>
+                          ) : (
+                            <span className="text-[0.62rem] text-yellow-400 font-bold bg-yellow-500/10 px-1.5 py-px border border-yellow-500/25 rounded">Local Fallback</span>
+                          )}
+                        </span>
                         {adminMessages.length > 0 && (
                           <button 
                             onClick={handleClearAllMessages}

@@ -107,7 +107,7 @@ export default function Hero() {
           ? current / 0.5
           : current > duration - 0.5
             ? Math.max(0, (duration - current) / 0.5)
-            : 1) * 0.8;
+            : 1) * 0.7;
         video.style.opacity = opacity.toString();
       }
       animationFrameId = requestAnimationFrame(checkFade);
@@ -168,7 +168,7 @@ export default function Hero() {
           <video
             ref={videoRef}
             src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_065045_c44942da-53c6-4804-b734-f9e07fc22e08.mp4"
-            className="absolute inset-0 w-full h-full object-cover pointer-events-none blur-[6px]"
+            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
             style={{ opacity: 0 }}
             muted
             playsInline
@@ -176,11 +176,7 @@ export default function Hero() {
         )}
       </div>
 
-      {/* Blurred centre overlay */}
-      <div
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[984px] h-[527px] opacity-90 bg-gray-950 blur-[82px] pointer-events-none z-5"
-        aria-hidden="true"
-      />
+
 
       {/* Navbar */}
       <Navbar />
@@ -209,12 +205,12 @@ export default function Hero() {
         </h1>
 
         {/* Role tag */}
-        <p className="font-heading text-[0.58rem] sm:text-[0.68rem] md:text-[0.72rem] font-bold uppercase tracking-[0.15em] sm:tracking-[0.22em] text-text-primary/40 mt-3 sm:mt-4 text-center px-2">
+        <p className="font-heading text-[0.58rem] sm:text-[0.68rem] md:text-[0.72rem] font-bold uppercase tracking-[0.15em] sm:tracking-[0.22em] text-white/80 mt-3 sm:mt-4 text-center px-2">
           AI Engineer &nbsp;|&nbsp; ML&amp;DL &nbsp;|&nbsp; Generative AI &nbsp;|&nbsp; LLM &nbsp;|&nbsp; AWS
         </p>
 
         {/* Description */}
-        <p className="font-sans text-text-hero-sub text-[0.85rem] sm:text-[0.92rem] md:text-[0.98rem] leading-relaxed max-w-5xl mt-4 text-center px-4 opacity-80">
+        <p className="font-sans text-white/90 text-[0.85rem] sm:text-[0.92rem] md:text-[0.98rem] leading-relaxed max-w-5xl mt-4 text-center px-4">
           AI Engineer focused on building intelligent applications using Machine Learning,
           <br />
           Generative AI, LLMs, FastAPI, and Cloud Technologies.
@@ -224,7 +220,7 @@ export default function Hero() {
         <div className="flex items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-7 flex-wrap w-full px-4">
           <a
             href="#projects"
-            className="btn-hero-secondary rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-widest cursor-pointer shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 transition-transform duration-150"
+            className="bg-white text-black hover:bg-neutral-200 rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-widest cursor-pointer shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 transition-all duration-150"
           >
             <Search className="w-3.5 h-3.5" />
             Explore Projects
@@ -234,7 +230,7 @@ export default function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             download
-            className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-widest cursor-pointer flex items-center justify-center gap-2 border border-white/10 text-text-primary/70 hover:text-white hover:border-white/25 hover:bg-white/5 transition-all duration-200"
+            className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-widest cursor-pointer flex items-center justify-center gap-2 border border-white/25 text-white/90 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-200"
           >
             <Download className="w-3.5 h-3.5" />
             Download Resume

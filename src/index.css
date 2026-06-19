@@ -204,48 +204,29 @@ html {
   background: rgba(255, 255, 255, 0.16);
 }
 
-/* --- Scroll-Driven Animations & Reveal Effects --- */
-@keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(40px) scale(0.96);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
+/* --- Scroll Reveal Effects (IntersectionObserver-driven) --- */
 
-/* Base style for elements that will reveal */
+/* Initial hidden state — applied by JS on mount */
 .scroll-reveal {
-  opacity: 1; /* Default fallback when both JS & CSS Timeline fail */
+  opacity: 0;
+  transform: translateY(40px) scale(0.96);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
 }
 
-/* Native Scroll-driven animation (for Chrome, Edge, Safari 19+) */
-@media (prefers-reduced-motion: no-preference) {
-  @supports ((animation-timeline: view()) and (animation-range: entry)) {
-    .scroll-reveal {
-      animation: fade-in-up auto linear both;
-      animation-timeline: view();
-      animation-range: entry 10% cover 35%;
-    }
-  }
+/* Revealed state — added by IntersectionObserver */
+.scroll-reveal-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
-/* Fallback styles for browsers without scroll-driven timelines (e.g. Firefox) */
-@media (prefers-reduced-motion: no-preference) {
-  @supports not ((animation-timeline: view()) and (animation-range: entry)) {
-    .scroll-reveal-init {
-      opacity: 0;
-      transform: translateY(40px) scale(0.96);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      will-change: opacity, transform;
-    }
-    
-    .scroll-reveal-visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }
 
