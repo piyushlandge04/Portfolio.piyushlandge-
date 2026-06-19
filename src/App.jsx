@@ -39,8 +39,8 @@ function App() {
     };
 
     const observer = new IntersectionObserver(observerCallback, {
-      threshold: 0.08,
-      rootMargin: '0px 0px -30px 0px'
+      threshold: 0.01,
+      rootMargin: '0px 0px 100px 0px'
     });
 
     revealElements.forEach((el) => {
