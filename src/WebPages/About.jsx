@@ -1,5 +1,8 @@
 import { useState } from 'react';
-import { GraduationCap, Briefcase, ChevronDown, ChevronUp, MapPin } from 'lucide-react';
+import { 
+  GraduationCap, Briefcase, ChevronDown, ChevronUp, MapPin, 
+  Sparkles, Brain, Cpu, Zap, Monitor, Cloud 
+} from 'lucide-react';
 
 
 
@@ -106,8 +109,8 @@ export default function About() {
             />
 
             <div className="relative z-10 flex flex-col gap-4">
-              <h3 className="font-heading font-black text-2xl sm:text-3xl tracking-tight text-text-primary">
-                👋 Hello, I'm Piyush Landge
+              <h3 className="font-heading font-black text-2xl sm:text-3xl tracking-tight text-text-primary flex items-center gap-2 select-none">
+                <Sparkles className="text-purple-500 animate-pulse" size={24} /> Hello, I'm Piyush Landge
               </h3>
               
               <div className="flex flex-col sm:flex-row sm:items-center gap-2">
@@ -173,27 +176,27 @@ export default function About() {
               {[
                 {
                   title: 'AI & ML',
-                  icon: '🧠',
+                  icon: <Brain size={14} className="text-purple-500" />,
                   skills: ['Python', 'TensorFlow', 'PyTorch', 'OpenCV']
                 },
                 {
                   title: 'GenAI',
-                  icon: '🤖',
+                  icon: <Cpu size={14} className="text-cyan-500" />,
                   skills: ['LangChain', 'RAG', 'Embeddings', 'Vector DB']
                 },
                 {
                   title: 'Backend',
-                  icon: '⚡',
+                  icon: <Zap size={14} className="text-amber-500" />,
                   skills: ['FastAPI', 'Django', 'Flask', 'PostgreSQL']
                 },
                 {
                   title: 'Frontend',
-                  icon: '💻',
+                  icon: <Monitor size={14} className="text-blue-500" />,
                   skills: ['React', 'Next.js', 'Tailwind CSS', 'HTML/CSS']
                 },
                 {
                   title: 'DevOps',
-                  icon: '☁',
+                  icon: <Cloud size={14} className="text-emerald-500" />,
                   skills: ['Docker', 'Git', 'Linux', 'Vercel']
                 }
               ].map((category, idx) => (
@@ -203,7 +206,7 @@ export default function About() {
                 >
                   {/* Category Header */}
                   <div className="flex items-center gap-2 border-b border-text-primary/5 pb-3 mb-4 shrink-0">
-                    <span className="text-base select-none">{category.icon}</span>
+                    <span className="flex items-center shrink-0">{category.icon}</span>
                     <span className="font-heading font-bold text-xs text-text-primary uppercase tracking-wider">
                       {category.title}
                     </span>
