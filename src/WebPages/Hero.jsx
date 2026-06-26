@@ -1,4 +1,3 @@
-import { useState, useEffect, useRef } from 'react';
 import { Search, Download } from 'lucide-react';
 import Navbar from './Navbar';
 
@@ -79,64 +78,6 @@ const STACK = [
 ];
 
 export default function Hero() {
-  const videoRef = useRef(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
-  const [videoEnabled, setVideoEnabled] = useState(() => {
-    return localStorage.getItem('bg_video_enabled') !== 'false';
-  });
-
-  useEffect(() => {
-    const handleSettings = () => {
-      setVideoEnabled(localStorage.getItem('bg_video_enabled') !== 'false');
-    };
-    window.addEventListener('portfolio-settings-changed', handleSettings);
-    return () => window.removeEventListener('portfolio-settings-changed', handleSettings);
-  }, []);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video || !videoEnabled) return;
-
-    let animationFrameId;
-
-    const checkFade = () => {
-      if (video.duration && !isTransitioning) {
-        const current = video.currentTime;
-        const duration = video.duration;
-        const opacity = (current < 0.5
-          ? current / 0.5
-          : current > duration - 0.5
-            ? Math.max(0, (duration - current) / 0.5)
-            : 1) * 0.7;
-        video.style.opacity = opacity.toString();
-      }
-      animationFrameId = requestAnimationFrame(checkFade);
-    };
-
-    const handleEnded = () => {
-      setIsTransitioning(true);
-      video.style.opacity = '0';
-      video.pause();
-      setTimeout(() => {
-        video.currentTime = 0;
-        video.play()
-          .then(() => setIsTransitioning(false))
-          .catch((err) => {
-            console.error('Replay execution failed:', err);
-            setIsTransitioning(false);
-          });
-      }, 100);
-    };
-
-    video.addEventListener('ended', handleEnded);
-    video.play().catch((err) => console.error('Initial video play error:', err));
-    animationFrameId = requestAnimationFrame(checkFade);
-
-    return () => {
-      cancelAnimationFrame(animationFrameId);
-      if (video) video.removeEventListener('ended', handleEnded);
-    };
-  }, [isTransitioning, videoEnabled]);
 
   /* Render 3 identical copies so the loop is seamless at any viewport width */
   const marqueeItems = [1, 2, 3].flatMap((copy) =>
@@ -162,22 +103,6 @@ export default function Hero() {
   return (
     <section id="home" className="min-h-dvh flex flex-col relative overflow-visible bg-bg-primary select-none">
 
-      {/* Background Video */}
-      <div className="absolute inset-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-        {videoEnabled && (
-          <video
-            ref={videoRef}
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_065045_c44942da-53c6-4804-b734-f9e07fc22e08.mp4"
-            className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-            style={{ opacity: 0 }}
-            muted
-            playsInline
-          />
-        )}
-      </div>
-
-
-
       {/* Navbar */}
       <Navbar />
 
@@ -189,7 +114,7 @@ export default function Hero() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
           </span>
-          <span className="text-[0.6rem] sm:text-[0.65rem] font-mono font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-green-400/80">
+          <span className="text-[0.6rem] sm:text-[0.65rem] font-mono font-bold uppercase tracking-[0.18em] sm:tracking-[0.2em] text-green-600">
             Available for Opportunities
           </span>
         </div>
@@ -205,20 +130,20 @@ export default function Hero() {
         </h1>
 
         {/* Role tag */}
-        <p className="font-heading text-[0.55rem] sm:text-[0.68rem] md:text-[0.72rem] font-bold uppercase tracking-[0.12em] sm:tracking-[0.22em] text-white/80 mt-3 sm:mt-4 text-center px-2 max-w-xl mx-auto leading-relaxed">
+        <p className="font-heading text-[0.55rem] sm:text-[0.68rem] md:text-[0.72rem] font-bold uppercase tracking-[0.12em] sm:tracking-[0.22em] text-text-secondary mt-3 sm:mt-4 text-center px-2 max-w-xl mx-auto leading-relaxed">
           <span className="inline-block whitespace-nowrap">AI Engineer</span>
-          <span className="text-white/20 mx-2">|</span>
+          <span className="text-text-primary/20 mx-2">|</span>
           <span className="inline-block whitespace-nowrap">ML &amp; DL</span>
-          <span className="text-white/20 mx-2">|</span>
+          <span className="text-text-primary/20 mx-2">|</span>
           <span className="inline-block whitespace-nowrap">Generative AI</span>
-          <span className="text-white/20 mx-2">|</span>
+          <span className="text-text-primary/20 mx-2">|</span>
           <span className="inline-block whitespace-nowrap">LLM</span>
-          <span className="text-white/20 mx-2">|</span>
+          <span className="text-text-primary/20 mx-2">|</span>
           <span className="inline-block whitespace-nowrap">AWS</span>
         </p>
 
         {/* Description */}
-        <p className="font-sans text-white/90 text-[0.82rem] sm:text-[0.92rem] md:text-[0.98rem] leading-relaxed max-w-5xl mt-4 text-center px-4">
+        <p className="font-sans text-text-secondary text-[0.82rem] sm:text-[0.92rem] md:text-[0.98rem] leading-relaxed max-w-5xl mt-4 text-center px-4">
           AI Engineer focused on building intelligent applications using Machine Learning,
           <br className="hidden sm:inline" />
           Generative AI, LLMs, FastAPI, and Cloud Technologies.
@@ -228,7 +153,7 @@ export default function Hero() {
         <div className="flex items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-7 flex-wrap w-full px-4">
           <a
             href="#projects"
-            className="bg-white text-black hover:bg-neutral-200 rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-widest cursor-pointer shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 transition-all duration-150"
+            className="bg-black text-white hover:bg-neutral-800 rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-widest cursor-pointer shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 transition-all duration-150"
           >
             <Search className="w-3.5 h-3.5" />
             Explore Projects
@@ -238,7 +163,7 @@ export default function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             download
-            className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-widest cursor-pointer flex items-center justify-center gap-2 border border-white/25 text-white/90 hover:text-white hover:border-white/40 hover:bg-white/5 transition-all duration-200"
+            className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-widest cursor-pointer flex items-center justify-center gap-2 border border-text-primary/25 text-text-primary/90 hover:text-text-primary hover:border-text-primary/40 hover:bg-text-primary/5 transition-all duration-200"
           >
             <Download className="w-3.5 h-3.5" />
             Download Resume
@@ -248,7 +173,7 @@ export default function Hero() {
 
       {/* ── Tech Stack Marquee ── */}
       <div className="w-full relative z-10 pb-8 sm:pb-12 pt-2 sm:pt-3">
-        <p className="text-center text-[0.58rem] sm:text-[0.62rem] font-bold uppercase tracking-[0.22em] text-text-primary/25 mb-4 sm:mb-5 font-mono">
+        <p className="text-center text-[0.58rem] sm:text-[0.62rem] font-bold uppercase tracking-[0.22em] text-text-muted mb-4 sm:mb-5 font-mono">
           Core Technical Stack
         </p>
 

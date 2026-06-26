@@ -31,7 +31,7 @@ export default function Navbar() {
             <a
               key={href}
               href={href}
-              className="text-sm font-medium text-text-primary/80 hover:text-white transition-colors duration-200 cursor-pointer"
+              className="text-sm font-medium text-text-primary/80 hover:text-text-primary transition-colors duration-200 cursor-pointer"
             >
               {label}
             </a>
@@ -44,13 +44,13 @@ export default function Navbar() {
             href="#contact"
             className="btn-hero-secondary rounded-full px-4 sm:px-5 py-2 text-xs font-semibold cursor-pointer hidden md:inline-block text-center"
           >
-            💬 Contact Me
+            Contact Me
           </a>
 
           {/* Hamburger — mobile only */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg border border-white/10 text-text-primary hover:text-white hover:border-white/25 transition-all cursor-pointer"
+            className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg border border-text-primary/10 text-text-primary hover:text-text-primary hover:border-text-primary/25 transition-all cursor-pointer"
             aria-label="Toggle menu"
           >
             {open ? <X size={18} /> : <Menu size={18} />}
@@ -60,13 +60,13 @@ export default function Navbar() {
 
       {/* ── Mobile drawer ── */}
       {open && (
-        <div className="md:hidden absolute top-full left-0 w-full z-50 bg-neutral-950/95 backdrop-blur-xl border-t border-white/5 px-5 py-4 flex flex-col gap-1">
+        <div className="md:hidden absolute top-full left-0 w-full z-50 bg-bg-secondary/95 backdrop-blur-xl border-t border-text-primary/5 px-5 py-4 flex flex-col gap-1">
           {NAV_LINKS.map(({ href, label }) => (
             <a
               key={href}
               href={href}
               onClick={() => setOpen(false)}
-              className="text-[0.95rem] font-medium text-text-primary/80 hover:text-white py-3 border-b border-white/5 transition-colors cursor-pointer"
+              className="text-[0.95rem] font-medium text-text-primary/80 hover:text-text-primary py-3 border-b border-text-primary/5 transition-colors cursor-pointer"
             >
               {label}
             </a>
@@ -74,9 +74,9 @@ export default function Navbar() {
           <a
             href="#contact"
             onClick={() => setOpen(false)}
-            className="text-[0.95rem] font-bold text-white py-3 transition-colors cursor-pointer"
+            className="text-[0.95rem] font-bold text-text-primary py-3 transition-colors cursor-pointer"
           >
-            💬 Contact Me
+            Contact Me
           </a>
         </div>
       )}

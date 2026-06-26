@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { ReactLenis } from 'lenis/react';
 import Hero from './WebPages/Hero';
 import About from './WebPages/About';
 import Projects from './WebPages/Projects';
@@ -54,7 +55,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <ReactLenis root options={{ lerp: 0.08, duration: 1.2, smoothTouch: true }}>
       {/* Scroll Progress Bar */}
       <div className="scroll-progress" aria-hidden="true"></div>
 
@@ -65,7 +66,7 @@ function App() {
         <Certificates />
         <Contact />
       </main>
-    </>
+    </ReactLenis>
   );
 }
 

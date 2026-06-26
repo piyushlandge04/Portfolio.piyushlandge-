@@ -1,5 +1,13 @@
 import { useState, useEffect } from 'react';
-import { ExternalLink, Copy, Check, Calendar, ShieldCheck, Award } from 'lucide-react';
+import { ExternalLink, Copy, Check, Calendar } from 'lucide-react';
+import certificateMockup from '../assets/certificate_mockup.png';
+import certDeepLearning from '../assets/cert_deep_learning.png';
+import certVanderbilt from '../assets/cert_vanderbilt.png';
+import certAWS from '../assets/cert_aws.png';
+import certStanford from '../assets/cert_stanford.png';
+import certGCP from '../assets/cert_gcp.png';
+import certDuke from '../assets/cert_duke.png';
+import certNLP from '../assets/cert_nlp.png';
 
 const DEFAULT_CERTIFICATES = [
   {
@@ -10,6 +18,7 @@ const DEFAULT_CERTIFICATES = [
     link: 'https://coursera.org/verify/specialization/deep-learning',
     color: '#EE4C2C',
     logoText: 'DL',
+    image: certDeepLearning,
   },
   {
     title: 'Generative AI Leader Specialization',
@@ -19,6 +28,7 @@ const DEFAULT_CERTIFICATES = [
     link: 'https://coursera.org/verify/specialization/gen-ai-leader',
     color: '#a855f7',
     logoText: 'GAI',
+    image: certVanderbilt,
   },
   {
     title: 'AWS Certified Machine Learning – Specialty',
@@ -28,6 +38,7 @@ const DEFAULT_CERTIFICATES = [
     link: 'https://aws.amazon.com/verification',
     color: '#FF9900',
     logoText: 'AWS',
+    image: certAWS,
   },
   {
     title: 'Advanced NLP & Prompt Engineering',
@@ -37,6 +48,7 @@ const DEFAULT_CERTIFICATES = [
     link: 'https://online.stanford.edu/verification',
     color: '#ec4899',
     logoText: 'PE',
+    image: certStanford,
   },
   {
     title: 'Professional Machine Learning Engineer',
@@ -46,6 +58,7 @@ const DEFAULT_CERTIFICATES = [
     link: 'https://google.acredible.com',
     color: '#4285F4',
     logoText: 'GCP',
+    image: certGCP,
   },
   {
     title: 'MLOps Deployment & Pipeline Systems',
@@ -55,6 +68,7 @@ const DEFAULT_CERTIFICATES = [
     link: 'https://coursera.org/verify/specialization/mlops-pipeline',
     color: '#10b981',
     logoText: 'OPS',
+    image: certDuke,
   },
   {
     title: 'Natural Language Processing Specialization',
@@ -64,6 +78,7 @@ const DEFAULT_CERTIFICATES = [
     link: 'https://coursera.org/verify/specialization/nlp',
     color: '#00BFFF',
     logoText: 'NLP',
+    image: certNLP,
   },
 ];
 
@@ -112,17 +127,17 @@ export default function Certificates() {
     // Tilt calculations
     const xc = rect.width / 2;
     const yc = rect.height / 2;
-    const tiltX = (yc - y) / 16;
-    const tiltY = (x - xc) / 24;
+    const tiltX = (yc - y) / 50;
+    const tiltY = (x - xc) / 75;
     
-    e.currentTarget.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-6px)`;
+    e.currentTarget.style.transform = `perspective(1000px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateY(-3px)`;
   };
 
   const handleMouseLeave = (e) => {
     e.currentTarget.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)';
-    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.06)';
-    e.currentTarget.style.boxShadow = 'none';
-    e.currentTarget.style.background = 'rgba(255,255,255,0.02)';
+    e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.05)';
+    e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.03)';
+    e.currentTarget.style.background = 'rgba(0, 0, 0, 0.02)';
   };
 
   const handleCopyId = (id, e) => {
@@ -137,33 +152,7 @@ export default function Certificates() {
       id="certificates"
       className="pt-10 pb-10 md:pt-32 md:pb-32 relative scroll-reveal overflow-hidden bg-bg-primary"
     >
-      {/* Background radial overlays for hyper-premium visual depth */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          top: '-10%',
-          right: '5%',
-          width: '600px',
-          height: '600px',
-          background: 'radial-gradient(circle, rgba(168,85,247,0.06) 0%, transparent 70%)',
-          pointerEvents: 'none',
-          borderRadius: '9999px',
-        }}
-      />
-      <div
-        aria-hidden="true"
-        style={{
-          position: 'absolute',
-          bottom: '-10%',
-          left: '-5%',
-          width: '500px',
-          height: '500px',
-          background: 'radial-gradient(circle, rgba(59,130,246,0.04) 0%, transparent 70%)',
-          pointerEvents: 'none',
-          borderRadius: '9999px',
-        }}
-      />
+
 
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
         {/* Section Header */}
@@ -171,14 +160,14 @@ export default function Certificates() {
           <div
             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full mb-6 relative overflow-hidden"
             style={{
-              background: 'rgba(255,255,255,0.02)',
-              border: '1px solid rgba(255,255,255,0.08)',
-              boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
+              background: 'rgba(0, 0, 0, 0.02)',
+              border: '1px solid rgba(0, 0, 0, 0.06)',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.03)'
             }}
           >
             <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-purple-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-neutral-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-neutral-500"></span>
             </span>
             <span
               style={{
@@ -195,19 +184,10 @@ export default function Certificates() {
           </div>
 
           <h2
-            className="text-4xl md:text-6xl font-heading font-black text-text-primary tracking-tight mb-5"
+            className="text-4xl md:text-6xl font-heading font-black text-black tracking-tight mb-5"
             style={{ letterSpacing: '-0.02em' }}
           >
-            Verified{' '}
-            <span
-              style={{
-                background: 'linear-gradient(to right, #ffffff, #a3a3a3 50%, #525252)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-              }}
-            >
-              Certifications
-            </span>
+            Verified Certifications
           </h2>
           <p
             className="text-text-secondary text-base md:text-xl max-w-2xl mx-auto font-sans leading-relaxed opacity-90"
@@ -218,26 +198,27 @@ export default function Certificates() {
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {certificatesList.map((cert, index) => (
             <div
               key={index}
-              className="group relative rounded-[32px] p-7 sm:p-8 flex flex-col sm:flex-row items-start gap-6 text-left"
+              className="group relative rounded-[32px] p-6 flex flex-col items-start gap-5 text-left h-full"
               onMouseMove={handleMouseMove}
               onMouseLeave={handleMouseLeave}
               style={{
-                background: 'rgba(255,255,255,0.02)',
-                border: '1px solid rgba(255,255,255,0.06)',
+                background: 'rgba(0, 0, 0, 0.02)',
+                border: '1px solid rgba(0, 0, 0, 0.05)',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.03)',
                 backdropFilter: 'blur(20px)',
                 WebkitBackdropFilter: 'blur(20px)',
-                transition: 'transform 0.15s ease-out, border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease',
+                transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease',
                 cursor: 'pointer',
                 transformStyle: 'preserve-3d',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.borderColor = `${cert.color}40`;
-                e.currentTarget.style.boxShadow = `0 12px 40px ${cert.color}12, 0 4px 30px rgba(0,0,0,0.4)`;
-                e.currentTarget.style.background = 'rgba(255,255,255,0.045)';
+                e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.15)';
+                e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.06)';
+                e.currentTarget.style.background = 'rgba(0, 0, 0, 0.04)';
               }}
             >
               {/* Dynamic mouse overlay shimmer */}
@@ -245,42 +226,27 @@ export default function Certificates() {
                 aria-hidden="true"
                 className="pointer-events-none absolute inset-0 rounded-[32px] opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                 style={{
-                  background: `radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), ${cert.color}15, transparent 80%)`,
+                  background: 'radial-gradient(400px circle at var(--mx, 50%) var(--my, 50%), rgba(0, 0, 0, 0.03), transparent 80%)',
                 }}
               />
 
-              {/* Logo Badge Container */}
-              <div
-                style={{
-                  width: '56px',
-                  height: '56px',
-                  minWidth: '56px',
-                  borderRadius: '20px',
-                  background: `${cert.color}10`,
-                  border: `1px solid ${cert.color}25`,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: cert.color,
-                  fontFamily: 'var(--font-mono)',
-                  fontWeight: 900,
-                  fontSize: '0.78rem',
-                  letterSpacing: '0.05em',
-                  transition: 'transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease',
-                  position: 'relative',
-                  zIndex: 2,
-                  boxShadow: `inset 0 2px 6px ${cert.color}15`,
-                  transform: 'translateZ(10px)'
-                }}
-                className="group-hover:scale-105 group-hover:border-opacity-100"
-              >
-                {cert.logoText}
+              {/* Certificate Image Preview */}
+              <div className="w-full aspect-video rounded-2xl overflow-hidden border border-text-primary/5 bg-bg-secondary relative shrink-0 z-2 select-none" style={{ transform: 'translateZ(10px)' }}>
+                <img 
+                  src={cert.image || certificateMockup} 
+                  alt={`${cert.title} preview`} 
+                  className="w-full h-full object-cover opacity-90 group-hover:scale-[1.02] transition-all duration-500" 
+                />
+                {/* Badge Overlay */}
+                <div className="absolute top-3 left-3 px-2 py-1 rounded-lg border border-text-primary/10 bg-white/95 backdrop-blur-md text-[0.62rem] font-mono font-black text-text-primary shadow-xs tracking-wider select-none">
+                  {cert.logoText}
+                </div>
               </div>
 
               {/* Details & Copy Actions */}
               <div className="flex flex-col grow w-full relative" style={{ zIndex: 2, transform: 'translateZ(15px)' }}>
                 <h3
-                  className="text-white font-black mb-1.5 tracking-tight group-hover:text-white transition-colors duration-200"
+                  className="text-text-primary font-black mb-1.5 tracking-tight group-hover:text-text-primary transition-colors duration-200"
                   style={{ fontSize: '1.18rem', lineHeight: '1.3', fontFamily: 'var(--font-heading)' }}
                 >
                   {cert.title}
@@ -303,15 +269,15 @@ export default function Certificates() {
                     color: 'var(--text-muted)',
                   }}
                 >
-                  <div className="flex items-center gap-1.5 bg-white/2 px-2.5 py-1 rounded-md border border-white/5">
-                    <Calendar size={11} className="text-white/60" />
-                    <span className="text-white/80">{cert.date}</span>
+                  <div className="flex items-center gap-1.5 bg-text-primary/2 px-2.5 py-1 rounded-md border border-text-primary/5">
+                    <Calendar size={11} className="text-text-primary/60" />
+                    <span className="text-text-primary/80">{cert.date}</span>
                   </div>
 
                   <button
                     onClick={(e) => handleCopyId(cert.credentialId, e)}
                     title="Copy Credential ID"
-                    className="flex items-center gap-1.5 bg-white/2 hover:bg-white/5 px-2.5 py-1 rounded-md border border-white/5 hover:border-white/10 transition-all cursor-pointer text-text-muted hover:text-white"
+                    className="flex items-center gap-1.5 bg-text-primary/2 hover:bg-text-primary/5 px-2.5 py-1 rounded-md border border-text-primary/5 hover:border-text-primary/10 transition-all cursor-pointer text-text-muted hover:text-text-primary"
                     style={{
                       fontFamily: 'var(--font-mono)',
                       fontSize: '0.68rem',
@@ -331,17 +297,17 @@ export default function Certificates() {
 
                 {/* Footer verification actions */}
                 <div
-                  className="flex items-center justify-between mt-6 pt-5"
-                  style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+                  className="flex flex-col gap-3 mt-auto pt-5 w-full"
+                  style={{ borderTop: '1px solid rgba(0, 0, 0, 0.06)' }}
                 >
                   {/* Verified Badge */}
                   <span
-                    className="flex items-center gap-2.5 font-bold uppercase"
+                    className="flex items-center gap-2.5 font-bold uppercase shrink-0"
                     style={{
                       fontFamily: 'var(--font-mono)',
                       fontSize: '0.66rem',
                       letterSpacing: '0.1em',
-                      color: '#4ade80',
+                      color: 'var(--text-muted)',
                     }}
                   >
                     <span className="relative flex h-2.5 w-2.5 shrink-0">
@@ -363,7 +329,7 @@ export default function Certificates() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Verify credential for ${cert.title}`}
-                    className="flex items-center gap-1.5 font-bold transition-all duration-300 px-3 py-1.5 rounded-lg border border-white/5 hover:border-white/20 hover:bg-white/5"
+                    className="flex items-center justify-center gap-1.5 font-bold transition-all duration-300 px-3 py-2 rounded-lg border border-text-primary/5 hover:border-text-primary/20 hover:bg-text-primary/5 w-full text-center"
                     style={{
                       fontFamily: 'var(--font-mono)',
                       fontSize: '0.66rem',

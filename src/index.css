@@ -19,16 +19,16 @@
 }
 
 :root {
-  /* Dynamic custom theme variables */
-  --bg-primary: hsl(260, 87%, 3%);
-  --bg-secondary: hsl(260, 80%, 4%);
-  --bg-card: rgba(18, 18, 24, 0.45);
-  --border-color: rgba(255, 255, 255, 0.05);
+  /* Dynamic custom theme variables (Light Theme) */
+  --bg-primary: hsl(0, 0%, 100%);
+  --bg-secondary: hsl(0, 0%, 98%);
+  --bg-card: rgba(0, 0, 0, 0.02);
+  --border-color: rgba(0, 0, 0, 0.1);
   --border-focus: hsl(250, 100%, 65%);
-  --text-primary: hsl(40, 6%, 95%);
-  --text-secondary: hsl(40, 6%, 82%);
-  --text-hero-sub: hsl(40, 6%, 82%);
-  --text-muted: hsl(240, 4%, 55%);
+  --text-primary: #000000;
+  --text-secondary: #000000;
+  --text-hero-sub: #000000;
+  --text-muted: #333333;
 }
 
 /* --- Global Settings --- */
@@ -60,27 +60,27 @@ a, button {
 
 /* --- Liquid Glass Utility Class --- */
 .liquid-glass { 
-  background: rgba(255, 255, 255, 0.01); 
+  background: rgba(0, 0, 0, 0.02); 
   background-blend-mode: luminosity; 
-  backdrop-filter: blur(4px); 
-  border: none; 
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1); 
+  backdrop-filter: blur(8px); 
+  border: 1px solid rgba(0, 0, 0, 0.1); 
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.5); 
   position: relative; 
   overflow: hidden; 
 }
 
 /* --- Glassmorphic Bento Cards --- */
 .glass-card {
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(0, 0, 0, 0.02);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   transition: border-color 0.3s ease, box-shadow 0.3s ease, background 0.3s ease;
 }
 
 .glass-card:hover {
-  border-color: rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(0, 0, 0, 0.15);
+  background: rgba(0, 0, 0, 0.04);
 }
 
 
@@ -93,6 +93,7 @@ a, button {
   padding: 1.4px; 
   background: linear-gradient(180deg, rgba(255,255,255,0.45) 0%, rgba(255,255,255,0.15) 20%, rgba(255,255,255,0) 40%, rgba(255,255,255,0) 60%, rgba(255,255,255,0.15) 80%, rgba(255,255,255,0.45) 100%); 
   -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); 
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); 
   -webkit-mask-composite: xor; 
   mask-composite: exclude; 
   pointer-events: none; 
@@ -100,8 +101,8 @@ a, button {
 
 /* --- Hero Secondary Button Variant --- */
 .btn-hero-secondary {
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.03);
+  border: 1px solid rgba(0, 0, 0, 0.1);
   color: var(--text-primary);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
@@ -109,8 +110,8 @@ a, button {
 }
 
 .btn-hero-secondary:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: rgba(0, 0, 0, 0.08);
+  border-color: rgba(0, 0, 0, 0.2);
 }
 
 .btn-hero-secondary:active {
@@ -171,9 +172,29 @@ a, button {
 
 /* --- Global Scroll & Layout Settings --- */
 html {
-  scroll-behavior: smooth;
   /* Large padding on mobile for sticky navbars, smaller on desktop */
   scroll-padding-top: 70px;
+}
+
+/* --- Lenis Smooth Scroll resets --- */
+html.lenis, html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 @media (min-width: 768px) {
@@ -194,17 +215,17 @@ html {
 }
 
 ::-webkit-scrollbar-track {
-  background: hsl(260, 87%, 3%);
+  background: hsl(0, 0%, 98%);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(0, 0, 0, 0.15);
   border-radius: 9999px;
-  border: 2px solid hsl(260, 87%, 3%);
+  border: 2px solid hsl(0, 0%, 98%);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.16);
+  background: rgba(0, 0, 0, 0.25);
 }
 
 /* --- Scroll Reveal Effects (IntersectionObserver-driven) --- */
