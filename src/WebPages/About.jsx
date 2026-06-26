@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { 
   GraduationCap, Briefcase, ChevronDown, ChevronUp, MapPin, 
-  Sparkles, Brain, Cpu, Zap, Monitor, Cloud 
+  Sparkles, Brain, Zap, LineChart, Database, Terminal 
 } from 'lucide-react';
 
 
@@ -175,29 +175,51 @@ export default function About() {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 relative z-10 w-full mt-2">
               {[
                 {
-                  title: 'AI & ML',
+                  title: 'AI & Machine Learning',
                   icon: <Brain size={14} className="text-purple-500" />,
-                  skills: ['Python', 'TensorFlow', 'PyTorch', 'OpenCV']
+                  skills: [
+                    'Artificial Intelligence', 'Machine Learning', 'Deep Learning', 
+                    'Computer Vision', 'Natural Language Processing (NLP)', 'TensorFlow', 
+                    'BERT', 'Generative AI', 'Agentic AI', 'Transformers', 
+                    'Large Language Models (LLMs)', 'Autoencoders', 'GANs', 'AI Ethics'
+                  ]
                 },
                 {
-                  title: 'GenAI',
-                  icon: <Cpu size={14} className="text-cyan-500" />,
-                  skills: ['LangChain', 'RAG', 'Embeddings', 'Vector DB']
-                },
-                {
-                  title: 'Backend',
+                  title: 'Programming & Backend',
                   icon: <Zap size={14} className="text-amber-500" />,
-                  skills: ['FastAPI', 'Django', 'Flask', 'PostgreSQL']
+                  skills: [
+                    'Python', 'Flask', 'Regular Expressions (Regex)', 
+                    'Data Structures', 'Functions', 'Lambda Functions', 
+                    'Model Deployment', 'REST API Development', 'URL Routing'
+                  ]
                 },
                 {
-                  title: 'Frontend',
-                  icon: <Monitor size={14} className="text-blue-500" />,
-                  skills: ['React', 'Next.js', 'Tailwind CSS', 'HTML/CSS']
+                  title: 'Data Science & Analytics',
+                  icon: <LineChart size={14} className="text-blue-500" />,
+                  skills: [
+                    'NumPy', 'Pandas', 'Matplotlib', 'Seaborn', 
+                    'Statistics', 'Exploratory Data Analysis (EDA)', 'Feature Engineering', 
+                    'Feature Scaling', 'Data Transformation', 'Time Series Forecasting', 
+                    'Sentiment Analysis', 'Hypothesis Testing', 'Data Visualization'
+                  ]
                 },
                 {
-                  title: 'DevOps',
-                  icon: <Cloud size={14} className="text-emerald-500" />,
-                  skills: ['Docker', 'Git', 'Linux', 'Vercel']
+                  title: 'Databases & Cloud',
+                  icon: <Database size={14} className="text-cyan-500" />,
+                  skills: [
+                    'SQL', 'MySQL', 'MongoDB', 'Hadoop', 'HDFS', 
+                    'PySpark', 'Spark SQL', 'Hadoop Hive', 'AWS', 
+                    'Amazon EC2', 'Amazon SageMaker', 'Azure Machine Learning'
+                  ]
+                },
+                {
+                  title: 'Tools & Version Control',
+                  icon: <Terminal size={14} className="text-emerald-500" />,
+                  skills: [
+                    'Git', 'GitHub', 'Bitbucket', 'Google Colab', 
+                    'Anaconda', 'PyCharm', 'MySQL Workbench', 'Microsoft Excel', 
+                    'Scikit-learn', 'NLTK'
+                  ]
                 }
               ].map((category, idx) => (
                 <div
