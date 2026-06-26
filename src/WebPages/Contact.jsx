@@ -290,11 +290,11 @@ export default function Contact() {
                 >
                   {isSubmitting ? (
                     <>
-                      <Loader2 size={14} className="animate-spin text-black" /> Sending...
+                      <Loader2 size={14} className="animate-spin text-white" /> Sending...
                     </>
                   ) : (
                     <>
-                      Send Message <Send size={13} className="text-black" />
+                      Send Message <Send size={13} className="text-white" />
                     </>
                   )}
                 </button>
@@ -316,8 +316,7 @@ export default function Contact() {
                 Piyush Landge | AI Engineer
               </span>
               <p className="text-[0.72rem] text-text-muted leading-relaxed max-w-md font-medium">
-                AI Engineer specializing in developing, evaluating, and deploying deep learning paradigms. 
-                I focus on building high-performance computational architectures while ensuring they remain clean, responsive, and visually compelling.
+                AI Engineer &amp; Computer Science Graduate specializing in Machine Learning, Generative AI, and modern backend architectures. Building intelligent applications to solve real-world problems.
               </p>
             </div>
             
@@ -325,10 +324,10 @@ export default function Contact() {
             <div className="md:col-span-3 flex flex-col gap-3 text-left">
               <span className="font-bold tracking-wider uppercase text-text-primary text-[0.62rem]">Quick Links</span>
               <div className="flex flex-col gap-2 font-bold tracking-wider uppercase text-text-muted">
-                <a href="#home" className="hover:text-text-primary transition-colors">Back to Top</a>
-                <a href="#about" className="hover:text-text-primary transition-colors">About</a>
-                <a href="#projects" className="hover:text-text-primary transition-colors">Projects</a>
-                <a href="#contact" className="hover:text-text-primary transition-colors">Get in Touch</a>
+                <a href="#home" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">Back to Top</a>
+                <a href="#about" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">About</a>
+                <a href="#projects" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">Projects</a>
+                <a href="#contact" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">Get in Touch</a>
               </div>
             </div>
 
@@ -336,10 +335,10 @@ export default function Contact() {
             <div className="md:col-span-3 flex flex-col gap-3 text-left">
               <span className="font-bold tracking-wider uppercase text-text-primary text-[0.62rem]">Connect</span>
               <div className="flex flex-col gap-2 font-bold tracking-wider uppercase text-text-muted">
-                <a href="mailto:piyushlandge4444@gmail.com" className="hover:text-text-primary transition-colors">Email</a>
-                <a href="https://github.com/piyushlandge04" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors">GitHub</a>
-                <a href="https://www.linkedin.com/in/piyushlandge04/" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors">LinkedIn</a>
-                <a href="https://www.instagram.com/piyushlandge_04/" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary transition-colors">Instagram</a>
+                <a href="mailto:piyushlandge4444@gmail.com" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">Email</a>
+                <a href="https://github.com/piyushlandge04" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">GitHub</a>
+                <a href="https://www.linkedin.com/in/piyushlandge04/" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">LinkedIn</a>
+                <a href="https://www.instagram.com/piyushlandge_04/" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">Instagram</a>
               </div>
             </div>
           </div>
