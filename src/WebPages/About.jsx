@@ -1,24 +1,7 @@
-import { useState, useEffect } from 'react';
-import { 
-  GraduationCap, Briefcase, Sparkles, MapPin, Mail, 
-  ChevronDown, ChevronUp, Activity, Terminal, Cpu, HardDrive
-} from 'lucide-react';
+import { useState } from 'react';
+import { GraduationCap, Briefcase, ChevronDown, ChevronUp } from 'lucide-react';
 
-const MOCK_TERMINAL_LOGS = [
-  { type: 'sys', text: 'Initializing Agent Environment...' },
-  { type: 'ok', text: 'Local workspace synchronized (12 files loaded)' },
-  { type: 'ok', text: 'Loaded PyTorch runtime - CUDA 12.1' },
-  { type: 'sys', text: 'Handshake completed on ports...' },
-  { type: 'ok', text: 'Agent Node online on PORT 5173' },
-  { type: 'run', text: 'Compiling flash-attention kernel layers...' },
-  { type: 'stat', text: 'Attention projections verified [heads: 8, d_model: 512]' },
-  { type: 'ok', text: 'Forward pass latency optimized: 1.14ms' },
-  { type: 'run', text: 'Evaluating transformer pipelines...' },
-  { type: 'stat', text: 'Pipeline accuracy matched target threshold' },
-  { type: 'ok', text: 'Active learning loop listening for triggers...' },
-  { type: 'run', text: 'Monitoring vector database queries...' },
-  { type: 'sys', text: 'Agent status: monitoring runtime logs' }
-];
+
 
 const experienceTimeline = [
   {
@@ -73,31 +56,7 @@ export default function About() {
   const [expandedExperience, setExpandedExperience] = useState(0); // expand first item by default
   const [expandedEducation, setExpandedEducation] = useState(null);
 
-  // Dynamic Terminal Logs State
-  const [terminalLogs, setTerminalLogs] = useState(MOCK_TERMINAL_LOGS.slice(0, 5));
-  const [sysMetrics, setSysMetrics] = useState({ cpu: 12, vram: 4.8, latency: 1.12 });
 
-  useEffect(() => {
-    let logCounter = 5;
-    const interval = setInterval(() => {
-      // Add next log in sequence
-      setTerminalLogs(prev => {
-        const nextLog = MOCK_TERMINAL_LOGS[logCounter % MOCK_TERMINAL_LOGS.length];
-        logCounter++;
-        // Keep last 5 logs for cleanliness
-        return [...prev.slice(1), nextLog];
-      });
-
-      // Randomly flucutate system metrics slightly
-      setSysMetrics({
-        cpu: Math.floor(8 + Math.random() * 16),
-        vram: parseFloat((4.6 + Math.random() * 0.5).toFixed(2)),
-        latency: parseFloat((1.08 + Math.random() * 0.15).toFixed(2))
-      });
-    }, 3500);
-
-    return () => clearInterval(interval);
-  }, []);
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -133,163 +92,6 @@ export default function About() {
 
         {/* Bento Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          {/* ── CARD 1: Profile & Activity (Redesigned) ── */}
-          <div
-            className="bento-card glass-card relative group overflow-hidden lg:col-span-3 p-7 md:p-9 flex flex-col gap-8 rounded-3xl transition-all duration-300"
-            onMouseMove={handleMouseMove}
-          >
-            <div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-              style={{
-                background: `radial-gradient(600px circle at var(--mouse-x-relative, 0px) var(--mouse-y-relative, 0px), rgba(168, 85, 247, 0.05), transparent 80%)`
-              }}
-            />
-
-            <div className="relative z-10 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 items-start">
-              {/* Left Column: Identity */}
-              <div className="md:col-span-4 flex flex-col items-center md:items-start text-center md:text-left gap-5">
-                
-                {/* Animated Avatar */}
-                <div className="relative shrink-0 group/avatar">
-                  {/* Neon Warm Light Glow behind avatar container */}
-                  <div className="absolute inset-[-6px] bg-linear-to-tr from-orange-500 via-amber-500 to-rose-600 rounded-3xl blur-[14px] opacity-65 group-hover/avatar:opacity-90 transition-opacity duration-500 animate-[spin_5s_linear_infinite]" />
-                  <div
-                    className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl flex flex-col items-center justify-center font-heading relative overflow-hidden border border-text-primary/10 bg-linear-to-b from-[#1a1c1e] to-[#0f1011] shadow-2xl z-10 select-none group/box"
-                  >
-                    <div className="absolute inset-0 opacity-10 bg-[linear-gradient(rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.07)_1px,transparent_1px)] bg-[size:10px_10px]" />
-                    <span className="text-4xl sm:text-5xl font-black bg-linear-to-b from-white to-[#d1d5db] bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-tight">
-                      PL
-                    </span>
-                  </div>
-                  {/* Status indicator heartbeat */}
-                  <span className="absolute bottom-[-4px] right-[-4px] flex h-5 w-5 z-20">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                    <span className="relative inline-flex rounded-full h-5 w-5 bg-green-500 border-2 border-white shadow-sm" />
-                  </span>
-                </div>
-
-                <div className="flex flex-col gap-1.5 w-full items-center md:items-start">
-                  <h3 className="font-heading font-black text-3xl tracking-tight text-text-primary">
-                    Piyush Landge
-                  </h3>
-                  <div className="flex flex-col gap-2 mt-1">
-                    <span className="inline-flex items-center justify-center md:justify-start gap-1.5 text-[0.7rem] font-mono font-bold uppercase tracking-widest text-text-secondary">
-                      <Sparkles size={12} className="text-purple-500" /> AI Engineer
-                    </span>
-                    <span className="inline-flex items-center justify-center md:justify-start gap-1.5 text-[0.7rem] font-mono font-bold uppercase tracking-widest text-text-secondary">
-                      <MapPin size={12} className="text-cyan-500" /> Pune, India
-                    </span>
-                  </div>
-                </div>
-
-                {/* Hire Button */}
-                <a
-                  href="#contact"
-                  className="mt-2 w-full md:w-auto inline-flex items-center justify-center gap-2 text-[0.75rem] font-bold px-6 py-2.5 rounded-xl border border-text-primary/10 bg-text-primary/5 text-text-primary hover:bg-text-primary/10 hover:border-text-primary/25 transition-all duration-200 font-mono uppercase tracking-wider shrink-0"
-                >
-                  <Mail size={14} /> Hire Me
-                </a>
-              </div>
-
-              {/* Right Column: Narrative */}
-              <div className="md:col-span-8 flex flex-col gap-6 text-left">
-                <h4 className="font-heading text-xl sm:text-2xl font-bold leading-snug text-text-primary">
-                  Bridging heavy computational science with crisp, responsive frontend utility.
-                </h4>
-                
-                <div className="font-sans text-text-secondary text-[0.95rem] leading-[1.7] flex flex-col gap-4">
-                  <p>
-                    I specialize in developing, evaluating, and deploying deep learning paradigms. My core focus lies in building high-performance architectures while simultaneously ensuring they are accessible and visually compelling.
-                  </p>
-                </div>
-
-                {/* Focus Area Tags */}
-                <div className="flex flex-wrap gap-2.5 mt-2">
-                  {[
-                    { label: 'PyTorch', color: '#ee4c2c', bg: 'rgba(238, 76, 44, 0.05)', border: 'rgba(238, 76, 44, 0.15)' },
-                    { label: 'Generative AI', color: '#a855f7', bg: 'rgba(168, 85, 247, 0.05)', border: 'rgba(168, 85, 247, 0.15)' },
-                    { label: 'LLMs & Agents', color: '#3b82f6', bg: 'rgba(59, 130, 246, 0.05)', border: 'rgba(59, 130, 246, 0.15)' },
-                    { label: 'Cloud Architecture', color: '#06b6d4', bg: 'rgba(6, 182, 212, 0.05)', border: 'rgba(6, 182, 212, 0.15)' },
-                  ].map((tag, i) => (
-                    <span 
-                      key={i} 
-                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[0.72rem] font-bold tracking-wide font-mono transition-all duration-300 hover:scale-[1.03] shadow-xs cursor-default"
-                      style={{
-                        color: tag.color,
-                        backgroundColor: tag.bg,
-                        border: `1px solid ${tag.border}`
-                      }}
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: tag.color }} />
-                      {tag.label}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Process Agent Status Terminal Widget */}
-                <div className="mt-4 bg-[#0a0b0d] border border-neutral-800 rounded-2xl p-4 flex flex-col font-mono text-[0.72rem] text-[#f8f8f2] shadow-xl relative overflow-hidden">
-                  {/* Top Bar with window control circles */}
-                  <div className="flex items-center justify-between border-b border-neutral-800 pb-2.5 mb-3 relative z-10">
-                    <div className="flex items-center gap-1.5">
-                      <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
-                      <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
-                      <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
-                    </div>
-                    <span className="text-[0.62rem] text-neutral-500 font-bold uppercase tracking-wider">piyush@agent-node:~</span>
-                    <span className="flex items-center gap-1.5">
-                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
-                      <span className="text-[0.55rem] text-emerald-500 font-bold">ONLINE</span>
-                    </span>
-                  </div>
-
-                  {/* Terminal Console Stream */}
-                  <div className="flex flex-col gap-1.5 min-h-[95px] font-mono leading-relaxed select-none">
-                    {terminalLogs.map((log, idx) => {
-                      let colorClass = 'text-neutral-400';
-                      let prefix = '›';
-                      if (log.type === 'ok') {
-                        colorClass = 'text-emerald-400';
-                        prefix = '✔';
-                      } else if (log.type === 'sys') {
-                        colorClass = 'text-cyan-400';
-                        prefix = 'ℹ';
-                      } else if (log.type === 'run') {
-                        colorClass = 'text-purple-400';
-                        prefix = '⚙';
-                      } else if (log.type === 'stat') {
-                        colorClass = 'text-amber-400';
-                        prefix = '★';
-                      }
-                      return (
-                        <div key={idx} className={`flex items-start gap-2 transition-all duration-300 ${colorClass}`}>
-                          <span className="shrink-0 opacity-80">{prefix}</span>
-                          <span className="break-all">{log.text}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  {/* System Stats Section */}
-                  <div className="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-neutral-800 text-[0.6rem] font-bold text-neutral-500">
-                    <div className="flex items-center gap-1.5">
-                      <Cpu size={12} className="text-purple-500" />
-                      <span>CPU: <span className="text-neutral-300">{sysMetrics.cpu}%</span></span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <HardDrive size={12} className="text-cyan-500" />
-                      <span>VRAM: <span className="text-neutral-300">{sysMetrics.vram} GB</span></span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <Activity size={12} className="text-amber-500" />
-                      <span>LATENCY: <span className="text-neutral-300">{sysMetrics.latency}ms</span></span>
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
 
           {/* ── CARD 2: Tech Stack / Interactive Skills (Restructured to "My Expertise") ── */}
           <div
