@@ -307,7 +307,7 @@ export default function About() {
             {/* Header: Title & Subtitle */}
             <div className="text-center md:text-left relative z-10 border-b border-text-primary/5 pb-5">
               <h3 className="font-heading font-black text-2xl text-text-primary tracking-tight mb-2 uppercase">
-                MY EXPERTISE
+                MY SKILLS
               </h3>
               <p className="font-sans text-sm text-text-muted">
                 Building AI-powered applications from idea to deployment
