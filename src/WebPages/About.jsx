@@ -93,6 +93,58 @@ export default function About() {
         {/* Bento Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
+          {/* ── CARD 1: Profile & Bio Description ── */}
+          <div
+            className="bento-card glass-card relative group overflow-hidden lg:col-span-3 p-7 md:p-9 flex flex-col gap-6 rounded-3xl transition-all duration-300 text-left"
+            onMouseMove={handleMouseMove}
+          >
+            <div 
+              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              style={{
+                background: `radial-gradient(600px circle at var(--mouse-x-relative, 0px) var(--mouse-y-relative, 0px), rgba(168, 85, 247, 0.05), transparent 80%)`
+              }}
+            />
+
+            <div className="relative z-10 flex flex-col gap-4">
+              <h3 className="font-heading font-black text-2xl sm:text-3xl tracking-tight text-text-primary">
+                👋 Hello, I'm Piyush Landge
+              </h3>
+              
+              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wide font-mono bg-purple-500/10 text-purple-600 border border-purple-500/20">
+                  Computer Science Graduate
+                </span>
+                <span className="text-text-muted text-xs font-semibold font-sans hidden sm:inline">|</span>
+                <span className="text-text-secondary text-xs sm:text-sm font-semibold font-sans">
+                  AI Engineer &bull; Backend Developer &bull; Generative AI Enthusiast
+                </span>
+              </div>
+
+              <div className="font-sans text-text-secondary text-[0.92rem] leading-relaxed mt-2 max-w-4xl flex flex-col gap-3">
+                <p>
+                  I build intelligent applications using Machine Learning, Generative AI, FastAPI, and modern backend technologies. Passionate about creating scalable AI solutions that solve real-world problems and deliver meaningful impact.
+                </p>
+              </div>
+
+              {/* Personal Details Micro-Badges */}
+              <div className="flex flex-wrap gap-4 md:gap-8 mt-4 pt-5 border-t border-text-primary/5 text-[0.72rem] font-mono font-bold text-text-secondary select-none">
+                <div className="flex items-center gap-2">
+                  <span className="text-base">📍</span>
+                  <span>Pune, India</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-base">🎓</span>
+                  <span>B.Sc. Computer Science</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-base">💼</span>
+                  <span>Open to AI Engineer Opportunities</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
           {/* ── CARD 2: Tech Stack / Interactive Skills (Restructured to "My Expertise") ── */}
           <div
             id="skills"
