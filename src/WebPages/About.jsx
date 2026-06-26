@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { 
   GraduationCap, Briefcase, ChevronDown, ChevronUp, MapPin, 
-  Sparkles, Brain, Zap, LineChart, Database, Terminal 
+  Sparkles, Brain, Cpu, BarChart2, Database, Cloud 
 } from 'lucide-react';
 
 
@@ -176,50 +176,28 @@ export default function About() {
               {[
                 {
                   title: 'AI & Machine Learning',
+                  icon: <Cpu size={14} className="text-cyan-500" />,
+                  skills: ['Python', 'Machine Learning', 'Deep Learning', 'Computer Vision']
+                },
+                {
+                  title: 'Artificial Intelligence',
                   icon: <Brain size={14} className="text-purple-500" />,
-                  skills: [
-                    'Artificial Intelligence', 'Machine Learning', 'Deep Learning', 
-                    'Computer Vision', 'Natural Language Processing (NLP)', 'TensorFlow', 
-                    'BERT', 'Generative AI', 'Agentic AI', 'Transformers', 
-                    'Large Language Models (LLMs)', 'Autoencoders', 'GANs', 'AI Ethics'
-                  ]
+                  skills: ['Artificial Intelligence', 'Natural Language Processing (NLP)', 'Generative AI', 'Large Language Models (LLMs)']
                 },
                 {
-                  title: 'Programming & Backend',
-                  icon: <Zap size={14} className="text-amber-500" />,
-                  skills: [
-                    'Python', 'Flask', 'Regular Expressions (Regex)', 
-                    'Data Structures', 'Functions', 'Lambda Functions', 
-                    'Model Deployment', 'REST API Development', 'URL Routing'
-                  ]
+                  title: 'Data Science',
+                  icon: <BarChart2 size={14} className="text-blue-500" />,
+                  skills: ['NumPy', 'Pandas', 'Statistics', 'Data Visualization']
                 },
                 {
-                  title: 'Data Science & Analytics',
-                  icon: <LineChart size={14} className="text-blue-500" />,
-                  skills: [
-                    'NumPy', 'Pandas', 'Matplotlib', 'Seaborn', 
-                    'Statistics', 'Exploratory Data Analysis (EDA)', 'Feature Engineering', 
-                    'Feature Scaling', 'Data Transformation', 'Time Series Forecasting', 
-                    'Sentiment Analysis', 'Hypothesis Testing', 'Data Visualization'
-                  ]
+                  title: 'Backend & Database',
+                  icon: <Database size={14} className="text-amber-500" />,
+                  skills: ['Flask', 'SQL', 'MongoDB', 'Git']
                 },
                 {
-                  title: 'Databases & Cloud',
-                  icon: <Database size={14} className="text-cyan-500" />,
-                  skills: [
-                    'SQL', 'MySQL', 'MongoDB', 'Hadoop', 'HDFS', 
-                    'PySpark', 'Spark SQL', 'Hadoop Hive', 'AWS', 
-                    'Amazon EC2', 'Amazon SageMaker', 'Azure Machine Learning'
-                  ]
-                },
-                {
-                  title: 'Tools & Version Control',
-                  icon: <Terminal size={14} className="text-emerald-500" />,
-                  skills: [
-                    'Git', 'GitHub', 'Bitbucket', 'Google Colab', 
-                    'Anaconda', 'PyCharm', 'MySQL Workbench', 'Microsoft Excel', 
-                    'Scikit-learn', 'NLTK'
-                  ]
+                  title: 'Big Data & Cloud',
+                  icon: <Cloud size={14} className="text-emerald-500" />,
+                  skills: ['PySpark', 'Hadoop', 'AWS', 'Azure']
                 }
               ].map((category, idx) => (
                 <div
