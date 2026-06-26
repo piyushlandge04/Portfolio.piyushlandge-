@@ -1,385 +1,108 @@
-import { useState, useEffect, useRef, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { 
-  Code2, Terminal, Cpu, Brain, LineChart, Eye, Cloud, Play, Check, Copy, 
-  GraduationCap, Briefcase, Sparkles, MapPin, Mail, GitBranch, Search, 
-  Plus, Settings, ChevronDown, ChevronUp, Activity, Database, Calendar, RefreshCw
+  GraduationCap, Briefcase, Sparkles, MapPin, Mail, 
+  ChevronDown, ChevronUp, Activity, Terminal, Cpu, HardDrive
 } from 'lucide-react';
 
+const MOCK_TERMINAL_LOGS = [
+  { type: 'sys', text: 'Initializing Agent Environment...' },
+  { type: 'ok', text: 'Local workspace synchronized (12 files loaded)' },
+  { type: 'ok', text: 'Loaded PyTorch runtime - CUDA 12.1' },
+  { type: 'sys', text: 'Handshake completed on ports...' },
+  { type: 'ok', text: 'Agent Node online on PORT 5173' },
+  { type: 'run', text: 'Compiling flash-attention kernel layers...' },
+  { type: 'stat', text: 'Attention projections verified [heads: 8, d_model: 512]' },
+  { type: 'ok', text: 'Forward pass latency optimized: 1.14ms' },
+  { type: 'run', text: 'Evaluating transformer pipelines...' },
+  { type: 'stat', text: 'Pipeline accuracy matched target threshold' },
+  { type: 'ok', text: 'Active learning loop listening for triggers...' },
+  { type: 'run', text: 'Monitoring vector database queries...' },
+  { type: 'sys', text: 'Agent status: monitoring runtime logs' }
+];
+
+const experienceTimeline = [
+  {
+    period: 'Apr 2026 – Present',
+    duration: '2 mos',
+    role: 'AI Intern',
+    company: 'Applogix Solutions',
+    type: 'Internship',
+    color: '#a855f7',
+    details: [
+      'Organized complex backend data pipelines and designed pre-processing methodologies using Python.',
+      'Executed fine-tuning parameter sweeps and managed tensor matrices to optimize inference latency.',
+      'Audited model evaluations, compiled metric trackers, and produced technical documentation.'
+    ],
+    takeaway: 'Acquired deep production experience in scaling data prep pipelines and adjusting weight parameters.'
+  },
+  {
+    period: 'Feb 2026 – Mar 2026',
+    duration: '2 mos',
+    role: 'AI Project Intern',
+    company: 'Applogix Solutions',
+    type: 'Internship',
+    color: '#6366f1',
+    details: [
+      'Maintained automated auditing modules for deep learning models, identifying gradient clipping bottlenecks.',
+      'Implemented validation checks that verified dataset token structures before neural compiler inputs.',
+      'Collaborated on optimization parameters which resulted in improved validation benchmark results.'
+    ],
+    takeaway: 'Mastered standard regression auditing loops and model training parameter verification patterns.'
+  }
+];
+
+const educationTimeline = [
+  {
+    period: '2023 – 2026',
+    degree: 'B.Sc. Computer Science',
+    institution: 'B.K. Birla College, Kalyan',
+    grade: 'CGPA 8.00',
+    color: '#22d3ee',
+    details: 'Comprehensive exploration of backend database models, high-performance algorithms, and computational principles. Maintained an excellent academic track record.',
+  },
+  {
+    period: '2022 – 2023',
+    degree: 'HSC – Maharashtra State Board',
+    institution: 'D.D.S.P. College, Erandol',
+    color: '#34d399',
+    details: 'Scientific stream curriculum focusing on mathematics, logical theorems, and engineering concepts.',
+  }
+];
+
 export default function About() {
-  // General Interactive States
-  const [copied, setCopied] = useState(false);
-  const [activeTab, setActiveTab] = useState('attention_layer.py');
-  const [isRunning, setIsRunning] = useState(false);
-  const [showConsole, setShowConsole] = useState(true);
-  const [consoleLogs, setConsoleLogs] = useState([
-    'SYSTEM: Workspace ready. Run sandbox to benchmark computations.'
-  ]);
-  
-  // Custom configurations
-  const [editorFontSize, setEditorFontSize] = useState(12);
-  const [editorTheme, setEditorTheme] = useState('one-dark');
-  const [showLineNumbers, setShowLineNumbers] = useState(true);
-
-  // Sliders for AI Configurations
-  const [headsVal, setHeadsVal] = useState(8);
-  const [dModelVal, setDModelVal] = useState(512);
-
-  // New states for the redesigned Bento components
-  const [activeSandboxTab, setActiveSandboxTab] = useState('playground'); // playground | visualizer | training
   const [expandedExperience, setExpandedExperience] = useState(0); // expand first item by default
   const [expandedEducation, setExpandedEducation] = useState(null);
-  
-  // Profile status loops
-  const [currentStatusIdx, setCurrentStatusIdx] = useState(0);
-  const developerStatuses = [
-    'training flash-attention layers...',
-    'optimizing transformer pipelines...',
-    'evaluating multi-head accuracy...',
-    'building intelligent agent nodes...',
-    'designing responsive AI sandboxes...'
-  ];
+
+  // Dynamic Terminal Logs State
+  const [terminalLogs, setTerminalLogs] = useState(MOCK_TERMINAL_LOGS.slice(0, 5));
+  const [sysMetrics, setSysMetrics] = useState({ cpu: 12, vram: 4.8, latency: 1.12 });
 
   useEffect(() => {
-    const statusInterval = setInterval(() => {
-      setCurrentStatusIdx((prev) => (prev + 1) % developerStatuses.length);
-    }, 3500);
-    return () => clearInterval(statusInterval);
-  }, []);
-
-  // Git commit and file additions list state
-  const [filesList, setFilesList] = useState(['attention_layer.py', 'model_eval.py', 'README.md']);
-  const [newFileName, setNewFileName] = useState('');
-  const [showNewFileInput, setShowNewFileInput] = useState(false);
-  const [customFilesData, setCustomFilesData] = useState({});
-  const [searchQuery, setSearchQuery] = useState('');
-  const [commitMessage, setCommitMessage] = useState('');
-
-  // 1. Attention Visualizer dynamic states
-  const [activeVisualizerHead, setActiveVisualizerHead] = useState(1);
-  const [hoveredQueryToken, setHoveredQueryToken] = useState(null);
-
-  // 2. Simulated Training States
-  const [isTraining, setIsTraining] = useState(false);
-  const [trainingEpoch, setTrainingEpoch] = useState(0);
-  const [trainingLoss, setTrainingLoss] = useState(2.45);
-  const [trainingAcc, setTrainingAcc] = useState(32.5);
-  const [lossHistory, setLossHistory] = useState([]);
-  const [accHistory, setAccHistory] = useState([]);
-
-  // Git Hub Grid Hover Status
-  const [hoveredContributionDate, setHoveredContributionDate] = useState(null);
-
-  const themes = {
-    'one-dark': {
-      bg: 'bg-white',
-      text: 'text-[#24292f]',
-      comment: 'text-[#6e7781] font-mono italic',
-      variable: 'text-[#0550ae]',
-      string: 'text-[#0a3069]',
-      keyword: 'text-[#cf222e]',
-      func: 'text-[#8250df]',
-      type: 'text-[#0a3069]',
-      number: 'text-[#0a3069]',
-    }
-  };
-
-  const getCodeForFile = (filename) => {
-    if (filename === 'README.md') {
-      return `# FlashAttention CUDA Benchmark Sandbox
-
-Optimize attention maps directly in the browser.
-
-## Configurations:
-- heads = ${headsVal} (Multi-Head Attention count)
-- d_model = ${dModelVal} (Hidden size feature embeddings)
-
-## Instructions:
-1. Adjust hyperparameters in the sidebar configuration.
-2. Click "Run Sandbox Workflow" to compile runtime metrics.
-3. Try the "Attention Visualizer" or "Actions (Training)" tabs!`;
-    }
-    if (filename === 'attention_layer.py') {
-      return `# Optimized FlashSelfAttention Layer
-import torch
-import torch.nn as nn
-
-class FlashSelfAttention(nn.Module):
-    def __init__(self, d_model=${dModelVal}, heads=${headsVal}):
-        super().__init__()
-        self.heads = heads
-        self.d_model = d_model
-        self.qkv_proj = nn.Linear(d_model, 3 * d_model)
-        self.out_proj = nn.Linear(d_model, d_model)
-
-    def forward(self, x):
-        # x shape: (batch_size, seq_len, d_model)
-        qkv = self.qkv_proj(x)
-        q, k, v = qkv.chunk(3, dim=-1)
-        
-        # Optimized SDPA (calls native flash kernel if causal)
-        out = nn.functional.scaled_dot_product_attention(
-            q, k, v, is_causal=True
-        )
-        return self.out_proj(out)`;
-    }
-    if (filename === 'model_eval.py') {
-      return `# Causal Attention Matrix Benchmark
-import time
-import torch
-
-def run_benchmark():
-    # Sync GPU & start timers
-    model = FlashSelfAttention(d_model=${dModelVal}, heads=${headsVal}).cuda()
-    x = torch.randn(4, 1024, ${dModelVal}).cuda()
-    
-    torch.cuda.synchronize()
-    start = time.perf_counter()
-    out = model(x)
-    torch.cuda.synchronize()
-    latency = (time.perf_counter() - start) * 1000
-    
-    print(f"Latency: {latency:.2f}ms")
-    print(f"Memory allocated: {torch.cuda.max_memory_allocated() / 1e6:.1f}MB")
-
-run_benchmark()`;
-    }
-    return customFilesData[filename] || `# Custom module: ${filename}\nprint("Executed custom target successfully")`;
-  };
-
-  const getActiveCode = () => {
-    return getCodeForFile(activeTab);
-  };
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(getActiveCode());
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  // Compile / Run Simulation
-  const handleRunCode = () => {
-    if (isRunning) return;
-    setIsRunning(true);
-    setShowConsole(true);
-    setConsoleLogs(['SYSTEM: Compiling model configurations...', 'ALLOC: Synchronizing CUDA execution graph...']);
-    
-    setTimeout(() => setConsoleLogs(p => [...p, `FILE: Loaded active file [${activeTab}]`]), 300);
-    setTimeout(() => setConsoleLogs(p => [...p,
-      `TENSOR: Allocating sequence matrix [shape: (4, 1024, ${dModelVal})]`
-    ]), 600);
-    
-    setTimeout(() => {
-      const computedLatency = (1.1 + (headsVal * 0.08) + (dModelVal / 512) * 0.45).toFixed(2);
-      const computedVram = (3.8 + (dModelVal / 512) * 6.2 + (headsVal * 0.15)).toFixed(1);
-      
-      if (activeTab === 'attention_layer.py') {
-        setConsoleLogs(p => [...p,
-          `VERIFY: Attention projections matched [heads: ${headsVal}, d_model: ${dModelVal}]`,
-          `SYSTEM: Completed forward pass. Status → OK (took ${computedLatency}ms)`
-        ]);
-      } else if (activeTab === 'model_eval.py') {
-        setConsoleLogs(p => [...p,
-          `BENCHMARK: CUDA execution run finished.`,
-          `LATENCY: ${computedLatency}ms`,
-          `VRAM UTILIZATION: ${computedVram}MB / 16.0GB VRAM`,
-          `STATUS: Benchmark complete.`
-        ]);
-      } else {
-        setConsoleLogs(p => [...p,
-          `EXEC: Finished running target ${activeTab}.`,
-          `PARAMS: d_model=${dModelVal}, heads=${headsVal}`,
-          `STATUS: OK`
-        ]);
-      }
-      setIsRunning(false);
-    }, 1400);
-  };
-
-  // Dynamic Attention Simulation Details
-  const visualizerTokens = [
-    "The", "neural", "attention", "mechanism", "learns", "contextual", "word", "vectors"
-  ];
-
-  // Mock attention weights matching different heads
-  const getAttentionWeight = (queryIdx, keyIdx, head) => {
-    if (keyIdx > queryIdx) return 0;
-    
-    const diff = queryIdx - keyIdx;
-    
-    if (head === 1) {
-      return diff === 0 ? 0.65 : diff === 1 ? 0.35 : 0;
-    }
-    if (head === 2) {
-      if (keyIdx === 2) return 0.55;
-      if (keyIdx === 3) return 0.25;
-      return diff === 0 ? 0.2 : 0;
-    }
-    if (head === 3) {
-      return 1 / (queryIdx + 1);
-    }
-    if (keyIdx === 0) return 0.6;
-    return diff === 0 ? 0.4 : 0;
-  };
-
-  // Live Model Training simulator function
-  const runModelTraining = () => {
-    if (isTraining) return;
-    setIsTraining(true);
-    setTrainingEpoch(0);
-    setLossHistory([]);
-    setAccHistory([]);
-    
-    let currentEpoch = 0;
+    let logCounter = 5;
     const interval = setInterval(() => {
-      currentEpoch += 1;
-      setTrainingEpoch(currentEpoch);
-      
-      const loss = (2.2 * Math.exp(-currentEpoch / 14) + 0.12 + Math.random() * 0.05).toFixed(3);
-      const acc = (30 + 64 * (1 - Math.exp(-currentEpoch / 11)) + Math.random() * 1.5).toFixed(1);
-      
-      setTrainingLoss(parseFloat(loss));
-      setTrainingAcc(parseFloat(acc));
-      
-      setLossHistory(prev => [...prev, parseFloat(loss)]);
-      setAccHistory(prev => [...prev, parseFloat(acc)]);
-      
-      if (currentEpoch >= 40) {
-        clearInterval(interval);
-        setIsTraining(false);
-      }
-    }, 120);
-  };
+      // Add next log in sequence
+      setTerminalLogs(prev => {
+        const nextLog = MOCK_TERMINAL_LOGS[logCounter % MOCK_TERMINAL_LOGS.length];
+        logCounter++;
+        // Keep last 5 logs for cleanliness
+        return [...prev.slice(1), nextLog];
+      });
 
-  // Convert histories into coordinates for SVG polyline charts (viewBox="0 0 100 100")
-  const getChartPoints = (history, minVal, maxVal) => {
-    if (history.length === 0) return '';
-    return history.map((val, idx) => {
-      const x = ((idx / (history.length - 1)) * 80 + 10).toFixed(1);
-      const normVal = (val - minVal) / (maxVal - minVal || 1);
-      const y = (90 - normVal * 80).toFixed(1);
-      return `${x},${y}`;
-    }).join(' ');
-  };
+      // Randomly flucutate system metrics slightly
+      setSysMetrics({
+        cpu: Math.floor(8 + Math.random() * 16),
+        vram: parseFloat((4.6 + Math.random() * 0.5).toFixed(2)),
+        latency: parseFloat((1.08 + Math.random() * 0.15).toFixed(2))
+      });
+    }, 3500);
 
-  // Precalculated mock contributions grid data
-  const contributionGrid = useMemo(() => {
-    const dates = [];
-    const baseDate = new Date();
-    for (let r = 0; r < 5; r++) {
-      const row = [];
-      for (let c = 0; c < 15; c++) {
-        const dayOffset = (r * 15 + c) - 75;
-        const targetDate = new Date(baseDate);
-        targetDate.setDate(baseDate.getDate() + dayOffset);
-        
-        const rand = Math.random();
-        const level = rand > 0.85 ? 4 : rand > 0.7 ? 3 : rand > 0.45 ? 2 : rand > 0.25 ? 1 : 0;
-        
-        row.push({
-          level,
-          date: targetDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-          commits: level * 2 + (level > 0 ? Math.floor(Math.random() * 2) : 0)
-        });
-      }
-      dates.push(row);
-    }
-    return dates;
+    return () => clearInterval(interval);
   }, []);
-
-  // Skills data restructured to match user's categories
-
-  const experienceTimeline = [
-    {
-      period: 'Apr 2026 – Present',
-      duration: '2 mos',
-      role: 'AI Intern',
-      company: 'Applogix Solutions',
-      type: 'Internship',
-      color: '#a855f7',
-      details: [
-        'Organized complex backend data pipelines and designed pre-processing methodologies using Python.',
-        'Executed fine-tuning parameter sweeps and managed tensor matrices to optimize inference latency.',
-        'Audited model evaluations, compiled metric trackers, and produced technical documentation.'
-      ],
-      takeaway: 'Acquired deep production experience in scaling data prep pipelines and adjusting weight parameters.'
-    },
-    {
-      period: 'Feb 2026 – Mar 2026',
-      duration: '2 mos',
-      role: 'AI Project Intern',
-      company: 'Applogix Solutions',
-      type: 'Internship',
-      color: '#6366f1',
-      details: [
-        'Maintained automated auditing modules for deep learning models, identifying gradient clipping bottlenecks.',
-        'Implemented validation checks that verified dataset token structures before neural compiler inputs.',
-        'Collaborated on optimization parameters which resulted in improved validation benchmark results.'
-      ],
-      takeaway: 'Mastered standard regression auditing loops and model training parameter verification patterns.'
-    }
-  ];
-
-  const educationTimeline = [
-    {
-      period: '2023 – 2026',
-      degree: 'B.Sc. Computer Science',
-      institution: 'B.K. Birla College, Kalyan',
-      grade: 'CGPA 8.00',
-      color: '#22d3ee',
-      details: 'Comprehensive exploration of backend database models, high-performance algorithms, and computational principles. Maintained an excellent academic track record.',
-    },
-    {
-      period: '2022 – 2023',
-      degree: 'HSC – Maharashtra State Board',
-      institution: 'D.D.S.P. College, Erandol',
-      color: '#34d399',
-      details: 'Scientific stream curriculum focusing on mathematics, logical theorems, and engineering concepts.',
-    }
-  ];
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     e.currentTarget.style.setProperty('--mouse-x-relative', `${e.clientX - rect.left}px`);
     e.currentTarget.style.setProperty('--mouse-y-relative', `${e.clientY - rect.top}px`);
-  };
-
-  const handleCreateFile = (e) => {
-    if (e) e.preventDefault();
-    if (!newFileName.trim()) return;
-    let name = newFileName.trim();
-    if (!name.endsWith('.py') && !name.endsWith('.md') && !name.endsWith('.txt')) {
-      name = `${name}.py`;
-    }
-    if (!filesList.includes(name)) {
-      setFilesList([...filesList, name]);
-      setCustomFilesData(prev => ({
-        ...prev,
-        [name]: `# Custom Module: ${name}\n# Configured values: heads=${headsVal}, d_model=${dModelVal}\nprint("Executed custom script")`
-      }));
-    }
-    setActiveTab(name);
-    setNewFileName('');
-    setShowNewFileInput(false);
-  };
-
-  const getSearchResults = () => {
-    if (!searchQuery.trim()) return [];
-    const query = searchQuery.toLowerCase();
-    const results = [];
-    filesList.forEach(file => {
-      const code = getCodeForFile(file);
-      const lines = code.split('\n');
-      lines.forEach((line, index) => {
-        if (line.toLowerCase().includes(query)) {
-          results.push({
-            file,
-            lineNumber: index + 1,
-            content: line.trim()
-          });
-        }
-      });
-    });
-    return results;
   };
 
   return (
@@ -404,7 +127,7 @@ run_benchmark()`;
             </span>
           </h2>
           <p className="mt-4 text-text-secondary text-base max-w-lg mx-auto font-sans leading-relaxed">
-            Discover my background, core technical skills, and play with my interactive model simulator.
+            Discover my background, core technical skills, and agentic workflows.
           </p>
         </div>
 
@@ -429,12 +152,15 @@ run_benchmark()`;
                 
                 {/* Animated Avatar */}
                 <div className="relative shrink-0 group/avatar">
-                  <div className="absolute inset-[-4px] bg-linear-to-tr from-orange-500 via-amber-400 to-rose-500 rounded-3xl blur-[12px] opacity-55 group-hover/avatar:opacity-80 transition-opacity duration-500 animate-[spin_4s_linear_infinite]" />
+                  {/* Neon Warm Light Glow behind avatar container */}
+                  <div className="absolute inset-[-6px] bg-linear-to-tr from-orange-500 via-amber-500 to-rose-600 rounded-3xl blur-[14px] opacity-65 group-hover/avatar:opacity-90 transition-opacity duration-500 animate-[spin_5s_linear_infinite]" />
                   <div
-                    className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl flex items-center justify-center text-4xl sm:text-5xl font-black text-white font-heading relative overflow-hidden border border-text-primary/10 bg-text-primary shadow-xl z-10"
+                    className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl flex flex-col items-center justify-center font-heading relative overflow-hidden border border-text-primary/10 bg-linear-to-b from-[#1a1c1e] to-[#0f1011] shadow-2xl z-10 select-none group/box"
                   >
-                    PL
-                    <div className="absolute inset-0 bg-linear-to-tr from-black/20 to-transparent pointer-events-none" />
+                    <div className="absolute inset-0 opacity-10 bg-[linear-gradient(rgba(255,255,255,0.07)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.07)_1px,transparent_1px)] bg-[size:10px_10px]" />
+                    <span className="text-4xl sm:text-5xl font-black bg-linear-to-b from-white to-[#d1d5db] bg-clip-text text-transparent drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)] tracking-tight">
+                      PL
+                    </span>
                   </div>
                   {/* Status indicator heartbeat */}
                   <span className="absolute bottom-[-4px] right-[-4px] flex h-5 w-5 z-20">
@@ -479,39 +205,85 @@ run_benchmark()`;
                 </div>
 
                 {/* Focus Area Tags */}
-                <div className="flex flex-wrap gap-2 mt-2">
+                <div className="flex flex-wrap gap-2.5 mt-2">
                   {[
-                    { label: 'PyTorch', color: 'text-orange-600', bg: 'bg-orange-500/10' },
-                    { label: 'Generative AI', color: 'text-purple-600', bg: 'bg-purple-500/10' },
-                    { label: 'LLMs & Agents', color: 'text-blue-600', bg: 'bg-blue-500/10' },
-                    { label: 'Cloud Architecture', color: 'text-cyan-600', bg: 'bg-cyan-500/10' },
+                    { label: 'PyTorch', color: '#ee4c2c', bg: 'rgba(238, 76, 44, 0.05)', border: 'rgba(238, 76, 44, 0.15)' },
+                    { label: 'Generative AI', color: '#a855f7', bg: 'rgba(168, 85, 247, 0.05)', border: 'rgba(168, 85, 247, 0.15)' },
+                    { label: 'LLMs & Agents', color: '#3b82f6', bg: 'rgba(59, 130, 246, 0.05)', border: 'rgba(59, 130, 246, 0.15)' },
+                    { label: 'Cloud Architecture', color: '#06b6d4', bg: 'rgba(6, 182, 212, 0.05)', border: 'rgba(6, 182, 212, 0.15)' },
                   ].map((tag, i) => (
-                    <span key={i} className={`inline-flex items-center px-3 py-1.5 rounded-full text-[0.7rem] font-bold tracking-wide ${tag.color} ${tag.bg}`}>
+                    <span 
+                      key={i} 
+                      className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-[0.72rem] font-bold tracking-wide font-mono transition-all duration-300 hover:scale-[1.03] shadow-xs cursor-default"
+                      style={{
+                        color: tag.color,
+                        backgroundColor: tag.bg,
+                        border: `1px solid ${tag.border}`
+                      }}
+                    >
+                      <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ backgroundColor: tag.color }} />
                       {tag.label}
                     </span>
                   ))}
                 </div>
 
-                {/* Process Agent Status Widget */}
-                <div className="mt-4 bg-bg-card border border-text-primary/10 rounded-2xl p-4 flex flex-col justify-between font-mono text-[0.75rem] shadow-sm relative overflow-hidden">
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-purple-500/5 rounded-full blur-2xl pointer-events-none" />
-                  
-                  <div className="flex items-center gap-2 text-text-muted border-b border-text-primary/5 pb-2 mb-3 relative z-10">
-                    <Activity size={14} className="text-purple-500 animate-pulse" />
-                    <span className="font-bold tracking-widest text-[0.65rem] uppercase">Process Agent Status</span>
-                  </div>
-                  
-                  <div className="flex items-center text-text-primary font-medium relative z-10">
-                    <span className="text-emerald-500 mr-2 text-lg leading-none">›</span>
-                    <span className="truncate">{developerStatuses[currentStatusIdx] || 'Compiling inference metrics...'}</span>
-                  </div>
-                  
-                  <div className="flex items-center justify-between mt-3 text-[0.65rem] font-bold relative z-10">
-                    <span className="text-text-muted">PORT: 5173</span>
-                    <span className="flex items-center gap-1.5 text-emerald-500 bg-emerald-500/10 px-2 py-0.5 rounded-full">
-                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
-                      ACTIVE
+                {/* Process Agent Status Terminal Widget */}
+                <div className="mt-4 bg-[#0a0b0d] border border-neutral-800 rounded-2xl p-4 flex flex-col font-mono text-[0.72rem] text-[#f8f8f2] shadow-xl relative overflow-hidden">
+                  {/* Top Bar with window control circles */}
+                  <div className="flex items-center justify-between border-b border-neutral-800 pb-2.5 mb-3 relative z-10">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-3 h-3 rounded-full bg-[#ff5f56]" />
+                      <span className="w-3 h-3 rounded-full bg-[#ffbd2e]" />
+                      <span className="w-3 h-3 rounded-full bg-[#27c93f]" />
+                    </div>
+                    <span className="text-[0.62rem] text-neutral-500 font-bold uppercase tracking-wider">piyush@agent-node:~</span>
+                    <span className="flex items-center gap-1.5">
+                      <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
+                      <span className="text-[0.55rem] text-emerald-500 font-bold">ONLINE</span>
                     </span>
+                  </div>
+
+                  {/* Terminal Console Stream */}
+                  <div className="flex flex-col gap-1.5 min-h-[95px] font-mono leading-relaxed select-none">
+                    {terminalLogs.map((log, idx) => {
+                      let colorClass = 'text-neutral-400';
+                      let prefix = '›';
+                      if (log.type === 'ok') {
+                        colorClass = 'text-emerald-400';
+                        prefix = '✔';
+                      } else if (log.type === 'sys') {
+                        colorClass = 'text-cyan-400';
+                        prefix = 'ℹ';
+                      } else if (log.type === 'run') {
+                        colorClass = 'text-purple-400';
+                        prefix = '⚙';
+                      } else if (log.type === 'stat') {
+                        colorClass = 'text-amber-400';
+                        prefix = '★';
+                      }
+                      return (
+                        <div key={idx} className={`flex items-start gap-2 transition-all duration-300 ${colorClass}`}>
+                          <span className="shrink-0 opacity-80">{prefix}</span>
+                          <span className="break-all">{log.text}</span>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  {/* System Stats Section */}
+                  <div className="grid grid-cols-3 gap-2 mt-4 pt-3 border-t border-neutral-800 text-[0.6rem] font-bold text-neutral-500">
+                    <div className="flex items-center gap-1.5">
+                      <Cpu size={12} className="text-purple-500" />
+                      <span>CPU: <span className="text-neutral-300">{sysMetrics.cpu}%</span></span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <HardDrive size={12} className="text-cyan-500" />
+                      <span>VRAM: <span className="text-neutral-300">{sysMetrics.vram} GB</span></span>
+                    </div>
+                    <div className="flex items-center gap-1.5">
+                      <Activity size={12} className="text-amber-500" />
+                      <span>LATENCY: <span className="text-neutral-300">{sysMetrics.latency}ms</span></span>
+                    </div>
                   </div>
                 </div>
 
