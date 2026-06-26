@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { GraduationCap, Briefcase, ChevronDown, ChevronUp } from 'lucide-react';
+import { GraduationCap, Briefcase, ChevronDown, ChevronUp, MapPin } from 'lucide-react';
 
 
 
@@ -129,15 +129,15 @@ export default function About() {
               {/* Personal Details Micro-Badges */}
               <div className="flex flex-wrap gap-4 md:gap-8 mt-4 pt-5 border-t border-text-primary/5 text-[0.72rem] font-mono font-bold text-text-secondary select-none">
                 <div className="flex items-center gap-2">
-                  <span className="text-base">📍</span>
+                  <MapPin size={13} className="text-cyan-500" />
                   <span>Pune, India</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-base">🎓</span>
+                  <GraduationCap size={13} className="text-purple-500" />
                   <span>B.Sc. Computer Science</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-base">💼</span>
+                  <Briefcase size={13} className="text-amber-500" />
                   <span>Open to AI Engineer Opportunities</span>
                 </div>
               </div>
