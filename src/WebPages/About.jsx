@@ -40,7 +40,7 @@ const experienceTimeline = [
 const educationTimeline = [
   {
     period: '2023 – 2026',
-    degree: 'B.Sc. Computer Science',
+
     institution: 'B.K. Birla College, Kalyan',
     grade: 'CGPA 8.00',
     color: '#22d3ee',
@@ -108,40 +108,62 @@ export default function About() {
               }}
             />
 
-            <div className="relative z-10 flex flex-col gap-4">
-              <h3 className="font-heading font-black text-2xl sm:text-3xl tracking-tight text-text-primary flex items-center gap-2 select-none">
-                <Sparkles className="text-purple-500 animate-pulse" size={24} /> Hello, I'm Piyush Landge
-              </h3>
-              
-              <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-                <span className="inline-flex items-center px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wide font-mono bg-purple-500/10 text-purple-600 border border-purple-500/20">
-                  Computer Science Graduate
+            <div className="relative z-10 flex flex-col gap-5">
+              {/* Greeting & Name */}
+              <div>
+                <p className="text-[0.65rem] font-mono font-bold uppercase tracking-[0.2em] text-text-primary/30 mb-2">👋 Hello, World</p>
+                <h3 className="font-heading font-black text-3xl sm:text-4xl tracking-tight text-text-primary flex items-center gap-3 select-none">
+                  I'm Piyush Landge
+                  <Sparkles className="text-purple-400 animate-pulse shrink-0" size={22} />
+                </h3>
+              </div>
+
+              {/* Role Pills */}
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wide font-mono bg-purple-500/10 text-purple-400 border border-purple-500/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse"></span>
+                  AI Engineer
                 </span>
-                <span className="text-text-muted text-xs font-semibold font-sans hidden sm:inline">|</span>
-                <span className="text-text-secondary text-xs sm:text-sm font-semibold font-sans">
-                  AI Engineer &bull; Backend Developer &bull; Generative AI Enthusiast
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wide font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
+                  Backend Developer
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wide font-mono bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                  Generative AI Enthusiast
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wide font-mono bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+                  CS Graduate
                 </span>
               </div>
 
-              <div className="font-sans text-text-secondary text-[0.92rem] leading-relaxed mt-2 max-w-4xl flex flex-col gap-3">
+              {/* Bio */}
+              <div className="font-sans text-text-secondary text-[0.93rem] leading-[1.8] max-w-4xl flex flex-col gap-3">
                 <p>
-                  I build intelligent applications using Machine Learning, Generative AI, FastAPI, and modern backend technologies. Passionate about creating scalable AI solutions that solve real-world problems and deliver meaningful impact.
+                  I turn ideas into <span className="text-text-primary font-semibold">intelligent, production-ready systems</span> — crafting everything from fine-tuned LLM pipelines and Generative AI applications to robust FastAPI backends and data-driven ML solutions.
+                </p>
+                <p>
+                  Currently focused on <span className="text-purple-400 font-semibold">agentic AI</span> and <span className="text-cyan-400 font-semibold">scalable backend architecture</span>, I'm passionate about shipping technology that solves real problems and leaves a measurable impact. When I'm not building, I'm exploring the latest in AI research.
                 </p>
               </div>
 
               {/* Personal Details Micro-Badges */}
-              <div className="flex flex-wrap gap-4 md:gap-8 mt-4 pt-5 border-t border-text-primary/5 text-[0.72rem] font-mono font-bold text-text-secondary select-none">
+              <div className="flex flex-wrap gap-4 md:gap-8 mt-2 pt-5 border-t border-text-primary/5 text-[0.72rem] font-mono font-bold text-text-secondary select-none">
                 <div className="flex items-center gap-2">
                   <MapPin size={13} className="text-cyan-500" />
                   <span>Pune, India</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <GraduationCap size={13} className="text-purple-500" />
-                  <span>B.Sc. Computer Science</span>
-                </div>
-                <div className="flex items-center gap-2">
                   <Briefcase size={13} className="text-amber-500" />
                   <span>Open to AI Engineer Opportunities</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  </span>
+                  <span className="text-emerald-400">Available for Work</span>
                 </div>
               </div>
 

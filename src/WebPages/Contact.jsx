@@ -346,7 +346,6 @@ export default function Contact() {
           {/* Bottom section: Copyright */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-text-muted font-bold tracking-wider">
             <p>Copyright &copy; {new Date().getFullYear()} portfolio.piyushlandge. All rights reserved.</p>
-            <p className="text-[0.6rem] font-mono opacity-60">DESIGNED &amp; DEVELOPED BY PIYUSH LANDGE</p>
           </div>
 
         </div>

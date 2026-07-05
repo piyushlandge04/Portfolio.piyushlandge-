@@ -40,7 +40,7 @@ export default function Projects() {
       tags: ['React', 'Tailwind CSS', 'Canvas API', 'API Integration'],
       categories: ['ai-ml', 'frontend'],
       github: null,
-      live: '#',
+      live: 'https://piyushai.vercel.app/',
       color: 'linear-gradient(135deg, #fff1f2 0%, #fff7ed 100%)',
       glowRGB: '244, 63, 94', // rose-500
       icon: <Layers size={13} className="text-rose-400" />,
@@ -225,24 +225,36 @@ export default function Projects() {
                 </div>
 
                 {/* Action Buttons */}
-                <div className="flex gap-4 border-t border-text-primary/5 pt-5 mt-auto font-mono text-[0.68rem] select-none">
-                  {project.github && (
-                    <a 
-                      href={project.github} 
-                      className="flex items-center gap-1.5 font-black text-text-secondary hover:text-text-primary transition-all duration-200 uppercase tracking-wider" 
+                <div className="flex gap-2.5 border-t border-text-primary/5 pt-5 mt-auto font-mono text-[0.68rem] select-none items-center">
+                  {project.github && project.github !== '#' ? (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-text-primary bg-text-primary/8 border border-text-primary/10 hover:bg-text-primary/12 hover:border-text-primary/20 shadow-sm transition-all duration-300 hover:-translate-y-0.5"
                       aria-label="GitHub Repository"
                     >
-                      <Github size={13} /> Code
+                      <Github size={12} /> Repo
                     </a>
+                  ) : (
+                    <span className="flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-text-muted bg-text-primary/5 border border-text-primary/5 cursor-not-allowed opacity-40">
+                      <Github size={12} /> Repo
+                    </span>
                   )}
-                  {project.live && (
-                    <a 
-                      href={project.live} 
-                      className="flex items-center gap-1.5 font-black text-text-primary hover:text-text-muted transition-all duration-200 uppercase tracking-wider ml-auto" 
-                      aria-label="Live Demo"
+                  {project.live && project.live !== '#' ? (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="ml-auto flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-md hover:shadow-purple-500/30 transition-all duration-300 hover:-translate-y-0.5"
+                      aria-label="Open Live Demo"
                     >
-                      <ExternalLink size={13} /> OPEN
+                      <ExternalLink size={12} /> Open
                     </a>
+                  ) : (
+                    <span className="ml-auto flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-text-muted bg-text-primary/5 border border-text-primary/5 cursor-not-allowed opacity-40">
+                      <ExternalLink size={12} /> Open
+                    </span>
                   )}
                 </div>
               </div>
