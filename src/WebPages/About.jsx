@@ -52,10 +52,7 @@ export default function About() {
                 Who I Am
               </p>
               <h2 className="text-4xl md:text-5xl font-heading font-black text-neutral-900 tracking-tight mb-4">
-                About{' '}
-                <span className="bg-linear-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-                  Me
-                </span>
+                About Me
               </h2>
               <div className="h-1.5 w-12 bg-purple-600 rounded-full mb-6" />
             </div>
