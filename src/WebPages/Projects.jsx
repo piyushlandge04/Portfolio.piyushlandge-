@@ -46,8 +46,6 @@ export default function Projects() {
       },
       image: flyerScreenshot
     },
-
-
     {
       title: 'Personal Portfolio Website',
       description: 'A premium, responsive portfolio web application featuring bento grid layout, interactive micro-animations, glassmorphic styling, custom terminal simulation, and an integrated AI assistant.',
@@ -62,6 +60,38 @@ export default function Projects() {
         score: '100% SEO'
       },
       image: projPortfolio
+    },
+    {
+      title: 'AI Conversational Agent',
+      description: 'A context-aware intelligent chatbot powered by Large Language Models. Features semantic query routing, prompt caching, persistent chat history, and fluid conversational feedback loops.',
+      tags: ['Python', 'LLMs', 'NLP', 'FastAPI'],
+      categories: ['ai-ml'],
+      github: '#',
+      live: '#',
+      icon: <MessageSquare size={13} className="text-neutral-600" />,
+      metrics: {
+        engine: 'Mistral-7B',
+        latency: '24ms',
+        score: '0.96 BLEU'
+      },
+      image: null,
+      upcoming: true
+    },
+    {
+      title: 'Neural Style Transfer',
+      description: 'A deep learning pipeline leveraging convolutional neural networks to synthesize artistic styles onto real-world target images in real-time.',
+      tags: ['Python', 'PyTorch', 'CNNs', 'Computer Vision'],
+      categories: ['ai-ml'],
+      github: '#',
+      live: '#',
+      icon: <Cpu size={13} className="text-neutral-600" />,
+      metrics: {
+        engine: 'VGG-19',
+        latency: '42ms',
+        score: '0.94 SSIM'
+      },
+      image: null,
+      upcoming: true
     }
   ];
 
@@ -96,6 +126,14 @@ export default function Projects() {
                 animationDelay: `${index * 80}ms`
               }}
             >
+              {/* Upcoming Blur Overlay */}
+              {project.upcoming && (
+                <div className="absolute inset-0 bg-neutral-950/5 backdrop-blur-[3.5px] z-20 flex items-center justify-center">
+                  <span className="bg-black/90 border border-white/10 text-white font-mono text-[0.62rem] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5">
+                    <Sparkles size={11} className="text-purple-400 animate-pulse" /> Upcoming
+                  </span>
+                </div>
+              )}
               {/* Relative Mouse Spotlight Glow */}
               <div 
                 className="absolute inset-0 rounded-[28px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
@@ -126,12 +164,19 @@ export default function Projects() {
                       </span>
                     </div>
                     {/* Screenshot image */}
-                    <div className="flex-1 relative overflow-hidden bg-white">
-                      <img 
-                        src={project.image} 
-                        alt={`${project.title} screenshot`} 
-                        className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                      />
+                    <div className="flex-1 relative overflow-hidden bg-white flex items-center justify-center">
+                      {project.image ? (
+                        <img 
+                          src={project.image} 
+                          alt={`${project.title} screenshot`} 
+                          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                        />
+                      ) : (
+                        <div className="w-full h-full bg-neutral-50/50 flex flex-col items-center justify-center select-none font-mono text-[0.55rem] font-bold text-neutral-400 gap-1.5">
+                          <Code2 size={16} className="text-neutral-300" />
+                          <span>DEVELOPMENT</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
