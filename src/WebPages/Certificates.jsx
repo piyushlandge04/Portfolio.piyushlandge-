@@ -82,36 +82,57 @@ const DEFAULT_CERTIFICATES = [
   },
 ];
 
+const imageMap = {
+  'Deep Learning Specialization': certDeepLearning,
+  'Generative AI Leader Specialization': certVanderbilt,
+  'AWS Certified Machine Learning – Specialty': certAWS,
+  'Advanced NLP & Prompt Engineering': certStanford,
+  'Professional Machine Learning Engineer': certGCP,
+  'MLOps Deployment & Pipeline Systems': certDuke,
+  'Natural Language Processing Specialization': certNLP,
+};
+
 export default function Certificates() {
   const [copiedId, setCopiedId] = useState(null);
   const [certificatesList, setCertificatesList] = useState(() => {
+    let list = DEFAULT_CERTIFICATES;
     try {
       const stored = localStorage.getItem('portfolio_certificates');
       if (stored) {
         const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          list = parsed;
+        }
       }
     } catch (e) {
-      /* corrupted localStorage — ignore */
+      /* ignore */
     }
-    return DEFAULT_CERTIFICATES;
+    return list.map(cert => ({
+      ...cert,
+      image: imageMap[cert.title] || cert.image
+    }));
   });
 
   useEffect(() => {
     const handleUpdate = () => {
+      let list = DEFAULT_CERTIFICATES;
       try {
         const stored = localStorage.getItem('portfolio_certificates');
         if (stored) {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            setCertificatesList(parsed);
-            return;
+            list = parsed;
           }
         }
       } catch (e) {
         /* ignore */
       }
-      setCertificatesList(DEFAULT_CERTIFICATES);
+      setCertificatesList(
+        list.map(cert => ({
+          ...cert,
+          image: imageMap[cert.title] || cert.image
+        }))
+      );
     };
     window.addEventListener('portfolio-certificates-changed', handleUpdate);
     return () => window.removeEventListener('portfolio-certificates-changed', handleUpdate);
