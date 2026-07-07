@@ -1,19 +1,18 @@
 import { useState } from 'react';
 import { 
   GraduationCap, Briefcase, ChevronDown, ChevronUp, MapPin, 
-  Sparkles, Brain, Cpu, BarChart2, Database, Cloud 
+  Sparkles, Brain, Cpu, BarChart2, Database, Cloud, Terminal, 
+  Code, Settings, FileText, ArrowRight, CheckCircle2 
 } from 'lucide-react';
-
-
 
 const experienceTimeline = [
   {
+    type: 'experience',
     period: 'Apr 2026 – Present',
     duration: '2 mos',
     role: 'AI Intern',
     company: 'Applogix Solutions',
-    type: 'Internship',
-    color: '#171717',
+    color: '#a855f7', // purple-500
     details: [
       'Organized complex backend data pipelines and designed pre-processing methodologies using Python.',
       'Executed fine-tuning parameter sweeps and managed tensor matrices to optimize inference latency.',
@@ -23,12 +22,12 @@ const experienceTimeline = [
     skills: ['Python', 'PyTorch', 'Data Pipelines', 'Fine-Tuning', 'Model Evaluation']
   },
   {
+    type: 'experience',
     period: 'Feb 2026 – Mar 2026',
     duration: '2 mos',
     role: 'AI Project Intern',
     company: 'Applogix Solutions',
-    type: 'Internship',
-    color: '#171717',
+    color: '#6366f1', // indigo-500
     details: [
       'Maintained automated auditing modules for deep learning models, identifying gradient clipping bottlenecks.',
       'Implemented validation checks that verified dataset token structures before neural compiler inputs.',
@@ -36,34 +35,59 @@ const experienceTimeline = [
     ],
     takeaway: 'Mastered standard regression auditing loops and model training parameter verification patterns.',
     skills: ['Deep Learning', 'Token Verification', 'Model Benchmarking', 'Auditing Modules']
-  }
-];
-
-const educationTimeline = [
+  },
   {
+    type: 'education',
     period: '2023 – 2026',
     degree: 'B.Sc. in Computer Science',
     institution: 'B.K. Birla College, Kalyan',
     grade: 'CGPA 8.00',
-    color: '#171717',
+    color: '#06b6d4', // cyan-500
     details: 'Comprehensive exploration of backend database models, high-performance algorithms, and computational principles. Maintained an excellent academic track record.',
     skills: ['Algorithms', 'Database Management', 'Data Structures', 'Computational Math']
   },
   {
+    type: 'education',
     period: '2022 – 2023',
     degree: 'HSC – Maharashtra State Board',
     institution: 'D.D.S.P. College, Erandol',
-    color: '#171717',
+    color: '#10b981', // emerald-500
     details: 'Scientific stream curriculum focusing on mathematics, logical theorems, and engineering concepts.',
     skills: ['Mathematics', 'Physics', 'Computer Science']
   }
 ];
 
+const skillsData = [
+  {
+    title: 'AI & Machine Learning',
+    icon: <Cpu size={15} className="text-purple-500" />,
+    skills: ['Python', 'Machine Learning', 'Deep Learning', 'Computer Vision']
+  },
+  {
+    title: 'Artificial Intelligence',
+    icon: <Brain size={15} className="text-indigo-500" />,
+    skills: ['Artificial Intelligence', 'Natural Language Processing (NLP)', 'Generative AI', 'Large Language Models (LLMs)']
+  },
+  {
+    title: 'Data Science',
+    icon: <BarChart2 size={15} className="text-cyan-500" />,
+    skills: ['NumPy', 'Pandas', 'Statistics', 'Data Visualization']
+  },
+  {
+    title: 'Backend & Database',
+    icon: <Database size={15} className="text-emerald-500" />,
+    skills: ['Flask', 'SQL', 'MongoDB', 'Git']
+  },
+  {
+    title: 'Big Data & Cloud',
+    icon: <Cloud size={15} className="text-amber-500" />,
+    skills: ['PySpark', 'Hadoop', 'AWS', 'Azure']
+  }
+];
+
 export default function About() {
-  const [expandedExperience, setExpandedExperience] = useState(0); // expand first item by default
-  const [expandedEducation, setExpandedEducation] = useState(null);
-
-
+  const [activeTab, setActiveTab] = useState('profile');
+  const [expandedMilestone, setExpandedMilestone] = useState(0); // first item expanded
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -71,181 +95,400 @@ export default function About() {
     e.currentTarget.style.setProperty('--mouse-y-relative', `${e.clientY - rect.top}px`);
   };
 
+  // Rendering terminal contents
+  const renderTerminalContent = () => {
+    switch (activeTab) {
+      case 'profile':
+        return (
+          <div className="font-mono text-[0.76rem] sm:text-xs leading-relaxed text-neutral-300">
+            <span className="text-neutral-500 font-normal"># system_profile.yaml</span>
+            <div className="mt-2">
+              <span className="text-purple-400">developer:</span>
+              <div className="pl-4">
+                <span className="text-purple-400">name:</span> <span className="text-emerald-400">"Piyush Landge"</span><br />
+                <span className="text-purple-400">role:</span> <span className="text-emerald-400">"AI / Machine Learning Engineer"</span><br />
+                <span className="text-purple-400">location:</span> <span className="text-emerald-400">"Pune, India"</span><br />
+                <span className="text-purple-400">status:</span> <span className="text-emerald-400">"Available for Work"</span><br />
+                <span className="text-purple-400">specialization:</span>
+                <div className="pl-4 text-cyan-400">
+                  - "Large Language Models (LLMs)"<br />
+                  - "RAG Pipelines & Agentic Workflows"<br />
+                  - "High-Performance Python Backends"<br />
+                  - "Model Tuning & Neural Evaluations"
+                </div>
+              </div>
+              <div className="mt-3">
+                <span className="text-purple-400">philosophy:</span> <span className="text-yellow-400">|</span>
+                <p className="pl-4 text-neutral-400 italic">
+                  "I build clean, optimized, production-ready backend systems driven by intelligence. I focus on reducing system latency, streamlining complex pipeline models, and deploying reliable solutions."
+                </p>
+              </div>
+            </div>
+          </div>
+        );
+      case 'agent':
+        return (
+          <div className="font-mono text-[0.76rem] sm:text-xs leading-relaxed text-neutral-300">
+            <span className="text-neutral-500 font-normal"># agentic_flow.sh</span>
+            <div className="mt-2 flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <span className="text-neutral-500 font-bold">[STEP 1]</span>
+                <span className="text-neutral-300 font-medium">Ingest Raw Data Pipelines</span>
+                <span className="text-emerald-400 ml-auto font-bold">✔ OK</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-neutral-500 font-bold">[STEP 2]</span>
+                <span className="text-neutral-300 font-medium">Embedding Representation (Vector DB)</span>
+                <span className="text-emerald-400 ml-auto font-bold">✔ OK</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-neutral-500 font-bold">[STEP 3]</span>
+                <span className="text-neutral-300 font-medium">Context Routing & Prompt Cache Optimization</span>
+                <span className="text-emerald-400 ml-auto font-bold">✔ OK</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-neutral-500 font-bold">[STEP 4]</span>
+                <span className="text-neutral-300 font-medium">Model Inference & Fine-Tuning Evaluations</span>
+                <span className="text-cyan-400 ml-auto font-bold animate-pulse">⟳ SWEEPS</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-neutral-500 font-bold">[STEP 5]</span>
+                <span className="text-neutral-300 font-medium">Deployment Verification & Latency Audits</span>
+                <span className="text-yellow-400 ml-auto font-bold">⚡ 24ms</span>
+              </div>
+              <div className="mt-3 p-3 bg-neutral-900/60 rounded-lg border border-neutral-800/80">
+                <span className="text-neutral-400 text-[0.7rem] block mb-1">CURRENT AGENT METADATA:</span>
+                <code className="text-purple-400 text-xs">{"{ status: \"running_evaluation\", temperature: 0.2, iterations: 1420 }"}</code>
+              </div>
+            </div>
+          </div>
+        );
+      case 'metrics':
+        return (
+          <div className="font-mono text-[0.76rem] sm:text-xs leading-relaxed text-neutral-300">
+            <span className="text-neutral-500 font-normal"># tail -f metrics.log</span>
+            <div className="mt-2 space-y-1">
+              <div><span className="text-neutral-500">[2026-07-06 14:10:02]</span> <span className="text-blue-400">INFO</span> Loaded pre-processed tokenizer models.</div>
+              <div><span className="text-neutral-500">[2026-07-06 14:10:05]</span> <span className="text-blue-400">INFO</span> Gradient clipping limits set to 1.0.</div>
+              <div><span className="text-neutral-500">[2026-07-06 14:11:12]</span> <span className="text-emerald-400">SUCCESS</span> Validation loss reached: 0.084.</div>
+              <div><span className="text-neutral-500">[2026-07-06 14:11:15]</span> <span className="text-yellow-400">STATS</span> Validation accuracy: <span className="text-emerald-400 font-bold">98.4%</span></div>
+              <div><span className="text-neutral-500">[2026-07-06 14:11:16]</span> <span className="text-yellow-400">STATS</span> BLEU Score: <span className="text-cyan-400 font-bold">0.96</span></div>
+              <div><span className="text-neutral-500">[2026-07-06 14:11:16]</span> <span className="text-yellow-400">STATS</span> Token Latency: <span className="text-purple-400 font-bold">24ms</span></div>
+              <div className="text-neutral-500 animate-pulse mt-2">_ (listening for updates)</div>
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <section id="about" className="py-24 md:py-32 relative scroll-reveal bg-bg-primary overflow-hidden">
-      {/* Visual background lights */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-15">
-        <div className="absolute top-[20%] left-[-15%] w-[45%] h-[50%] rounded-full bg-purple-500/10 blur-[140px]"></div>
-        <div className="absolute bottom-[10%] right-[-15%] w-[45%] h-[50%] rounded-full bg-cyan-500/10 blur-[140px]"></div>
+      {/* Background radial ambience glows */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none z-0 opacity-20">
+        <div className="absolute top-[20%] left-[-10%] w-[40%] h-[40%] rounded-full bg-purple-500/10 blur-[130px]" />
+        <div className="absolute bottom-[20%] right-[-10%] w-[40%] h-[40%] rounded-full bg-cyan-500/10 blur-[130px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
-
         {/* Section Header */}
-        <div className="text-center mb-16">
-          <p className="text-[0.65rem] font-mono font-bold uppercase tracking-[0.22em] text-text-primary/30 mb-3">
+        <div className="text-center mb-16 md:mb-20">
+          <p className="text-[0.65rem] font-mono font-bold uppercase tracking-[0.25em] text-text-primary/40 mb-3">
             Who I Am
           </p>
           <h2 className="text-4xl md:text-5xl font-heading font-black text-text-primary tracking-tight">
             About{' '}
-            <span className="bg-linear-to-r from-text-primary via-text-secondary to-text-muted bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-purple-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent">
               Me
             </span>
           </h2>
           <p className="mt-4 text-text-secondary text-base max-w-lg mx-auto font-sans leading-relaxed">
-            Discover my background, core technical skills, and agentic workflows.
+            Unveiling the background, competencies, and system workflows driving my engineering.
           </p>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-          {/* ── CARD 1: Profile & Bio Description ── */}
-          <div
-            className="bento-card glass-card relative group overflow-hidden lg:col-span-3 p-7 md:p-9 flex flex-col gap-6 rounded-3xl transition-all duration-300 text-left"
-            onMouseMove={handleMouseMove}
-          >
-            <div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-              style={{
-                background: `radial-gradient(600px circle at var(--mouse-x-relative, 0px) var(--mouse-y-relative, 0px), rgba(0, 0, 0, 0.02), transparent 80%)`
-              }}
-            />
-
-            <div className="relative z-10 flex flex-col gap-5">
-              {/* Greeting & Name */}
-              <div>
-                <p className="text-[0.65rem] font-mono font-bold uppercase tracking-[0.2em] text-text-primary/30 mb-2">👋 Hello, World</p>
-                <h3 className="font-heading font-black text-3xl sm:text-4xl tracking-tight text-text-primary flex items-center gap-3 select-none">
-                  I'm Piyush Landge
-                  <Sparkles className="text-purple-400 animate-pulse shrink-0" size={22} />
-                </h3>
-              </div>
-
-              {/* Role Pills */}
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wide font-mono bg-neutral-100 text-neutral-800 border border-neutral-200/60">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-400 animate-pulse"></span>
-                  AI Engineer
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wide font-mono bg-neutral-100 text-neutral-800 border border-neutral-200/60">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>
-                  Backend Developer
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wide font-mono bg-neutral-100 text-neutral-800 border border-neutral-200/60">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>
-                  Generative AI Enthusiast
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.68rem] font-bold tracking-wide font-mono bg-neutral-100 text-neutral-800 border border-neutral-200/60">
-                  <span className="w-1.5 h-1.5 rounded-full bg-neutral-400"></span>
-                  CS Graduate
-                </span>
-              </div>
-
-              {/* Bio */}
-              <div className="font-sans text-text-secondary text-[0.93rem] leading-[1.8] max-w-4xl flex flex-col gap-3">
-                <p>
-                  I turn ideas into <span className="text-text-primary font-semibold">intelligent, production-ready systems</span> — crafting everything from fine-tuned LLM pipelines and Generative AI applications to robust FastAPI backends and data-driven ML solutions.
-                </p>
-                <p>
-                  Currently focused on <span className="text-neutral-800 font-semibold">agentic AI</span> and <span className="text-neutral-800 font-semibold">scalable backend architecture</span>, I'm passionate about shipping technology that solves real problems and leaves a measurable impact. When I'm not building, I'm exploring the latest in AI research.
-                </p>
-              </div>
-
-              {/* Personal Details Micro-Badges */}
-              <div className="flex flex-wrap gap-4 md:gap-8 mt-2 pt-5 border-t border-text-primary/5 text-[0.72rem] font-mono font-bold text-text-secondary select-none">
-                <div className="flex items-center gap-2">
-                  <MapPin size={13} className="text-neutral-500" />
+        {/* 2-Column Responsive Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16">
+          
+          {/* COLUMN 1: AI Developer Terminal & Dashboard (5 Cols on Large Screen) */}
+          <div className="lg:col-span-5 flex flex-col gap-6">
+            
+            {/* Brief Introduction card */}
+            <div className="bg-white border border-neutral-200/60 rounded-[24px] p-6 text-left shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
+              <span className="text-[0.6rem] font-mono font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md mb-3 inline-block">
+                Developer Profile
+              </span>
+              <h3 className="font-heading font-black text-2xl tracking-tight text-text-primary mb-3">
+                Piyush Landge
+              </h3>
+              <p className="font-sans text-neutral-600 text-sm leading-relaxed mb-4">
+                I design and build optimized backend databases, intelligence layers, and fine-tuning pipelines to productionize complex models.
+              </p>
+              
+              <div className="flex flex-wrap gap-2.5 border-t border-neutral-100 pt-4 mt-2">
+                <div className="flex items-center gap-1.5 text-xs text-neutral-500 font-medium">
+                  <MapPin size={13} className="text-neutral-400" />
                   <span>Pune, India</span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Briefcase size={13} className="text-neutral-500" />
-                  <span>Open to AI Engineer Opportunities</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="relative flex h-2 w-2">
+                <div className="h-4 w-px bg-neutral-200" />
+                <div className="flex items-center gap-1.5 text-xs text-neutral-500 font-medium">
+                  <span className="relative flex h-1.5 w-1.5">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
                   </span>
-                  <span className="text-emerald-500">Available for Work</span>
+                  <span className="text-emerald-600 font-semibold">Available for Work</span>
                 </div>
+              </div>
+            </div>
+
+            {/* Interactive Terminal Window */}
+            <div className="w-full bg-[#121214] border border-neutral-800 rounded-[20px] shadow-2xl overflow-hidden flex flex-col h-[320px] text-left">
+              {/* Terminal Window Header */}
+              <div className="bg-[#1a1a1e] px-4 py-3 flex items-center justify-between border-b border-neutral-800 shrink-0 select-none">
+                <div className="flex gap-1.5 items-center">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ff5f56]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#27c93f]" />
+                </div>
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => setActiveTab('profile')}
+                    className={`flex items-center gap-1 px-3 py-1 rounded-md text-[0.62rem] font-mono font-bold transition-all duration-200 cursor-pointer ${
+                      activeTab === 'profile' 
+                        ? 'bg-neutral-800 text-white shadow-sm' 
+                        : 'text-neutral-500 hover:text-neutral-300'
+                    }`}
+                  >
+                    <FileText size={10} /> profile.yaml
+                  </button>
+                  <button 
+                    onClick={() => setActiveTab('agent')}
+                    className={`flex items-center gap-1 px-3 py-1 rounded-md text-[0.62rem] font-mono font-bold transition-all duration-200 cursor-pointer ${
+                      activeTab === 'agent' 
+                        ? 'bg-neutral-800 text-white shadow-sm' 
+                        : 'text-neutral-500 hover:text-neutral-300'
+                    }`}
+                  >
+                    <Code size={10} /> flow.sh
+                  </button>
+                  <button 
+                    onClick={() => setActiveTab('metrics')}
+                    className={`flex items-center gap-1 px-3 py-1 rounded-md text-[0.62rem] font-mono font-bold transition-all duration-200 cursor-pointer ${
+                      activeTab === 'metrics' 
+                        ? 'bg-neutral-800 text-white shadow-sm' 
+                        : 'text-neutral-500 hover:text-neutral-300'
+                    }`}
+                  >
+                    <Settings size={10} /> metrics.log
+                  </button>
+                </div>
+              </div>
+
+              {/* Terminal Code Display Area */}
+              <div className="p-5 overflow-y-auto custom-scrollbar grow relative">
+                {/* Visual scanline overlay for retro effect */}
+                <div className="absolute inset-0 terminal-scanline pointer-events-none opacity-30 z-10" />
+                <div className="relative z-20">
+                  {renderTerminalContent()}
+                </div>
+              </div>
+
+              {/* Terminal Input Line Footer */}
+              <div className="bg-[#16161a] border-t border-neutral-800 px-5 py-2.5 flex items-center font-mono text-[0.7rem] text-neutral-500 shrink-0 select-none">
+                <Terminal size={11} className="text-neutral-600 mr-2" />
+                <span>guest@piyushlandge:~$ </span>
+                <span className="text-neutral-300 ml-1">
+                  {activeTab === 'profile' ? 'cat profile.yaml' : activeTab === 'agent' ? './flow.sh' : 'tail -f metrics.log'}
+                </span>
+                <span className="w-1.5 h-3 bg-neutral-300 ml-1.5 animate-blink shrink-0" />
+              </div>
+            </div>
+
+          </div>
+
+          {/* COLUMN 2: Connected Milestone Timeline (7 Cols on Large Screen) */}
+          <div className="lg:col-span-7 flex flex-col text-left">
+            <div className="border border-neutral-200/60 bg-white rounded-[32px] p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
+              
+              <div className="mb-6 border-b border-neutral-100 pb-5">
+                <span className="text-[0.6rem] font-mono font-bold uppercase tracking-wider text-cyan-600 bg-cyan-50 px-2.5 py-1 rounded-md mb-2 inline-block">
+                  Interactive Timeline
+                </span>
+                <h3 className="font-heading font-black text-2xl text-text-primary mb-1">
+                  My Career Roadmap
+                </h3>
+                <p className="text-xs text-text-muted font-sans">
+                  Click a milestone to expand and inspect primary deliverables, metrics, and technology toolkits utilized.
+                </p>
+              </div>
+
+              {/* Timeline Container */}
+              <div className="relative pl-4 sm:pl-6 space-y-6">
+                
+                {/* Vertical Central Line */}
+                <div className="absolute left-[9px] sm:left-[13px] top-3 bottom-3 w-[2px] bg-neutral-100" />
+
+                {experienceTimeline.map((item, idx) => {
+                  const isExpanded = expandedMilestone === idx;
+                  const isWork = item.type === 'experience';
+                  
+                  return (
+                    <div key={idx} className="relative group">
+                      
+                      {/* Milestone glowing node icon */}
+                      <div 
+                        className={`absolute left-[-19px] sm:left-[-23px] top-1.5 w-6 h-6 rounded-full border-2 bg-white flex items-center justify-center transition-all duration-300 shadow-sm cursor-pointer z-10 ${
+                          isExpanded 
+                            ? 'border-purple-600 ring-4 ring-purple-100 scale-110' 
+                            : 'border-neutral-200 hover:border-neutral-400'
+                        }`}
+                        onClick={() => setExpandedMilestone(isExpanded ? null : idx)}
+                      >
+                        {isWork ? (
+                          <Briefcase size={10} className={isExpanded ? 'text-purple-600' : 'text-neutral-500'} />
+                        ) : (
+                          <GraduationCap size={10} className={isExpanded ? 'text-purple-600' : 'text-neutral-500'} />
+                        )}
+                      </div>
+
+                      {/* Timeline Detail Card */}
+                      <div 
+                        className={`transition-all duration-300 rounded-[20px] border p-4 sm:p-5 cursor-pointer ml-3 sm:ml-5 ${
+                          isExpanded 
+                            ? 'bg-neutral-50/50 border-purple-300/60 shadow-[0_4px_20px_rgba(0,0,0,0.01)]' 
+                            : 'bg-white border-neutral-100 hover:border-neutral-200 hover:bg-neutral-50/20'
+                        }`}
+                        onClick={() => setExpandedMilestone(isExpanded ? null : idx)}
+                      >
+                        {/* Header Section */}
+                        <div className="flex justify-between items-start gap-4">
+                          <div className="grow">
+                            <span className="text-[0.62rem] font-mono font-bold text-neutral-400 uppercase tracking-wide block mb-0.5">
+                              {item.period} {item.duration ? `· ${item.duration}` : ''}
+                            </span>
+                            <h4 className="text-[0.98rem] font-black text-text-primary leading-tight flex items-center gap-1.5">
+                              {isWork ? item.role : item.degree}
+                            </h4>
+                            <span className="text-xs font-semibold text-neutral-600 mt-1 block">
+                              {isWork ? item.company : item.institution}
+                            </span>
+                          </div>
+                          
+                          <div className="flex items-center gap-2 mt-1 shrink-0">
+                            {/* Short Grade Badge for Education */}
+                            {!isWork && item.grade && (
+                              <span className="text-[0.62rem] font-mono font-bold bg-cyan-50 text-cyan-700 px-2 py-0.5 rounded border border-cyan-100">
+                                {item.grade}
+                              </span>
+                            )}
+                            <span className="text-neutral-400">
+                              {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                            </span>
+                          </div>
+                        </div>
+
+                        {/* Preview summary / skills tags when collapsed */}
+                        {!isExpanded && (
+                          <div className="flex flex-wrap gap-1.5 mt-3 select-none">
+                            {item.skills.slice(0, 3).map((sk) => (
+                              <span key={sk} className="text-[0.58rem] font-mono px-2 py-0.5 rounded-full bg-neutral-100 text-neutral-500 border border-neutral-200/30">
+                                {sk}
+                              </span>
+                            ))}
+                            {item.skills.length > 3 && (
+                              <span className="text-[0.58rem] font-mono text-neutral-400 px-1 py-0.5">
+                                +{item.skills.length - 3}
+                              </span>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Collapsed Description details */}
+                        <div className={`transition-all duration-500 overflow-hidden font-sans ${
+                          isExpanded ? 'max-h-[500px] opacity-100 mt-4' : 'max-h-0 opacity-0 pointer-events-none'
+                        }`}>
+                          {isWork ? (
+                            <ul className="text-xs text-neutral-600 leading-relaxed flex flex-col gap-2.5 list-none pl-1 mb-4">
+                              {item.details.map((d, di) => (
+                                <li key={di} className="flex gap-2 items-start">
+                                  <CheckCircle2 size={12} className="text-purple-500 mt-0.5 shrink-0" />
+                                  <span>{d}</span>
+                                </li>
+                              ))}
+                            </ul>
+                          ) : (
+                            <p className="text-xs text-neutral-600 leading-relaxed mb-4 pl-1">
+                              {item.details}
+                            </p>
+                          )}
+
+                          {isWork && item.takeaway && (
+                            <div className="bg-purple-50/50 border-l-2 border-purple-400 rounded-r-lg p-3 text-[0.7rem] italic text-neutral-600 mb-4">
+                              <strong>Key Takeaway:</strong> {item.takeaway}
+                            </div>
+                          )}
+
+                          {/* Skill Tags */}
+                          <div className="flex flex-wrap gap-1.5 border-t border-neutral-100/80 pt-3.5">
+                            {item.skills.map((sk) => (
+                              <span key={sk} className="text-[0.58rem] font-mono font-bold px-2 py-0.5 rounded-full bg-white text-neutral-700 border border-neutral-200 shadow-2xs hover:border-neutral-300">
+                                {sk}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
 
             </div>
           </div>
 
-          {/* ── CARD 2: Tech Stack / Interactive Skills (Restructured to "My Expertise") ── */}
-          <div
-            id="skills"
-            className="bento-card glass-card relative group overflow-hidden lg:col-span-3 p-8 flex flex-col gap-6 rounded-3xl transition-all duration-300 scroll-mt-24"
-            onMouseMove={handleMouseMove}
-          >
-            <div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-              style={{
-                background: `radial-gradient(600px circle at var(--mouse-x-relative, 0px) var(--mouse-y-relative, 0px), rgba(0, 0, 0, 0.02), transparent 80%)`
-              }}
-            />
+        </div>
 
-            {/* Header: Title & Subtitle */}
-            <div className="text-center md:text-left relative z-10 border-b border-text-primary/5 pb-5">
-              <h3 className="font-heading font-black text-2xl text-text-primary tracking-tight mb-2 uppercase">
-                MY SKILLS
+        {/* EXPERTISE HUB / SKILL PILLS GRID */}
+        <div id="skills" className="w-full scroll-mt-24">
+          <div className="border border-neutral-200/60 bg-white rounded-[32px] p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
+            {/* Header */}
+            <div className="text-center md:text-left border-b border-neutral-100 pb-5 mb-6">
+              <span className="text-[0.6rem] font-mono font-bold uppercase tracking-wider text-indigo-600 bg-indigo-50 px-2.5 py-1 rounded-md mb-2 inline-block">
+                Core Competencies
+              </span>
+              <h3 className="font-heading font-black text-2xl text-text-primary mb-1">
+                Technical Expertise Hub
               </h3>
-              <p className="font-sans text-sm text-text-muted">
-                Building AI-powered applications from idea to deployment
+              <p className="font-sans text-xs text-text-muted">
+                Systematically engineered capabilities organized across modern developmental frameworks.
               </p>
             </div>
 
             {/* 5-Column Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5 relative z-10 w-full mt-2">
-              {[
-                {
-                  title: 'AI & Machine Learning',
-                  icon: <Cpu size={14} className="text-neutral-700" />,
-                  skills: ['Python', 'Machine Learning', 'Deep Learning', 'Computer Vision']
-                },
-                {
-                  title: 'Artificial Intelligence',
-                  icon: <Brain size={14} className="text-neutral-700" />,
-                  skills: ['Artificial Intelligence', 'Natural Language Processing (NLP)', 'Generative AI', 'Large Language Models (LLMs)']
-                },
-                {
-                  title: 'Data Science',
-                  icon: <BarChart2 size={14} className="text-neutral-700" />,
-                  skills: ['NumPy', 'Pandas', 'Statistics', 'Data Visualization']
-                },
-                {
-                  title: 'Backend & Database',
-                  icon: <Database size={14} className="text-neutral-700" />,
-                  skills: ['Flask', 'SQL', 'MongoDB', 'Git']
-                },
-                {
-                  title: 'Big Data & Cloud',
-                  icon: <Cloud size={14} className="text-neutral-700" />,
-                  skills: ['PySpark', 'Hadoop', 'AWS', 'Azure']
-                }
-              ].map((category, idx) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-5">
+              {skillsData.map((category, idx) => (
                 <div
                   key={idx}
-                  className="flex flex-col rounded-2xl border border-neutral-100 bg-neutral-50/20 hover:border-neutral-300 hover:shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:-translate-y-0.5 transition-all duration-300 p-5 text-left h-full"
+                  className="flex flex-col rounded-2xl border border-neutral-100 bg-neutral-50/20 hover:border-neutral-200 hover:shadow-[0_8px_30px_rgba(0,0,0,0.02)] hover:-translate-y-0.5 transition-all duration-300 p-5 text-left h-full"
                 >
                   {/* Category Header */}
-                  <div className="flex items-center gap-2 border-b border-neutral-100 pb-3 mb-4 shrink-0">
+                  <div className="flex items-center gap-2 border-b border-neutral-100/60 pb-3 mb-4 shrink-0">
                     <span className="flex items-center shrink-0">{category.icon}</span>
-                    <span className="font-heading font-bold text-xs text-neutral-800 uppercase tracking-wider">
+                    <span className="font-heading font-bold text-[0.68rem] text-neutral-800 uppercase tracking-wider">
                       {category.title}
                     </span>
                   </div>
 
                   {/* Skills List */}
-                  <div className="flex flex-col gap-2.5 grow font-mono text-[0.72rem] text-neutral-600">
+                  <div className="flex flex-col gap-2 grow font-mono text-[0.7rem] text-neutral-600">
                     {category.skills.map((skill) => (
                       <div
                         key={skill}
-                        className="group/skill flex items-center gap-2 py-1.5 px-2.5 rounded-xl border border-transparent hover:bg-neutral-100/60 hover:text-neutral-900 hover:border-neutral-200 transition-all duration-200 cursor-default font-medium"
+                        className="group/skill flex items-center gap-2 py-1.5 px-2.5 rounded-xl border border-transparent hover:bg-neutral-50 hover:text-neutral-900 hover:border-neutral-200/50 transition-all duration-200 cursor-default font-medium"
                       >
-                        <span className="w-1.5 h-1.5 rounded-full bg-neutral-300 group-hover/skill:bg-neutral-500 shrink-0 transition-colors"></span>
+                        <span className="w-1 h-1 rounded-full bg-neutral-300 group-hover/skill:bg-indigo-500 shrink-0 transition-colors" />
                         <span className="truncate">{skill}</span>
                       </div>
                     ))}
@@ -254,212 +497,8 @@ export default function About() {
               ))}
             </div>
           </div>
-
-          {/* ── CARD 4: Interactive Experience & Education Timeline (full width) ── */}
-          <div
-            id="experience"
-            className="bento-card glass-card relative group overflow-hidden lg:col-span-3 p-7 md:p-9 flex flex-col rounded-3xl transition-all duration-300 scroll-mt-24"
-            onMouseMove={handleMouseMove}
-          >
-            <div 
-              className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
-              style={{
-                background: `radial-gradient(800px circle at var(--mouse-x-relative, 0px) var(--mouse-y-relative, 0px), rgba(0, 0, 0, 0.02), transparent 80%)`
-              }}
-            />
-            
-            <div className="mb-8 text-left relative z-10">
-              <h3 className="font-heading font-black text-2xl text-text-primary mb-1.5">Education &amp; Experience</h3>
-              <p className="text-sm text-text-muted font-sans">Click timeline milestones to expand details, achievements, and technology tools utilized</p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-10 relative z-10">
-
-              {/* Column 1: Experience */}
-              <div className="flex flex-col gap-2">
-                <h4 className="font-heading font-bold text-[0.72rem] uppercase tracking-widest flex items-center gap-2 mb-4 text-text-muted text-left">
-                  <Briefcase size={13} className="text-neutral-700" /> Work Milestones
-                </h4>
-                
-                <div className="flex flex-col gap-4 pl-1">
-                  {experienceTimeline.map((event, idx) => {
-                    const isExpanded = expandedExperience === idx;
-                    return (
-                      <div
-                        key={idx}
-                        className={`relative pl-7 border-l-2 text-left cursor-pointer rounded-r-xl transition-all duration-300 p-4 hover:bg-neutral-50/50 border-neutral-100/60 ${
-                          isExpanded 
-                            ? 'border-neutral-800 bg-neutral-50/80 shadow-[0_4px_20px_rgba(0,0,0,0.01)]' 
-                            : 'hover:border-neutral-300'
-                        }`}
-                        onClick={() => setExpandedExperience(isExpanded ? null : idx)}
-                      >
-                        {/* Milestone indicator dot */}
-                        <div
-                          className="absolute left-[-7px] top-5 w-3 h-3 rounded-full border-2 flex items-center justify-center transition-all duration-300"
-                          style={{
-                            borderColor: isExpanded ? event.color : 'rgba(0, 0, 0, 0.1)',
-                            background: isExpanded ? `${event.color}` : '#fff',
-                            boxShadow: isExpanded ? `0 0 10px rgba(0,0,0,0.05)` : 'none'
-                          }}
-                        >
-                          {isExpanded && <span className="w-1 h-1 rounded-full bg-white" />}
-                        </div>
-
-                        {/* Summary Header */}
-                        <div className="flex justify-between items-start gap-2">
-                          <div className="grow">
-                            <span className="text-[0.62rem] font-mono font-bold text-text-muted uppercase tracking-wide block mb-0.5">
-                              {event.period} · {event.duration}
-                            </span>
-                            <h5 className="text-[0.98rem] font-black text-text-primary leading-tight">{event.role}</h5>
-                            <span className="text-xs font-semibold text-neutral-800">{event.company}</span>
-                          </div>
-                          <span className="text-text-muted mt-2 shrink-0">
-                            {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                          </span>
-                        </div>
-
-                        {/* Preview tags (Visible when collapsed) */}
-                        {!isExpanded && (
-                          <div className="flex flex-wrap gap-1.5 mt-2">
-                            {event.skills.slice(0, 3).map((sk) => (
-                              <span key={sk} className="text-[0.6rem] font-mono px-2 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-neutral-200/50">
-                                {sk}
-                              </span>
-                            ))}
-                            {event.skills.length > 3 && (
-                              <span className="text-[0.6rem] font-mono px-1.5 py-0.5 text-text-muted">
-                                +{event.skills.length - 3}
-                              </span>
-                            )}
-                          </div>
-                        )}
-
-                        {/* Collapsible Details */}
-                        <div className={`transition-all duration-500 overflow-hidden font-sans ${
-                          isExpanded ? 'max-h-[500px] opacity-100 mt-4' : 'max-h-0 opacity-0 pointer-events-none'
-                        }`}>
-                          <ul className="text-xs text-neutral-600 leading-relaxed flex flex-col gap-2 list-disc pl-4 mb-4">
-                            {event.details.map((d, di) => (
-                              <li key={di}>{d}</li>
-                            ))}
-                          </ul>
-
-                          {/* Highlight box */}
-                          <div className="bg-neutral-50 border-l-2 border-neutral-400 rounded-r-xl p-3 text-[0.7rem] italic text-neutral-600 mb-4">
-                            <strong>Takeaway:</strong> {event.takeaway}
-                          </div>
-
-                          {/* Tech list */}
-                          <div className="flex flex-wrap gap-1.5 border-t border-neutral-100 pt-3">
-                            {event.skills.map((sk) => (
-                              <span key={sk} className="text-[0.6rem] font-mono font-bold px-2 py-0.5 rounded-full bg-white text-neutral-800 border border-neutral-200 shadow-2xs">
-                                {sk}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Column 2: Education */}
-              <div className="flex flex-col gap-2">
-                <h4 className="font-heading font-bold text-[0.72rem] uppercase tracking-widest flex items-center gap-2 mb-4 text-text-muted text-left">
-                  <GraduationCap size={13} className="text-neutral-700" /> Academic Path
-                </h4>
-
-                <div className="flex flex-col gap-4 pl-1">
-                  {educationTimeline.map((event, idx) => {
-                    const isExpanded = expandedEducation === idx;
-                    return (
-                      <div
-                        key={idx}
-                        className={`relative pl-7 border-l-2 text-left cursor-pointer rounded-r-xl transition-all duration-300 p-4 hover:bg-neutral-50/50 border-neutral-100/60 ${
-                          isExpanded 
-                            ? 'border-neutral-800 bg-neutral-50/80 shadow-[0_4px_20px_rgba(0,0,0,0.01)]' 
-                            : 'hover:border-neutral-300'
-                        }`}
-                        onClick={() => setExpandedEducation(isExpanded ? null : idx)}
-                      >
-                        {/* Milestone dot */}
-                        <div
-                          className="absolute left-[-7px] top-5 w-3 h-3 rounded-full border-2 flex items-center justify-center transition-all duration-300"
-                          style={{
-                            borderColor: isExpanded ? event.color : 'rgba(0, 0, 0, 0.1)',
-                            background: isExpanded ? `${event.color}` : '#fff',
-                            boxShadow: isExpanded ? `0 0 10px rgba(0,0,0,0.05)` : 'none'
-                          }}
-                        >
-                          {isExpanded && <span className="w-1 h-1 rounded-full bg-white" />}
-                        </div>
-
-                        {/* Summary Header */}
-                        <div className="flex justify-between items-start gap-2">
-                          <div className="grow">
-                            <span className="text-[0.62rem] font-mono font-bold text-text-muted uppercase tracking-wide block mb-0.5">
-                              {event.period}
-                            </span>
-                            <h5 className="text-[0.98rem] font-black text-text-primary leading-tight">{event.degree}</h5>
-                            <span className="text-xs font-semibold text-neutral-800">{event.institution}</span>
-                          </div>
-                          <span className="text-text-muted mt-2 shrink-0">
-                            {isExpanded ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-                          </span>
-                        </div>
-
-                        {/* Preview tags (Visible when collapsed) */}
-                        {!isExpanded && (
-                          <div className="flex flex-wrap gap-1.5 mt-2">
-                            {event.skills.map((sk) => (
-                              <span key={sk} className="text-[0.6rem] font-mono px-2 py-0.5 rounded-full bg-neutral-100 text-neutral-600 border border-neutral-200/50">
-                                {sk}
-                              </span>
-                            ))}
-                            {event.grade && (
-                              <span className="text-[0.6rem] font-mono px-2 py-0.5 rounded-full bg-neutral-200 text-neutral-800 font-bold ml-auto border border-neutral-300/30">
-                                {event.grade}
-                              </span>
-                            )}
-                          </div>
-                        )}
-
-                        {/* Collapsible details */}
-                        <div className={`transition-all duration-500 overflow-hidden font-sans ${
-                          isExpanded ? 'max-h-[300px] opacity-100 mt-4' : 'max-h-0 opacity-0 pointer-events-none'
-                        }`}>
-                          <p className="text-xs text-neutral-600 leading-relaxed mb-4">{event.details}</p>
-                          
-                          <div className="flex flex-wrap items-center justify-between gap-3 border-t border-neutral-100 pt-3">
-                            <div className="flex flex-wrap gap-1.5">
-                              {event.skills.map((sk) => (
-                                <span key={sk} className="text-[0.6rem] font-mono font-bold px-2 py-0.5 rounded-full bg-white text-neutral-800 border border-neutral-200 shadow-2xs">
-                                  {sk}
-                                </span>
-                              ))}
-                            </div>
-                            {event.grade && (
-                              <span className="text-[0.62rem] font-mono font-bold bg-neutral-100 text-neutral-800 px-2 py-0.5 rounded border border-neutral-200">
-                                {event.grade}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-
-            </div>
-          </div>
-
         </div>
+
       </div>
     </section>
   );
