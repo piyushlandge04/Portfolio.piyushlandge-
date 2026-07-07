@@ -199,7 +199,7 @@ export default function About() {
           </p>
           <h2 className="text-4xl md:text-5xl font-heading font-black text-text-primary tracking-tight">
             About{' '}
-            <span className="bg-gradient-to-r from-purple-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-purple-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent">
               Me
             </span>
           </h2>

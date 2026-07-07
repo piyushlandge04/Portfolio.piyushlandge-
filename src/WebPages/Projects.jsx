@@ -109,7 +109,7 @@ export default function Projects() {
                 className="h-[200px] w-full relative flex items-center justify-center transition-all duration-500 overflow-hidden shrink-0 bg-neutral-50/50 border-b border-text-primary/5" 
               >
                 {/* Tech wireframe grid pattern */}
-                <div className="absolute w-full h-full bg-[radial-gradient(rgba(0,0,0,0.03)_1.5px,transparent_1.5px)] bg-[size:14px_14px] opacity-80 z-10"></div>
+                <div className="absolute w-full h-full bg-[radial-gradient(rgba(0,0,0,0.03)_1.5px,transparent_1.5px)] bg-size-[14px_14px] opacity-80 z-10"></div>
                 
                 {/* Visual Graphic Representation */}
                 <div className="absolute inset-0 flex items-center justify-center p-4 z-20">
@@ -199,7 +199,7 @@ export default function Projects() {
                       href={project.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="ml-auto flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-white bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-md hover:shadow-purple-500/30 transition-all duration-300 hover:-translate-y-0.5"
+                      className="ml-auto flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-white bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-md hover:shadow-purple-500/30 transition-all duration-300 hover:-translate-y-0.5"
                       aria-label="Open Live Demo"
                     >
                       <ExternalLink size={12} /> Open
