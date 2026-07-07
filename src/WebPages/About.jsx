@@ -626,19 +626,6 @@ export default function About() {
         <div className="w-full mt-16 md:mt-24">
           <div className="border border-neutral-200/60 bg-white rounded-[32px] p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
             
-            {/* Header */}
-            <div className="text-center md:text-left border-b border-neutral-100 pb-5 mb-8">
-              <span className="text-[0.6rem] font-mono font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md mb-2 inline-block">
-                Verified Credentials
-              </span>
-              <h3 className="font-heading font-black text-2xl text-text-primary mb-1">
-                Certifications &amp; Achievements
-              </h3>
-              <p className="font-sans text-xs text-text-muted">
-                Click any credential to inspect the verified certificate and authority details.
-              </p>
-            </div>
-
             {/* Grid layout */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {certificationsData.map((cert, idx) => (
