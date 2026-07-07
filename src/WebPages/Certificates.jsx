@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ExternalLink, Copy, Check, Calendar } from 'lucide-react';
+import { ExternalLink, Copy, Check, Calendar, Eye, X } from 'lucide-react';
 import certificateMockup from '../assets/certificate_mockup.png';
 import certDeepLearning from '../assets/cert_deep_learning.png';
 import certVanderbilt from '../assets/cert_vanderbilt.png';
@@ -94,6 +94,7 @@ const imageMap = {
 
 export default function Certificates() {
   const [copiedId, setCopiedId] = useState(null);
+  const [activeCertImage, setActiveCertImage] = useState(null);
   const [certificatesList, setCertificatesList] = useState(() => {
     let list = DEFAULT_CERTIFICATES;
     try {
@@ -252,14 +253,23 @@ export default function Certificates() {
               />
 
               {/* Certificate Image Preview */}
-              <div className="w-full aspect-video rounded-2xl overflow-hidden border border-text-primary/5 bg-bg-secondary relative shrink-0 z-2 select-none" style={{ transform: 'translateZ(10px)' }}>
+              <div 
+                onClick={() => setActiveCertImage(cert.image || certificateMockup)}
+                className="w-full aspect-video rounded-2xl overflow-hidden border border-text-primary/5 bg-bg-secondary relative shrink-0 z-2 select-none group/img cursor-zoom-in" 
+                style={{ transform: 'translateZ(10px)' }}
+              >
                 <img 
                   src={cert.image || certificateMockup} 
                   alt={`${cert.title} preview`} 
                   className="w-full h-full object-cover opacity-90 group-hover:scale-[1.02] transition-all duration-500" 
                 />
+                {/* Click to View Overlay */}
+                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover/img:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-1.5 text-white font-mono text-[0.62rem] font-bold uppercase tracking-wider">
+                  <Eye size={12} />
+                  <span>View Certificate</span>
+                </div>
                 {/* Badge Overlay */}
-                <div className="absolute top-3 left-3 px-2 py-1 rounded-lg border border-text-primary/10 bg-white/95 backdrop-blur-md text-[0.62rem] font-mono font-black text-text-primary shadow-xs tracking-wider select-none">
+                <div className="absolute top-3 left-3 px-2 py-1 rounded-lg border border-text-primary/10 bg-white/95 backdrop-blur-md text-[0.62rem] font-mono font-black text-text-primary shadow-xs tracking-wider select-none z-10">
                   {cert.logoText}
                 </div>
               </div>
@@ -369,6 +379,49 @@ export default function Certificates() {
           ))}
         </div>
       </div>
+
+      {/* Lightbox / View Modal Overlay */}
+      {activeCertImage && (
+        <div 
+          onClick={() => setActiveCertImage(null)}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-md p-4 transition-all duration-300 animate-cert-fade-in"
+        >
+          <div 
+            onClick={(e) => e.stopPropagation()}
+            className="relative max-w-4xl w-full bg-white rounded-3xl p-2.5 overflow-hidden shadow-2xl flex flex-col items-center justify-center animate-cert-scale-up"
+          >
+            <button 
+              onClick={() => setActiveCertImage(null)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-black/95 hover:bg-neutral-800 text-white transition-all cursor-pointer z-10 shadow-lg"
+              aria-label="Close Preview"
+            >
+              <X size={16} />
+            </button>
+            <img 
+              src={activeCertImage} 
+              alt="Certificate Verified Copy" 
+              className="max-h-[85vh] w-auto max-w-full rounded-2xl object-contain border border-neutral-100 shadow-2xs"
+            />
+          </div>
+        </div>
+      )}
+
+      <style>{`
+        @keyframes certFadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+        @keyframes certScaleUp {
+          from { transform: scale(0.95); opacity: 0; }
+          to { transform: scale(1); opacity: 1; }
+        }
+        .animate-cert-fade-in {
+          animation: certFadeIn 0.2s ease-out forwards;
+        }
+        .animate-cert-scale-up {
+          animation: certScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+      `}</style>
     </section>
   );
 }
