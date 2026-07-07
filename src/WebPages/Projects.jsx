@@ -128,8 +128,8 @@ export default function Projects() {
             >
               {/* Upcoming Blur Overlay */}
               {project.upcoming && (
-                <div className="absolute inset-0 bg-neutral-950/5 backdrop-blur-[3.5px] z-20 flex items-center justify-center">
-                  <span className="bg-black/90 border border-white/10 text-white font-mono text-[0.62rem] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5">
+                <div className="absolute inset-0 bg-white/30 backdrop-blur-[12px] z-20 flex items-center justify-center">
+                  <span className="bg-black/95 border border-neutral-800 text-white font-mono text-[0.62rem] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 select-none">
                     <Sparkles size={11} className="text-purple-400 animate-pulse" /> Upcoming
                   </span>
                 </div>
