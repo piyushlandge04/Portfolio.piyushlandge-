@@ -116,148 +116,167 @@ export default function Projects() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[480px]">
-          {projectsList.map((project, index) => (
-            <div 
-              key={project.title} 
-              className="project-card glass-card flex flex-col h-full rounded-[28px] group transition-all duration-300 relative overflow-hidden border animate-[fadeIn_0.4s_ease-out_forwards]"
-              onMouseMove={handleMouseMove}
-              style={{
-                borderColor: 'rgba(255, 255, 255, 0.05)',
-                animationDelay: `${index * 80}ms`
-              }}
-            >
-              {/* Upcoming Blur Overlay */}
-              {project.upcoming && (
-                <div className="absolute inset-0 bg-white/30 backdrop-blur-[12px] z-20 flex items-center justify-center">
-                  <span className="bg-black/95 border border-neutral-800 text-white font-mono text-[0.62rem] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 select-none">
-                    <Sparkles size={11} className="text-purple-400 animate-pulse" /> Upcoming
-                  </span>
-                </div>
-              )}
-              {/* Relative Mouse Spotlight Glow */}
-              <div 
-                className="absolute inset-0 rounded-[28px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
-                style={{
-                  background: `radial-gradient(350px circle at var(--mouse-x-relative, 0px) var(--mouse-y-relative, 0px), rgba(0, 0, 0, 0.02), transparent 85%)`
-                }}
-              />
-
-              {/* Project Card Image Banner / Styled Graphic */}
-              <div 
-                className="h-[200px] w-full relative flex items-center justify-center transition-all duration-500 overflow-hidden shrink-0 bg-neutral-50/50 border-b border-text-primary/5" 
-              >
-                {/* Tech wireframe grid pattern */}
-                <div className="absolute w-full h-full bg-[radial-gradient(rgba(0,0,0,0.03)_1.5px,transparent_1.5px)] bg-size-[14px_14px] opacity-80 z-10"></div>
-                
-                {/* Visual Graphic Representation */}
-                <div className="absolute inset-0 flex items-center justify-center p-4 z-20">
-                  <div className="w-[190px] h-[125px] bg-white border border-neutral-200/60 rounded-xl relative flex flex-col overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500">
-                    {/* Browser top bar */}
-                    <div className="h-5 border-b border-neutral-200/50 bg-neutral-50 px-2 flex justify-between items-center shrink-0 select-none">
-                      <div className="flex gap-0.5">
-                        <span className="w-1.2 h-1.2 rounded-full bg-neutral-300"></span>
-                        <span className="w-1.2 h-1.2 rounded-full bg-neutral-300"></span>
-                        <span className="w-1.2 h-1.2 rounded-full bg-neutral-300"></span>
-                      </div>
-                      <span className="text-[5px] font-mono text-neutral-400 font-bold truncate max-w-[100px]">
-                        {project.title.toLowerCase().replace(/ /g, '_')}.app
-                      </span>
-                    </div>
-                    {/* Screenshot image */}
-                    <div className="flex-1 relative overflow-hidden bg-white flex items-center justify-center">
-                      {project.image ? (
-                        <img 
-                          src={project.image} 
-                          alt={`${project.title} screenshot`} 
-                          className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                        />
-                      ) : (
-                        <div className="w-full h-full bg-neutral-50/50 flex flex-col items-center justify-center select-none font-mono text-[0.55rem] font-bold text-neutral-400 gap-1.5">
-                          <Code2 size={16} className="text-neutral-300" />
-                          <span>DEVELOPMENT</span>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Card Details */}
-              <div className="p-6 sm:p-7.5 flex flex-col grow text-left relative z-10">
-                <h3 className="text-xl font-heading font-black mb-3.5 text-text-primary tracking-tight flex items-center gap-2">
-                  <span className="p-1 rounded-md bg-neutral-50 border border-neutral-200/50 inline-flex items-center shrink-0">
+          {projectsList.map((project, index) => {
+            if (project.upcoming) {
+              return (
+                <div 
+                  key={project.title} 
+                  className="project-card flex flex-col items-center justify-center h-full min-h-[480px] rounded-[28px] border-2 border-dashed border-neutral-200/60 bg-neutral-50/10 p-8 text-center select-none animate-[fadeIn_0.4s_ease-out_forwards]"
+                  style={{
+                    animationDelay: `${index * 80}ms`
+                  }}
+                >
+                  <div className="p-3.5 rounded-full bg-white border border-neutral-200/40 shadow-2xs text-neutral-400 mb-4">
                     {project.icon}
+                  </div>
+                  <h3 className="font-heading font-black text-base text-neutral-800 mb-1.5 tracking-tight">
+                    {project.title}
+                  </h3>
+                  <p className="font-sans text-[0.68rem] text-neutral-400 font-bold uppercase tracking-wider mb-6">
+                    Upcoming Project
+                  </p>
+                  <span className="bg-black/95 border border-neutral-800 text-white font-mono text-[0.62rem] font-bold tracking-widest uppercase px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5">
+                    <Sparkles size={11} className="text-purple-400 animate-pulse" /> Coming Soon
                   </span>
-                  <span>{project.title}</span>
-                </h3>
-                <p className="font-sans text-[0.88rem] text-text-secondary leading-relaxed mb-5 grow opacity-90">
-                  {project.description}
-                </p>
-                
-                {/* Technical Metrics Block */}
-                <div className="grid grid-cols-3 gap-2.5 border-t border-text-primary/5 pt-4.5 mb-5 font-mono text-[0.65rem] text-text-muted select-none">
-                  <div className="bg-text-primary/1 border border-text-primary/5 rounded-lg p-1.5 text-center">
-                    <span className="block text-[0.52rem] text-text-muted uppercase font-bold tracking-wider mb-0.5">Engine</span>
-                    <span className="text-text-primary font-extrabold truncate block">{project.metrics.engine.split(' ')[0]}</span>
-                  </div>
-                  <div className="bg-text-primary/1 border border-text-primary/5 rounded-lg p-1.5 text-center">
-                    <span className="block text-[0.52rem] text-text-muted uppercase font-bold tracking-wider mb-0.5">Latency</span>
-                    <span className="text-text-primary font-extrabold truncate block">{project.metrics.latency}</span>
-                  </div>
-                  <div className="bg-text-primary/1 border border-text-primary/5 rounded-lg p-1.5 text-center">
-                    <span className="block text-[0.52rem] text-text-muted uppercase font-bold tracking-wider mb-0.5">Performance</span>
-                    <span className="text-text-primary font-extrabold truncate block">{project.metrics.score}</span>
+                </div>
+              );
+            }
+
+            return (
+              <div 
+                key={project.title} 
+                className="project-card glass-card flex flex-col h-full rounded-[28px] group transition-all duration-300 relative overflow-hidden border animate-[fadeIn_0.4s_ease-out_forwards]"
+                onMouseMove={handleMouseMove}
+                style={{
+                  borderColor: 'rgba(255, 255, 255, 0.05)',
+                  animationDelay: `${index * 80}ms`
+                }}
+              >
+                {/* Relative Mouse Spotlight Glow */}
+                <div 
+                  className="absolute inset-0 rounded-[28px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
+                  style={{
+                    background: `radial-gradient(350px circle at var(--mouse-x-relative, 0px) var(--mouse-y-relative, 0px), rgba(0, 0, 0, 0.02), transparent 85%)`
+                  }}
+                />
+
+                {/* Project Card Image Banner / Styled Graphic */}
+                <div 
+                  className="h-[200px] w-full relative flex items-center justify-center transition-all duration-500 overflow-hidden shrink-0 bg-neutral-50/50 border-b border-text-primary/5" 
+                >
+                  {/* Tech wireframe grid pattern */}
+                  <div className="absolute w-full h-full bg-[radial-gradient(rgba(0,0,0,0.03)_1.5px,transparent_1.5px)] bg-size-[14px_14px] opacity-80 z-10"></div>
+                  
+                  {/* Visual Graphic Representation */}
+                  <div className="absolute inset-0 flex items-center justify-center p-4 z-20">
+                    <div className="w-[190px] h-[125px] bg-white border border-neutral-200/60 rounded-xl relative flex flex-col overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500">
+                      {/* Browser top bar */}
+                      <div className="h-5 border-b border-neutral-200/50 bg-neutral-50 px-2 flex justify-between items-center shrink-0 select-none">
+                        <div className="flex gap-0.5">
+                          <span className="w-1.2 h-1.2 rounded-full bg-neutral-300"></span>
+                          <span className="w-1.2 h-1.2 rounded-full bg-neutral-300"></span>
+                          <span className="w-1.2 h-1.2 rounded-full bg-neutral-300"></span>
+                        </div>
+                        <span className="text-[5px] font-mono text-neutral-400 font-bold truncate max-w-[100px]">
+                          {project.title.toLowerCase().replace(/ /g, '_')}.app
+                        </span>
+                      </div>
+                      {/* Screenshot image */}
+                      <div className="flex-1 relative overflow-hidden bg-white flex items-center justify-center">
+                        {project.image ? (
+                          <img 
+                            src={project.image} 
+                            alt={`${project.title} screenshot`} 
+                            className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-neutral-50/50 flex flex-col items-center justify-center select-none font-mono text-[0.55rem] font-bold text-neutral-400 gap-1.5">
+                            <Code2 size={16} className="text-neutral-300" />
+                            <span>DEVELOPMENT</span>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
 
-                {/* Tech Tags */}
-                <div className="flex flex-wrap gap-1.5 mb-6 select-none">
-                  {project.tags.map((tag) => (
-                    <span 
-                      key={tag} 
-                      className="text-[0.6rem] font-mono font-bold bg-white/40 border border-[#30363d]/60 px-2 py-0.5 rounded-md text-text-muted hover:text-text-primary hover:border-text-primary/20 transition-colors"
-                    >
-                      {tag}
+                {/* Card Details */}
+                <div className="p-6 sm:p-7.5 flex flex-col grow text-left relative z-10">
+                  <h3 className="text-xl font-heading font-black mb-3.5 text-text-primary tracking-tight flex items-center gap-2">
+                    <span className="p-1 rounded-md bg-neutral-50 border border-neutral-200/50 inline-flex items-center shrink-0">
+                      {project.icon}
                     </span>
-                  ))}
-                </div>
+                    <span>{project.title}</span>
+                  </h3>
+                  <p className="font-sans text-[0.88rem] text-text-secondary leading-relaxed mb-5 grow opacity-90">
+                    {project.description}
+                  </p>
+                  
+                  {/* Technical Metrics Block */}
+                  <div className="grid grid-cols-3 gap-2.5 border-t border-text-primary/5 pt-4.5 mb-5 font-mono text-[0.65rem] text-text-muted select-none">
+                    <div className="bg-text-primary/1 border border-text-primary/5 rounded-lg p-1.5 text-center">
+                      <span className="block text-[0.52rem] text-text-muted uppercase font-bold tracking-wider mb-0.5">Engine</span>
+                      <span className="text-text-primary font-extrabold truncate block">{project.metrics.engine.split(' ')[0]}</span>
+                    </div>
+                    <div className="bg-text-primary/1 border border-text-primary/5 rounded-lg p-1.5 text-center">
+                      <span className="block text-[0.52rem] text-text-muted uppercase font-bold tracking-wider mb-0.5">Latency</span>
+                      <span className="text-text-primary font-extrabold truncate block">{project.metrics.latency}</span>
+                    </div>
+                    <div className="bg-text-primary/1 border border-text-primary/5 rounded-lg p-1.5 text-center">
+                      <span className="block text-[0.52rem] text-text-muted uppercase font-bold tracking-wider mb-0.5">Performance</span>
+                      <span className="text-text-primary font-extrabold truncate block">{project.metrics.score}</span>
+                    </div>
+                  </div>
 
-                {/* Action Buttons */}
-                <div className="flex gap-2.5 border-t border-text-primary/5 pt-5 mt-auto font-mono text-[0.68rem] select-none items-center">
-                  {project.github && project.github !== '#' ? (
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-purple-600 bg-purple-50/50 border border-purple-200/50 hover:bg-purple-100/50 shadow-sm transition-all duration-300 hover:-translate-y-0.5"
-                      aria-label="GitHub Repository"
-                    >
-                      <Github size={12} /> Repo
-                    </a>
-                  ) : (
-                    <span className="flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-text-muted bg-text-primary/5 border border-text-primary/5 cursor-not-allowed opacity-40">
-                      <Github size={12} /> Repo
-                    </span>
-                  )}
-                  {project.live && project.live !== '#' ? (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="ml-auto flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-white bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-md hover:shadow-purple-500/30 transition-all duration-300 hover:-translate-y-0.5"
-                      aria-label="Open Live Demo"
-                    >
-                      <ExternalLink size={12} /> Open
-                    </a>
-                  ) : (
-                    <span className="ml-auto flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-text-muted bg-text-primary/5 border border-text-primary/5 cursor-not-allowed opacity-40">
-                      <ExternalLink size={12} /> Open
-                    </span>
-                  )}
+                  {/* Tech Tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-6 select-none">
+                    {project.tags.map((tag) => (
+                      <span 
+                        key={tag} 
+                        className="text-[0.6rem] font-mono font-bold bg-white/40 border border-[#30363d]/60 px-2 py-0.5 rounded-md text-text-muted hover:text-text-primary hover:border-text-primary/20 transition-colors"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action Buttons */}
+                  <div className="flex gap-2.5 border-t border-text-primary/5 pt-5 mt-auto font-mono text-[0.68rem] select-none items-center">
+                    {project.github && project.github !== '#' ? (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-purple-600 bg-purple-50/50 border border-purple-200/50 hover:bg-purple-100/50 shadow-sm transition-all duration-300 hover:-translate-y-0.5"
+                        aria-label="GitHub Repository"
+                      >
+                        <Github size={12} /> Repo
+                      </a>
+                    ) : (
+                      <span className="flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-text-muted bg-text-primary/5 border border-text-primary/5 cursor-not-allowed opacity-40">
+                        <Github size={12} /> Repo
+                      </span>
+                    )}
+                    {project.live && project.live !== '#' ? (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="ml-auto flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-white bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-md hover:shadow-purple-500/30 transition-all duration-300 hover:-translate-y-0.5"
+                        aria-label="Open Live Demo"
+                      >
+                        <ExternalLink size={12} /> Open
+                      </a>
+                    ) : (
+                      <span className="ml-auto flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-text-muted bg-text-primary/5 border border-text-primary/5 cursor-not-allowed opacity-40">
+                        <ExternalLink size={12} /> Open
+                      </span>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
