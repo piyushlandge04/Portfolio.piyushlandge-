@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import { ExternalLink, Layers, MessageSquare, Terminal, Sliders, Cpu, Eye, Code2, LineChart, Sparkles, Wand2 } from 'lucide-react';
 import flyerScreenshot from '../assets/flyer_screenshot.png';
-import projChatbot from '../assets/proj_chatbot.png';
-import projStyleTransfer from '../assets/proj_style_transfer.png';
 import projPortfolio from '../assets/proj_portfolio.png';
 
 const Github = ({ size = 20, className }) => (
@@ -32,18 +30,15 @@ export default function Projects() {
     e.currentTarget.style.setProperty('--mouse-y-relative', `${y}px`);
   };
 
-
   const projectsList = [
     {
       title: 'AI Flyer Designer',
       description: 'An intelligent creative suite that generates customized visual flyers and marketing assets using Generative AI. Employs advanced model prompt engineering, custom layout algorithms, and real-time canvas previewing.',
       tags: ['React', 'Tailwind CSS', 'Canvas API', 'API Integration'],
       categories: ['ai-ml', 'frontend'],
-      github: null,
+      github: 'https://github.com/piyushlandge04/piyushai',
       live: 'https://piyushai.vercel.app/',
-      color: 'linear-gradient(135deg, #fff1f2 0%, #fff7ed 100%)',
-      glowRGB: '244, 63, 94', // rose-500
-      icon: <Layers size={13} className="text-rose-400" />,
+      icon: <Layers size={13} className="text-neutral-600" />,
       metrics: {
         engine: 'Generative Model',
         latency: '140ms',
@@ -51,50 +46,16 @@ export default function Projects() {
       },
       image: flyerScreenshot
     },
-    {
-      title: 'AI Chatbot',
-      description: 'A responsive, context-aware chatbot powered by Large Language Models. Features semantic query routing, prompt caching, persistent chat history, and fluid conversational feedback loops.',
-      tags: ['Python', 'LLMs', 'NLP', 'MongoDB'],
-      categories: ['ai-ml', 'nlp-cv'],
-      github: '#',
-      live: '#',
-      color: 'linear-gradient(135deg, #f5f3ff 0%, #faf5ff 100%)',
-      glowRGB: '139, 92, 246', // purple-500
-      icon: <MessageSquare size={13} className="text-purple-400" />,
-      metrics: {
-        engine: 'Mistral-7B',
-        latency: '24ms',
-        score: '0.96 BLEU'
-      },
-      image: projChatbot
-    },
-    {
-      title: 'Neural Style Transfer',
-      description: 'Generates hybrid images by merging the content of one image with the artistic style of another. Utilizes deep convolutional feature layers (VGG-19) to compute separate style and content loss matrices.',
-      tags: ['TensorFlow', 'Computer Vision', 'Style Loss', 'CNNs'],
-      categories: ['ai-ml', 'nlp-cv'],
-      github: '#',
-      live: '#',
-      color: 'linear-gradient(135deg, #ecfeff 0%, #f0fdfa 100%)',
-      glowRGB: '6, 182, 212', // cyan-500
-      icon: <Eye size={13} className="text-cyan-400" />,
-      metrics: {
-        engine: 'VGG-19 Model',
-        latency: '340ms',
-        score: '97.8% Percept'
-      },
-      image: projStyleTransfer
-    },
+
+
     {
       title: 'Personal Portfolio Website',
       description: 'A premium, responsive portfolio web application featuring bento grid layout, interactive micro-animations, glassmorphic styling, custom terminal simulation, and an integrated AI assistant.',
       tags: ['React', 'Vite', 'Tailwind CSS', 'Lucide Icons'],
       categories: ['frontend'],
-      github: '#',
-      live: '#',
-      color: 'linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%)',
-      glowRGB: '16, 185, 129', // emerald-500
-      icon: <Terminal size={13} className="text-emerald-400" />,
+      github: 'https://github.com/piyushlandge04/Portfolio.piyushlandge-',
+      live: '/',
+      icon: <Terminal size={13} className="text-neutral-600" />,
       metrics: {
         engine: 'Vite / React19',
         latency: '1.2s LCP',
@@ -103,7 +64,6 @@ export default function Projects() {
       image: projPortfolio
     }
   ];
-
 
   return (
     <section id="projects" className="pt-24 pb-10 md:pt-32 md:pb-32 relative scroll-reveal bg-bg-primary overflow-hidden">
@@ -125,7 +85,6 @@ export default function Projects() {
           </p>
         </div>
 
-        {/* Projects Bento Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[480px]">
           {projectsList.map((project, index) => (
             <div 
@@ -141,29 +100,28 @@ export default function Projects() {
               <div 
                 className="absolute inset-0 rounded-[28px] pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-0"
                 style={{
-                  background: `radial-gradient(350px circle at var(--mouse-x-relative, 0px) var(--mouse-y-relative, 0px), rgba(${project.glowRGB}, 0.06), transparent 85%)`
+                  background: `radial-gradient(350px circle at var(--mouse-x-relative, 0px) var(--mouse-y-relative, 0px), rgba(0, 0, 0, 0.02), transparent 85%)`
                 }}
               />
 
               {/* Project Card Image Banner / Styled Graphic */}
               <div 
-                className="h-[210px] w-full relative flex items-center justify-center transition-all duration-500 overflow-hidden shrink-0" 
-                style={{ background: project.color }}
+                className="h-[200px] w-full relative flex items-center justify-center transition-all duration-500 overflow-hidden shrink-0 bg-neutral-50/50 border-b border-text-primary/5" 
               >
                 {/* Tech wireframe grid pattern */}
-                <div className="absolute w-full h-full bg-[radial-gradient(rgba(255,255,255,0.02)_1px,transparent_1px)] bg-size-[14px_14px] opacity-80 z-10"></div>
+                <div className="absolute w-full h-full bg-[radial-gradient(rgba(0,0,0,0.03)_1.5px,transparent_1.5px)] bg-[size:14px_14px] opacity-80 z-10"></div>
                 
                 {/* Visual Graphic Representation */}
-                <div className="absolute inset-0 bg-white/40 flex items-center justify-center p-4">
-                  <div className="w-[190px] h-[125px] bg-bg-secondary/80 border border-text-primary/10 rounded-xl relative flex flex-col overflow-hidden shadow-2xl backdrop-blur-md transition-all duration-500 group-hover:scale-[1.03]">
+                <div className="absolute inset-0 flex items-center justify-center p-4 z-20">
+                  <div className="w-[190px] h-[125px] bg-white border border-neutral-200/60 rounded-xl relative flex flex-col overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500">
                     {/* Browser top bar */}
-                    <div className="h-5 border-b border-text-primary/5 bg-bg-card px-2 flex justify-between items-center shrink-0 select-none">
+                    <div className="h-5 border-b border-neutral-200/50 bg-neutral-50 px-2 flex justify-between items-center shrink-0 select-none">
                       <div className="flex gap-0.5">
-                        <span className="w-1.2 h-1.2 rounded-full bg-red-400/80"></span>
-                        <span className="w-1.2 h-1.2 rounded-full bg-yellow-400/80"></span>
-                        <span className="w-1.2 h-1.2 rounded-full bg-green-400/80"></span>
+                        <span className="w-1.2 h-1.2 rounded-full bg-neutral-300"></span>
+                        <span className="w-1.2 h-1.2 rounded-full bg-neutral-300"></span>
+                        <span className="w-1.2 h-1.2 rounded-full bg-neutral-300"></span>
                       </div>
-                      <span className="text-[4px] font-mono text-text-muted font-bold truncate max-w-[100px]">
+                      <span className="text-[5px] font-mono text-neutral-400 font-bold truncate max-w-[100px]">
                         {project.title.toLowerCase().replace(/ /g, '_')}.app
                       </span>
                     </div>
@@ -177,20 +135,15 @@ export default function Projects() {
                     </div>
                   </div>
                 </div>
-
-                {/* Floating Badges */}
-                <div className="absolute top-4 left-4 z-20 flex gap-1.5 font-mono text-[0.62rem] font-bold select-none">
-                  <span className="bg-black/85 border border-text-primary/5 px-2.5 py-1 rounded-full text-white flex items-center gap-1.5 shadow-lg backdrop-blur-md">
-                    {project.icon}
-                    <span>{project.metrics.engine}</span>
-                  </span>
-                </div>
               </div>
 
               {/* Card Details */}
-              <div className="p-6 sm:p-7.5 flex flex-col grow text-left bg-black/5 relative z-10">
+              <div className="p-6 sm:p-7.5 flex flex-col grow text-left relative z-10">
                 <h3 className="text-xl font-heading font-black mb-3.5 text-text-primary tracking-tight flex items-center gap-2">
-                  {project.title}
+                  <span className="p-1 rounded-md bg-neutral-50 border border-neutral-200/50 inline-flex items-center shrink-0">
+                    {project.icon}
+                  </span>
+                  <span>{project.title}</span>
                 </h3>
                 <p className="font-sans text-[0.88rem] text-text-secondary leading-relaxed mb-5 grow opacity-90">
                   {project.description}
@@ -231,7 +184,7 @@ export default function Projects() {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-text-primary bg-text-primary/8 border border-text-primary/10 hover:bg-text-primary/12 hover:border-text-primary/20 shadow-sm transition-all duration-300 hover:-translate-y-0.5"
+                      className="flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-purple-600 bg-purple-50/50 border border-purple-200/50 hover:bg-purple-100/50 shadow-sm transition-all duration-300 hover:-translate-y-0.5"
                       aria-label="GitHub Repository"
                     >
                       <Github size={12} /> Repo
