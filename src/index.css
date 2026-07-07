@@ -326,43 +326,6 @@ html.lenis, html.lenis body {
   cursor: pointer;
 }
 
-/* --- Interactive AI Terminal & Redesigned About Section --- */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.animate-blink {
-  animation: blink 1s step-end infinite;
-}
-
-/* Glassmorphism scanline overlay for retro-futuristic console look */
-.terminal-scanline {
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.05) 50%
-  ), linear-gradient(
-    90deg, 
-    rgba(255, 0, 0, 0.02), 
-    rgba(0, 255, 0, 0.01), 
-    rgba(0, 0, 255, 0.02)
-  );
-  background-size: 100% 4px, 6px 100%;
-}
-
-.dark .terminal-scanline {
-  background: linear-gradient(
-    rgba(18, 16, 16, 0) 50%, 
-    rgba(0, 0, 0, 0.25) 50%
-  ), linear-gradient(
-    90deg, 
-    rgba(255, 0, 0, 0.06), 
-    rgba(0, 255, 0, 0.02), 
-    rgba(0, 0, 255, 0.06)
-  );
-  background-size: 100% 4px, 6px 100%;
-}
-
 /* Timeline animations */
 .timeline-line-glow {
   background: linear-gradient(to bottom, #d8b4fe 0%, #818cf8 50%, #e2e8f0 100%);
