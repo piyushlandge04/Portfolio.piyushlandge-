@@ -2,62 +2,8 @@ import { useState } from 'react';
 import { 
   GraduationCap, Briefcase, ChevronDown, ChevronUp, MapPin, 
   Sparkles, Brain, Cpu, BarChart2, Database, Cloud, Terminal, 
-  Code, Settings, FileText, CheckCircle2, Eye, Award, X 
+  Code, Settings, FileText, CheckCircle2 
 } from 'lucide-react';
-
-// Import Certificate Assets
-import certAws from '../assets/cert_aws.png';
-import certDeepLearning from '../assets/cert_deep_learning.png';
-import certDuke from '../assets/cert_duke.png';
-import certGcp from '../assets/cert_gcp.png';
-import certNlp from '../assets/cert_nlp.png';
-import certStanford from '../assets/cert_stanford.png';
-import certVanderbilt from '../assets/cert_vanderbilt.png';
-
-const certificationsData = [
-  {
-    title: 'AWS Certified Cloud Practitioner',
-    issuer: 'Amazon Web Services (AWS)',
-    category: 'Cloud',
-    image: certAws
-  },
-  {
-    title: 'Deep Learning Specialization',
-    issuer: 'DeepLearning.AI / Stanford',
-    category: 'Deep Learning',
-    image: certDeepLearning
-  },
-  {
-    title: 'Natural Language Processing',
-    issuer: 'DeepLearning.AI',
-    category: 'AI / NLP',
-    image: certNlp
-  },
-  {
-    title: 'Machine Learning Course',
-    issuer: 'Stanford University',
-    category: 'Machine Learning',
-    image: certStanford
-  },
-  {
-    title: 'Google Cloud Fundamentals',
-    issuer: 'Google Cloud Platform (GCP)',
-    category: 'Cloud',
-    image: certGcp
-  },
-  {
-    title: 'AI Product Management',
-    issuer: 'Duke University',
-    category: 'AI Management',
-    image: certDuke
-  },
-  {
-    title: 'Prompt Engineering & Generative AI',
-    issuer: 'Vanderbilt University',
-    category: 'Generative AI',
-    image: certVanderbilt
-  }
-];
 
 const experienceTimeline = [
   {
@@ -142,7 +88,6 @@ const skillsData = [
 export default function About() {
   const [activeTab, setActiveTab] = useState('profile');
   const [expandedMilestone, setExpandedMilestone] = useState(0); // first item expanded
-  const [activeCert, setActiveCert] = useState(null); // certificate modal zoom
   
   // Terminal Simulation States
   const [isRunningAgent, setIsRunningAgent] = useState(false);
@@ -622,88 +567,7 @@ export default function About() {
           </div>
         </div>
 
-        {/* CERTIFICATIONS & CREDENTIALS GALLERY */}
-        <div className="w-full mt-16 md:mt-24">
-          <div className="border border-neutral-200/60 bg-white rounded-[32px] p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
-            
-            {/* Grid layout */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {certificationsData.map((cert, idx) => (
-                <div 
-                  key={idx}
-                  className="group flex flex-col rounded-2xl border border-neutral-100 bg-white hover:border-purple-200 hover:shadow-[0_12px_30px_rgba(168,85,247,0.05)] hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer text-left"
-                  onClick={() => setActiveCert(cert)}
-                >
-                  {/* Thumbnail Image Container */}
-                  <div className="h-40 w-full bg-neutral-50 relative flex items-center justify-center border-b border-neutral-100 overflow-hidden shrink-0">
-                    <img 
-                      src={cert.image} 
-                      alt={cert.title} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    {/* Hover Overlay */}
-                    <div className="absolute inset-0 bg-purple-900/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <span className="bg-white/95 border border-purple-200 text-purple-600 text-xs font-bold font-mono px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform">
-                        <Eye size={12} /> Preview
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Details */}
-                  <div className="p-5 flex flex-col grow justify-between">
-                    <div>
-                      <span className="text-[0.58rem] font-mono font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-2 py-0.5 rounded mb-2.5 inline-block">
-                        {cert.category}
-                      </span>
-                      <h4 className="font-heading font-black text-sm text-text-primary leading-snug group-hover:text-purple-600 transition-colors">
-                        {cert.title}
-                      </h4>
-                    </div>
-                    <div className="flex items-center justify-between border-t border-neutral-50 pt-3 mt-4 text-[0.65rem] font-mono text-neutral-400 font-bold">
-                      <span>{cert.issuer}</span>
-                      <span className="text-emerald-500 flex items-center gap-1">
-                        <Award size={10} /> Verified
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-          </div>
-        </div>
-
       </div>
-
-      {/* Lightbox Credential Zoom Modal */}
-      {activeCert && (
-        <div 
-          className="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in"
-          onClick={() => setActiveCert(null)}
-        >
-          <div 
-            className="relative max-w-4xl w-full bg-white rounded-2xl overflow-hidden p-2 shadow-2xl flex flex-col items-center"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button 
-              onClick={() => setActiveCert(null)}
-              className="absolute top-4 right-4 p-2 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors z-10 cursor-pointer"
-              aria-label="Close Preview"
-            >
-              <X size={18} />
-            </button>
-            <img 
-              src={activeCert.image} 
-              alt={activeCert.title} 
-              className="w-full max-h-[75vh] object-contain rounded-xl"
-            />
-            <div className="py-4 px-3 text-center w-full bg-neutral-50 border-t border-neutral-100">
-              <h4 className="font-heading font-black text-base sm:text-lg text-text-primary">{activeCert.title}</h4>
-              <p className="text-xs text-text-secondary mt-1">{activeCert.issuer} · Verified Credential</p>
-            </div>
-          </div>
-        </div>
-      )}
     </section>
   );
 }
