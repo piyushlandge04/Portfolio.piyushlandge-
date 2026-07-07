@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { ReactLenis } from 'lenis/react';
 import Hero from './WebPages/Hero';
-import About from './WebPages/About';
 import Projects from './WebPages/Projects';
 import Certificates from './WebPages/Certificates';
 import Contact from './WebPages/Contact';
@@ -61,7 +60,6 @@ function App() {
 
       <main>
         <Hero />
-        <About />
         <Projects />
         <Certificates />
         <Contact />

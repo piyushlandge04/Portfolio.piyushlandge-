@@ -3,9 +3,6 @@ import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
   { href: '#home',         label: 'Home'           },
-  { href: '#about',        label: 'About'          },
-  { href: '#skills',       label: 'Skills'         },
-  { href: '#experience',   label: 'Experience'     },
   { href: '#projects',     label: 'Projects'       },
   { href: '#certificates', label: 'Certifications' },
 ];

@@ -326,5 +326,13 @@ html.lenis, html.lenis body {
   cursor: pointer;
 }
 
+/* Timeline animations */
+.timeline-line-glow {
+  background: linear-gradient(to bottom, #d8b4fe 0%, #818cf8 50%, #e2e8f0 100%);
+}
 
+.timeline-line-glow-active {
+  background: linear-gradient(to bottom, #a855f7 0%, #6366f1 100%);
+  filter: drop-shadow(0 0 6px rgba(168, 85, 247, 0.3));
+}
 
