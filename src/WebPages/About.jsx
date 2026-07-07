@@ -94,31 +94,39 @@ export default function About() {
                 Work &amp; Education Roadmap
               </h3>
               
-              <div className="space-y-4">
+              <div className="relative pl-6 sm:pl-8 space-y-6">
+                {/* Connecting Vertical Line (running from bottom item up to top item) */}
+                <div className="absolute left-[11px] sm:left-[15px] top-4 bottom-4 w-[2px] bg-linear-to-t from-neutral-100 via-indigo-200 to-purple-500" />
+
                 {milestones.map((m, idx) => (
                   <div 
                     key={idx}
-                    className="p-5 rounded-2xl border border-neutral-100 hover:border-neutral-200 bg-neutral-50/30 hover:bg-neutral-50/80 transition-all duration-300 flex gap-4"
+                    className="relative flex gap-4"
                   >
-                    <div className="p-2 rounded-xl bg-white border border-neutral-200/50 shadow-2xs self-start shrink-0 text-neutral-500">
-                      {m.type === 'work' ? <Briefcase size={16} /> : <GraduationCap size={16} />}
+                    {/* Icon Node centered on the vertical line */}
+                    <div className="absolute left-[-23px] sm:left-[-27px] top-3.5 w-6 h-6 rounded-full border border-neutral-200 bg-white flex items-center justify-center shadow-2xs text-neutral-500 z-10 hover:border-purple-300 hover:text-purple-600 transition-colors">
+                      {m.type === 'work' ? <Briefcase size={12} /> : <GraduationCap size={12} />}
                     </div>
-                    <div className="flex flex-col">
-                      <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-                        <h4 className="font-heading font-black text-sm text-neutral-900">
-                          {m.role}
-                        </h4>
-                        <span className="text-xs text-neutral-400 font-semibold font-sans">
-                          · {m.company}
-                        </span>
+
+                    {/* Milestone Card Content */}
+                    <div className="p-5 rounded-2xl border border-neutral-100 hover:border-neutral-200 bg-neutral-50/30 hover:bg-neutral-50/80 transition-all duration-300 w-full pl-6 sm:pl-7">
+                      <div className="flex flex-col">
+                        <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
+                          <h4 className="font-heading font-black text-sm text-neutral-900">
+                            {m.role}
+                          </h4>
+                          <span className="text-xs text-neutral-400 font-semibold font-sans">
+                            · {m.company}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1 text-[0.68rem] font-mono text-neutral-400 font-bold mt-1 mb-2">
+                          <Calendar size={11} />
+                          <span>{m.period}</span>
+                        </div>
+                        <p className="font-sans text-xs text-neutral-600 leading-relaxed">
+                          {m.details}
+                        </p>
                       </div>
-                      <div className="flex items-center gap-1 text-[0.68rem] font-mono text-neutral-400 font-bold mt-1 mb-2">
-                        <Calendar size={11} />
-                        <span>{m.period}</span>
-                      </div>
-                      <p className="font-sans text-xs text-neutral-600 leading-relaxed">
-                        {m.details}
-                      </p>
                     </div>
                   </div>
                 ))}
