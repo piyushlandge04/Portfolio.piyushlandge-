@@ -2,8 +2,62 @@ import { useState } from 'react';
 import { 
   GraduationCap, Briefcase, ChevronDown, ChevronUp, MapPin, 
   Sparkles, Brain, Cpu, BarChart2, Database, Cloud, Terminal, 
-  Code, Settings, FileText, ArrowRight, CheckCircle2 
+  Code, Settings, FileText, CheckCircle2, Eye, Award, X 
 } from 'lucide-react';
+
+// Import Certificate Assets
+import certAws from '../assets/cert_aws.png';
+import certDeepLearning from '../assets/cert_deep_learning.png';
+import certDuke from '../assets/cert_duke.png';
+import certGcp from '../assets/cert_gcp.png';
+import certNlp from '../assets/cert_nlp.png';
+import certStanford from '../assets/cert_stanford.png';
+import certVanderbilt from '../assets/cert_vanderbilt.png';
+
+const certificationsData = [
+  {
+    title: 'AWS Certified Cloud Practitioner',
+    issuer: 'Amazon Web Services (AWS)',
+    category: 'Cloud',
+    image: certAws
+  },
+  {
+    title: 'Deep Learning Specialization',
+    issuer: 'DeepLearning.AI / Stanford',
+    category: 'Deep Learning',
+    image: certDeepLearning
+  },
+  {
+    title: 'Natural Language Processing',
+    issuer: 'DeepLearning.AI',
+    category: 'AI / NLP',
+    image: certNlp
+  },
+  {
+    title: 'Machine Learning Course',
+    issuer: 'Stanford University',
+    category: 'Machine Learning',
+    image: certStanford
+  },
+  {
+    title: 'Google Cloud Fundamentals',
+    issuer: 'Google Cloud Platform (GCP)',
+    category: 'Cloud',
+    image: certGcp
+  },
+  {
+    title: 'AI Product Management',
+    issuer: 'Duke University',
+    category: 'AI Management',
+    image: certDuke
+  },
+  {
+    title: 'Prompt Engineering & Generative AI',
+    issuer: 'Vanderbilt University',
+    category: 'Generative AI',
+    image: certVanderbilt
+  }
+];
 
 const experienceTimeline = [
   {
@@ -88,6 +142,28 @@ const skillsData = [
 export default function About() {
   const [activeTab, setActiveTab] = useState('profile');
   const [expandedMilestone, setExpandedMilestone] = useState(0); // first item expanded
+  const [activeCert, setActiveCert] = useState(null); // certificate modal zoom
+  
+  // Terminal Simulation States
+  const [isRunningAgent, setIsRunningAgent] = useState(false);
+  const [agentStep, setAgentStep] = useState(0);
+
+  const runAgentSimulation = () => {
+    if (isRunningAgent) return;
+    setIsRunningAgent(true);
+    setAgentStep(0);
+    
+    const interval = setInterval(() => {
+      setAgentStep((prev) => {
+        if (prev >= 5) {
+          clearInterval(interval);
+          setIsRunningAgent(false);
+          return 5;
+        }
+        return prev + 1;
+      });
+    }, 600);
+  };
 
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
@@ -130,37 +206,69 @@ export default function About() {
         return (
           <div className="font-mono text-[0.76rem] sm:text-xs leading-relaxed text-neutral-300">
             <span className="text-neutral-500 font-normal"># agentic_flow.sh</span>
-            <div className="mt-2 flex flex-col gap-2">
-              <div className="flex items-center gap-2">
-                <span className="text-neutral-500 font-bold">[STEP 1]</span>
-                <span className="text-neutral-300 font-medium">Ingest Raw Data Pipelines</span>
-                <span className="text-emerald-400 ml-auto font-bold">✔ OK</span>
+            {agentStep === 0 && !isRunningAgent ? (
+              <div className="mt-4 text-center py-6 border border-dashed border-neutral-800 rounded-xl bg-neutral-900/30">
+                <span className="text-neutral-500 block mb-3 font-sans text-xs">Simulate an end-to-end evaluation cycle</span>
+                <button 
+                  onClick={runAgentSimulation}
+                  className="px-4 py-2 bg-purple-600 hover:bg-purple-500 text-white rounded-lg text-xs font-bold transition-all shadow-md active:scale-95 cursor-pointer inline-flex items-center gap-1.5"
+                >
+                  <Terminal size={12} /> Execute flow.sh
+                </button>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-neutral-500 font-bold">[STEP 2]</span>
-                <span className="text-neutral-300 font-medium">Embedding Representation (Vector DB)</span>
-                <span className="text-emerald-400 ml-auto font-bold">✔ OK</span>
+            ) : (
+              <div className="mt-2 flex flex-col gap-2">
+                {agentStep >= 1 && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-neutral-500 font-bold">[STEP 1]</span>
+                    <span className="text-neutral-300 font-medium">Ingest Raw Data Pipelines</span>
+                    <span className="text-emerald-400 ml-auto font-bold">✔ OK</span>
+                  </div>
+                )}
+                {agentStep >= 2 && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-neutral-500 font-bold">[STEP 2]</span>
+                    <span className="text-neutral-300 font-medium">Embedding Representation (Vector DB)</span>
+                    <span className="text-emerald-400 ml-auto font-bold">✔ OK</span>
+                  </div>
+                )}
+                {agentStep >= 3 && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-neutral-500 font-bold">[STEP 3]</span>
+                    <span className="text-neutral-300 font-medium">Context Routing & Prompt Cache Optimization</span>
+                    <span className="text-emerald-400 ml-auto font-bold">✔ OK</span>
+                  </div>
+                )}
+                {agentStep >= 4 && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-neutral-500 font-bold">[STEP 4]</span>
+                    <span className="text-neutral-300 font-medium">Model Inference & Fine-Tuning Evaluations</span>
+                    <span className="text-cyan-400 ml-auto font-bold animate-pulse">
+                      {agentStep === 4 ? '⟳ SWEEPS' : '✔ DONE'}
+                    </span>
+                  </div>
+                )}
+                {agentStep >= 5 && (
+                  <div className="flex items-center gap-2">
+                    <span className="text-neutral-500 font-bold">[STEP 5]</span>
+                    <span className="text-neutral-300 font-medium">Deployment Verification & Latency Audits</span>
+                    <span className="text-yellow-400 ml-auto font-bold">⚡ 24ms</span>
+                  </div>
+                )}
+                
+                {agentStep >= 4 && (
+                  <div className="mt-3 p-3 bg-neutral-900/60 rounded-lg border border-neutral-800/80">
+                    <span className="text-neutral-400 text-[0.7rem] block mb-1">CURRENT AGENT METADATA:</span>
+                    <code className="text-purple-400 text-xs">
+                      {agentStep === 5 
+                        ? '{ status: "idle", temperature: 0.2, evaluation: "completed" }'
+                        : '{ status: "running_evaluation", temperature: 0.2, sweeps: 12 }'
+                      }
+                    </code>
+                  </div>
+                )}
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-neutral-500 font-bold">[STEP 3]</span>
-                <span className="text-neutral-300 font-medium">Context Routing & Prompt Cache Optimization</span>
-                <span className="text-emerald-400 ml-auto font-bold">✔ OK</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-neutral-500 font-bold">[STEP 4]</span>
-                <span className="text-neutral-300 font-medium">Model Inference & Fine-Tuning Evaluations</span>
-                <span className="text-cyan-400 ml-auto font-bold animate-pulse">⟳ SWEEPS</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <span className="text-neutral-500 font-bold">[STEP 5]</span>
-                <span className="text-neutral-300 font-medium">Deployment Verification & Latency Audits</span>
-                <span className="text-yellow-400 ml-auto font-bold">⚡ 24ms</span>
-              </div>
-              <div className="mt-3 p-3 bg-neutral-900/60 rounded-lg border border-neutral-800/80">
-                <span className="text-neutral-400 text-[0.7rem] block mb-1">CURRENT AGENT METADATA:</span>
-                <code className="text-purple-400 text-xs">{"{ status: \"running_evaluation\", temperature: 0.2, iterations: 1420 }"}</code>
-              </div>
-            </div>
+            )}
           </div>
         );
       case 'metrics':
@@ -295,12 +403,27 @@ export default function About() {
               </div>
 
               {/* Terminal Input Line Footer */}
-              <div className="bg-[#16161a] border-t border-neutral-800 px-5 py-2.5 flex items-center font-mono text-[0.7rem] text-neutral-500 shrink-0 select-none">
+              <div 
+                className={`bg-[#16161a] border-t border-neutral-800 px-5 py-2.5 flex items-center font-mono text-[0.7rem] select-none ${
+                  activeTab === 'agent' && !isRunningAgent ? 'cursor-pointer hover:bg-neutral-800/40 group/term transition-colors' : ''
+                }`}
+                onClick={activeTab === 'agent' ? runAgentSimulation : undefined}
+              >
                 <Terminal size={11} className="text-neutral-600 mr-2" />
-                <span>guest@piyushlandge:~$ </span>
+                <span className="text-neutral-500">guest@piyushlandge:~$ </span>
                 <span className="text-neutral-300 ml-1">
                   {activeTab === 'profile' ? 'cat profile.yaml' : activeTab === 'agent' ? './flow.sh' : 'tail -f metrics.log'}
                 </span>
+                {activeTab === 'agent' && !isRunningAgent && (
+                  <span className="ml-auto text-[0.62rem] text-purple-400 font-bold bg-purple-950/40 border border-purple-800/40 rounded px-1.5 py-0.5 animate-pulse group-hover/term:bg-purple-900/60 group-hover/term:text-white transition-all">
+                    RUN SCRIPT
+                  </span>
+                )}
+                {isRunningAgent && (
+                  <span className="ml-auto text-[0.62rem] text-cyan-400 font-bold bg-cyan-950/40 border border-cyan-800/40 rounded px-1.5 py-0.5 animate-pulse">
+                    RUNNING...
+                  </span>
+                )}
                 <span className="w-1.5 h-3 bg-neutral-300 ml-1.5 animate-blink shrink-0" />
               </div>
             </div>
@@ -499,7 +622,101 @@ export default function About() {
           </div>
         </div>
 
+        {/* CERTIFICATIONS & CREDENTIALS GALLERY */}
+        <div className="w-full mt-16 md:mt-24">
+          <div className="border border-neutral-200/60 bg-white rounded-[32px] p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.02)]">
+            
+            {/* Header */}
+            <div className="text-center md:text-left border-b border-neutral-100 pb-5 mb-8">
+              <span className="text-[0.6rem] font-mono font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-2.5 py-1 rounded-md mb-2 inline-block">
+                Verified Credentials
+              </span>
+              <h3 className="font-heading font-black text-2xl text-text-primary mb-1">
+                Certifications &amp; Achievements
+              </h3>
+              <p className="font-sans text-xs text-text-muted">
+                Click any credential to inspect the verified certificate and authority details.
+              </p>
+            </div>
+
+            {/* Grid layout */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+              {certificationsData.map((cert, idx) => (
+                <div 
+                  key={idx}
+                  className="group flex flex-col rounded-2xl border border-neutral-100 bg-white hover:border-purple-200 hover:shadow-[0_12px_30px_rgba(168,85,247,0.05)] hover:-translate-y-1 transition-all duration-300 overflow-hidden cursor-pointer text-left"
+                  onClick={() => setActiveCert(cert)}
+                >
+                  {/* Thumbnail Image Container */}
+                  <div className="h-40 w-full bg-neutral-50 relative flex items-center justify-center border-b border-neutral-100 overflow-hidden shrink-0">
+                    <img 
+                      src={cert.image} 
+                      alt={cert.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                    {/* Hover Overlay */}
+                    <div className="absolute inset-0 bg-purple-900/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <span className="bg-white/95 border border-purple-200 text-purple-600 text-xs font-bold font-mono px-3 py-1.5 rounded-full shadow-md flex items-center gap-1.5 transform translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <Eye size={12} /> Preview
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Details */}
+                  <div className="p-5 flex flex-col grow justify-between">
+                    <div>
+                      <span className="text-[0.58rem] font-mono font-bold uppercase tracking-wider text-purple-600 bg-purple-50 px-2 py-0.5 rounded mb-2.5 inline-block">
+                        {cert.category}
+                      </span>
+                      <h4 className="font-heading font-black text-sm text-text-primary leading-snug group-hover:text-purple-600 transition-colors">
+                        {cert.title}
+                      </h4>
+                    </div>
+                    <div className="flex items-center justify-between border-t border-neutral-50 pt-3 mt-4 text-[0.65rem] font-mono text-neutral-400 font-bold">
+                      <span>{cert.issuer}</span>
+                      <span className="text-emerald-500 flex items-center gap-1">
+                        <Award size={10} /> Verified
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+          </div>
+        </div>
+
       </div>
+
+      {/* Lightbox Credential Zoom Modal */}
+      {activeCert && (
+        <div 
+          className="fixed inset-0 bg-black/85 backdrop-blur-md flex items-center justify-center p-4 z-50 animate-fade-in"
+          onClick={() => setActiveCert(null)}
+        >
+          <div 
+            className="relative max-w-4xl w-full bg-white rounded-2xl overflow-hidden p-2 shadow-2xl flex flex-col items-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button 
+              onClick={() => setActiveCert(null)}
+              className="absolute top-4 right-4 p-2 rounded-full bg-black/60 text-white hover:bg-black/80 transition-colors z-10 cursor-pointer"
+              aria-label="Close Preview"
+            >
+              <X size={18} />
+            </button>
+            <img 
+              src={activeCert.image} 
+              alt={activeCert.title} 
+              className="w-full max-h-[75vh] object-contain rounded-xl"
+            />
+            <div className="py-4 px-3 text-center w-full bg-neutral-50 border-t border-neutral-100">
+              <h4 className="font-heading font-black text-base sm:text-lg text-text-primary">{activeCert.title}</h4>
+              <p className="text-xs text-text-secondary mt-1">{activeCert.issuer} · Verified Credential</p>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
