@@ -1,4 +1,8 @@
-import { MapPin, Briefcase, GraduationCap, Calendar, CheckCircle2 } from 'lucide-react';
+import { 
+  MapPin, Briefcase, GraduationCap, Calendar,
+  Terminal, Flame, BrainCircuit, Layers, Languages, Sparkles, 
+  Bot, Database, Zap, Cloud, GitBranch 
+} from 'lucide-react';
 
 const milestones = [
   {
@@ -17,24 +21,36 @@ const milestones = [
   },
   {
     type: 'education',
-    role: 'B.Sc. in Computer Science',
+    role: 'Computer Science',
     company: 'B.K. Birla College, Kalyan',
-    period: '2023 – 2026',
+    period: '',
     details: 'Focusing on database architectures, computational algorithms, and mathematics. CGPA 8.00.'
-  },
-  {
-    type: 'education',
-    role: 'HSC Science Stream',
-    company: 'D.D.S.P. College, Erandol',
-    period: '2022 – 2023',
-    details: 'Focusing on mathematics, physics, and computational logic foundations.'
   }
 ];
 
-const coreSkills = [
-  'Python', 'PyTorch', 'Machine Learning', 'Deep Learning', 
-  'Natural Language Processing (NLP)', 'Generative AI', 'LLMs',
-  'SQL', 'MongoDB', 'FastAPI', 'AWS', 'Git'
+const skillCategories = [
+  {
+    title: 'AI & Machine Learning',
+    skills: [
+      { name: 'Python', color: '#3776AB', icon: <Terminal size={12} /> },
+      { name: 'PyTorch', color: '#EE4C2C', icon: <Flame size={12} /> },
+      { name: 'Machine Learning', color: '#a855f7', icon: <BrainCircuit size={12} /> },
+      { name: 'Deep Learning', color: '#6366f1', icon: <Layers size={12} /> },
+      { name: 'Natural Language Processing (NLP)', color: '#3b82f6', icon: <Languages size={12} /> },
+      { name: 'Generative AI', color: '#ec4899', icon: <Sparkles size={12} /> },
+      { name: 'LLMs', color: '#00a294', icon: <Bot size={12} /> }
+    ]
+  },
+  {
+    title: 'Backend & Cloud',
+    skills: [
+      { name: 'FastAPI', color: '#009688', icon: <Zap size={12} /> },
+      { name: 'SQL', color: '#00758F', icon: <Database size={12} /> },
+      { name: 'MongoDB', color: '#47A248', icon: <Database size={12} /> },
+      { name: 'AWS', color: '#FF9900', icon: <Cloud size={12} /> },
+      { name: 'Git', color: '#F05032', icon: <GitBranch size={12} /> }
+    ]
+  }
 ];
 
 export default function About() {
@@ -116,10 +132,12 @@ export default function About() {
                             · {m.company}
                           </span>
                         </div>
-                        <div className="flex items-center gap-1 text-[0.68rem] font-mono text-neutral-400 font-bold mt-1 mb-2">
-                          <Calendar size={11} />
-                          <span>{m.period}</span>
-                        </div>
+                        {m.period && (
+                          <div className="flex items-center gap-1 text-[0.68rem] font-mono text-neutral-400 font-bold mt-1 mb-2">
+                            <Calendar size={11} />
+                            <span>{m.period}</span>
+                          </div>
+                        )}
                         <p className="font-sans text-xs text-neutral-600 leading-relaxed">
                           {m.details}
                         </p>
@@ -130,20 +148,47 @@ export default function About() {
               </div>
             </div>
 
-            {/* Core Tech Stack Pills */}
-            <div className="flex flex-col gap-4 border-t border-neutral-100 pt-6">
-              <h3 className="font-heading font-bold text-xs uppercase tracking-widest text-neutral-400">
-                Core Competencies
+            {/* Core Tech Stack Section */}
+            <div className="flex flex-col gap-5 border-t border-neutral-100 pt-6">
+              <h3 className="font-heading font-black text-sm uppercase tracking-widest text-neutral-800">
+                My Skills
               </h3>
-              <div className="flex flex-wrap gap-2">
-                {coreSkills.map((skill) => (
-                  <span 
-                    key={skill}
-                    className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium border border-neutral-200 text-neutral-700 bg-white hover:border-neutral-300 hover:text-neutral-900 transition-colors shadow-2xs cursor-default"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
-                    <span>{skill}</span>
-                  </span>
+              
+              <div className="flex flex-col gap-5">
+                {skillCategories.map((category) => (
+                  <div key={category.title} className="flex flex-col gap-2.5">
+                    <h4 className="text-[0.62rem] font-mono font-bold uppercase tracking-wider text-neutral-400">
+                      {category.title}
+                    </h4>
+                    <div className="flex flex-wrap gap-2">
+                      {category.skills.map((skill) => (
+                        <span 
+                          key={skill.name}
+                          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-[0.7rem] font-mono font-bold border border-neutral-200/80 text-neutral-600 bg-white transition-all duration-300 shadow-2xs select-none hover:-translate-y-0.5 hover:scale-[1.02] cursor-default"
+                          onMouseEnter={(e) => {
+                            e.currentTarget.style.borderColor = skill.color;
+                            e.currentTarget.style.color = skill.color;
+                            e.currentTarget.style.backgroundColor = `${skill.color}0b`;
+                            e.currentTarget.style.boxShadow = `0 4px 12px ${skill.color}15`;
+                          }}
+                          onMouseLeave={(e) => {
+                            e.currentTarget.style.borderColor = 'rgba(229, 229, 229, 0.8)';
+                            e.currentTarget.style.color = '#525252';
+                            e.currentTarget.style.backgroundColor = '#ffffff';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
+                        >
+                          <span 
+                            className="transition-colors duration-300 flex items-center justify-center"
+                            style={{ color: 'inherit' }}
+                          >
+                            {skill.icon}
+                          </span>
+                          <span>{skill.name}</span>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>

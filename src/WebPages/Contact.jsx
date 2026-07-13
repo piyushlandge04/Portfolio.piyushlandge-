@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Send, Mail, MapPin, Phone, CheckCircle, Loader2 } from 'lucide-react';
 import { supabase, isSupabaseConfigured } from '../supabaseClient';
 
@@ -312,8 +312,12 @@ export default function Contact() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-b border-text-primary/5 pb-10">
             {/* Brand & Bio column */}
             <div className="md:col-span-6 flex flex-col gap-3 text-left">
-              <span className="font-heading font-black text-sm tracking-tight text-text-primary">
-                Piyush Landge | AI Engineer
+              <span className="font-heading font-black text-sm tracking-tight text-text-primary flex items-center gap-1.5">
+                <span>Piyush Landge</span>
+                <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-[#1D9BF0] text-white shrink-0 inline-block align-middle" aria-label="Verified Developer">
+                  <path d="M22.5 12.5c0-1.58-.875-2.95-2.148-3.6.154-.435.238-.905.238-1.4 0-2.21-1.71-3.99-3.818-3.99-.48 0-.941.1-1.356.275C14.77 2.52 13.435 1.5 11.9 1.5c-1.535 0-2.87 1.02-3.516 2.285C7.97 3.6 7.51 3.5 7.03 3.5c-2.11 0-3.818 1.78-3.818 3.99 0 .495.084.965.238 1.4-1.273.65-2.148 2.02-2.148 3.6 0 1.58.875 2.95 2.148 3.6-.154.435-.238.905-.238 1.4 0 2.21 1.71 3.99 3.818 3.99.48 0 .941-.1 1.356-.275C9.03 21.48 10.365 22.5 11.9 22.5c1.535 0 2.87-1.02 3.516-2.285.415.175.876.275 1.356.275 2.11 0 3.818-1.78 3.818-3.99 0-.495-.084-.965-.238-1.4 1.273-.65 2.148-2.02 2.148-3.6zm-12.72 3.99L5.35 12.23l1.41-1.42 3.02 3.02 6.67-6.67 1.41 1.41-8.08 8.08z"/>
+                </svg>
+                <span className="text-text-primary/50 font-medium">| AI Engineer</span>
               </span>
               <p className="text-[0.72rem] text-text-muted leading-relaxed max-w-md font-medium">
                 AI Engineer &amp; Computer Science Graduate specializing in Machine Learning, Generative AI, and modern backend architectures. Building intelligent applications to solve real-world problems.

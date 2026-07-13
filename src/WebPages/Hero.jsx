@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { 
-  Search, Download, Terminal, BrainCircuit, Layers, Eye, Brain, Languages, 
+  Search, Download, BrainCircuit, Layers, Eye, Brain, Languages, 
   Sparkles, Bot, Binary, Table, BarChart3, PieChart, FlaskConical, Database, 
-  GitBranch, Flame, Cloud 
+  Flame 
 } from 'lucide-react';
 import Navbar from './Navbar';
 

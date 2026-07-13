@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { ExternalLink, Layers, MessageSquare, Terminal, Sliders, Cpu, Eye, Code2, LineChart, Sparkles, Wand2 } from 'lucide-react';
+import { ExternalLink, Layers, MessageSquare, Terminal, Cpu, Code2, Sparkles } from 'lucide-react';
 import flyerScreenshot from '../assets/flyer_screenshot.png';
 import projPortfolio from '../assets/proj_portfolio.png';
 
