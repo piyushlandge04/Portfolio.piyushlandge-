@@ -24,7 +24,7 @@ const milestones = [
     role: 'Bachelors of Computer Science',
     company: 'B.K. Birla College - Mumbai University',
     period: '',
-    details: 'Focusing on database architectures, computational algorithms, and mathematics. CGPA 8.00.'
+    details: 'Focusing on database architectures, computational algorithms, and mathematics. CGPA 7.5.'
   }
 ];
 
