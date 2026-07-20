@@ -136,7 +136,7 @@ export default function Contact() {
       {/* Background Ambience */}
       <div aria-hidden="true" className="ambient-glow glow-purple" style={{ position: 'absolute', bottom: '10%', left: '10%', opacity: 0.05, width: '450px', height: '450px', borderRadius: '9999px', background: 'radial-gradient(circle, rgba(168,85,247,0.3) 0%, transparent 70%)', pointerEvents: 'none' }}></div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <h2 className="text-4xl md:text-6xl font-heading font-black text-black text-center mb-4 tracking-tight">
           Get in Touch
         </h2>
@@ -199,7 +199,7 @@ export default function Contact() {
 
           {/* Form Column */}
           <div 
-            className="lg:col-span-7 contact-form-wrapper glass-card p-6 sm:p-9 md:p-11 rounded-4xl border border-text-primary/5 relative overflow-hidden" 
+            className="lg:col-span-7 contact-form-wrapper glass-card p-6 sm:p-9 md:p-11 rounded-3xl md:rounded-4xl border border-text-primary/5 relative overflow-hidden" 
             onMouseMove={handleMouseMove}
             style={{
               background: 'rgba(255, 255, 255, 0.4)',
@@ -235,7 +235,7 @@ export default function Contact() {
                     placeholder=" "
                     value={formData.name}
                     onChange={handleChange}
-                    className="peer w-full bg-white/40 border border-text-primary/5 rounded-2xl p-4 pt-6 pb-2 text-text-primary focus:outline-none focus:border-text-primary/30 focus:bg-white transition-all duration-300 font-medium text-[0.88rem]"
+                    className="peer w-full bg-white/40 border border-text-primary/5 rounded-2xl p-4 pt-6 pb-2 text-text-primary focus:outline-none focus:border-text-primary/30 focus:bg-white transition-all duration-300 font-medium text-base md:text-sm"
                     required
                   />
                   <label 
@@ -255,7 +255,7 @@ export default function Contact() {
                     placeholder=" "
                     value={formData.email}
                     onChange={handleChange}
-                    className="peer w-full bg-white/40 border border-text-primary/5 rounded-2xl p-4 pt-6 pb-2 text-text-primary focus:outline-none focus:border-text-primary/30 focus:bg-white transition-all duration-300 font-medium text-[0.88rem]"
+                    className="peer w-full bg-white/40 border border-text-primary/5 rounded-2xl p-4 pt-6 pb-2 text-text-primary focus:outline-none focus:border-text-primary/30 focus:bg-white transition-all duration-300 font-medium text-base md:text-sm"
                     required
                   />
                   <label 
@@ -275,7 +275,7 @@ export default function Contact() {
                     rows="5"
                     value={formData.message}
                     onChange={handleChange}
-                    className="peer w-full bg-white/40 border border-text-primary/5 rounded-2xl p-4 pt-6 pb-2 text-text-primary focus:outline-none focus:border-text-primary/30 focus:bg-white transition-all duration-300 resize-none font-medium text-[0.88rem] h-32"
+                    className="peer w-full bg-white/40 border border-text-primary/5 rounded-2xl p-4 pt-6 pb-2 text-text-primary focus:outline-none focus:border-text-primary/30 focus:bg-white transition-all duration-300 resize-none font-medium text-base md:text-sm h-32"
                     required
                   ></textarea>
                   <label 
@@ -309,7 +309,7 @@ export default function Contact() {
  
       {/* Modern Premium Footer */}
       <footer className="border-t border-text-primary/5 bg-white/60 backdrop-blur-md pt-16 pb-12 mt-20 md:mt-28 w-full relative z-10">
-        <div className="max-w-7xl mx-auto px-6 md:px-8 flex flex-col gap-10 font-sans text-[0.68rem]">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 flex flex-col gap-10 font-sans text-[0.68rem]">
           
           {/* Top section: Brand/Description and Navigation Columns */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start border-b border-text-primary/5 pb-10">

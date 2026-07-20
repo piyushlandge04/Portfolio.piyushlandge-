@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const NAV_LINKS = [
@@ -9,11 +9,28 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <div className="w-full relative z-25 flex flex-col font-sans select-none">
+    <header className={`fixed top-0 left-0 w-full z-50 flex flex-col font-sans select-none transition-all duration-300 ${
+      scrolled 
+        ? 'bg-white/80 backdrop-blur-md shadow-xs border-b border-text-primary/5 py-2.5' 
+        : 'bg-transparent py-4'
+    }`}>
       {/* ── Main bar ── */}
-      <nav className="w-full py-4 px-5 sm:px-8 flex flex-row justify-between items-center bg-transparent">
+      <nav className="w-full max-w-7xl mx-auto px-5 sm:px-8 flex flex-row justify-between items-center">
 
         {/* Brand */}
         <a href="#home" className="flex items-center shrink-0">
@@ -57,13 +74,13 @@ export default function Navbar() {
 
       {/* ── Mobile drawer ── */}
       {open && (
-        <div className="md:hidden absolute top-full left-0 w-full z-50 bg-bg-secondary/95 backdrop-blur-xl border-t border-text-primary/5 px-5 py-4 flex flex-col gap-1">
+        <div className="md:hidden absolute top-full left-0 w-full z-50 bg-white/95 backdrop-blur-xl border-b border-text-primary/5 px-6 py-6 flex flex-col gap-2 shadow-lg animate-[slideDown_0.25s_cubic-bezier(0.16,1,0.3,1)_forwards]">
           {NAV_LINKS.map(({ href, label }) => (
             <a
               key={href}
               href={href}
               onClick={() => setOpen(false)}
-              className="text-[0.95rem] font-medium text-text-primary/80 hover:text-text-primary py-3 border-b border-text-primary/5 transition-colors cursor-pointer"
+              className="text-base font-semibold text-text-primary/80 hover:text-text-primary py-3 px-3 rounded-xl hover:bg-text-primary/2 transition-all cursor-pointer block text-left"
             >
               {label}
             </a>
@@ -71,18 +88,27 @@ export default function Navbar() {
           <a
             href="#contact"
             onClick={() => setOpen(false)}
-            className="text-[0.95rem] font-bold text-text-primary py-3 transition-colors cursor-pointer"
+            className="mt-3 text-center text-sm font-bold text-white bg-black hover:bg-neutral-800 py-3.5 px-4 rounded-xl shadow-xs transition-all cursor-pointer block"
           >
             Contact Me
           </a>
         </div>
       )}
 
-      {/* 1px gradient divider */}
-      <div
-        className="h-px w-full bg-linear-to-r from-transparent via-text-primary/20 to-transparent"
-        aria-hidden="true"
-      />
-    </div>
+      {/* 1px gradient divider (only shown when not scrolled and menu is closed) */}
+      {!scrolled && !open && (
+        <div
+          className="h-px w-full bg-linear-to-r from-transparent via-text-primary/20 to-transparent absolute bottom-0 left-0"
+          aria-hidden="true"
+        />
+      )}
+
+      <style>{`
+        @keyframes slideDown {
+          from { opacity: 0; transform: translateY(-8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+      `}</style>
+    </header>
   );
 }

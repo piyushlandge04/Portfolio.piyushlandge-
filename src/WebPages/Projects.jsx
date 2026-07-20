@@ -87,7 +87,7 @@ export default function Projects() {
         <div className="absolute bottom-[20%] right-[-10%] w-[40%] h-[50%] rounded-full bg-cyan-500/5 blur-[140px]"></div>
       </div>
 
-      <div className="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="mb-14 text-center">
@@ -105,7 +105,7 @@ export default function Projects() {
               return (
                 <div 
                   key={project.title} 
-                  className="project-card flex flex-col items-center justify-center h-full min-h-120 rounded-[28px] border-2 border-dashed border-neutral-200/60 bg-neutral-50/10 p-8 text-center select-none animate-[fadeIn_0.4s_ease-out_forwards]"
+                  className="project-card flex flex-col items-center justify-center h-full min-h-70 sm:min-h-120 rounded-[28px] border-2 border-dashed border-neutral-200/60 bg-neutral-50/10 p-8 text-center select-none animate-[fadeIn_0.4s_ease-out_forwards]"
                   style={{
                     animationDelay: `${index * 80}ms`
                   }}
@@ -161,7 +161,7 @@ export default function Projects() {
                 </div>
 
                 {/* Card Details */}
-                <div className="p-6 sm:p-7.5 flex flex-col grow text-left relative z-10">
+                <div className="p-5 sm:p-7.5 flex flex-col grow text-left relative z-10">
                   <h3 className="text-xl font-heading font-black mb-3.5 text-text-primary tracking-tight flex items-center gap-2">
                     <span className="p-1 rounded-md bg-neutral-50 border border-neutral-200/50 inline-flex items-center shrink-0">
                       {project.icon}

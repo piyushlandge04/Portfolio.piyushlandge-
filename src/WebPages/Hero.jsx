@@ -184,7 +184,7 @@ export default function Hero() {
       <Navbar />
 
       {/* Hero copy */}
-      <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full px-4 sm:px-6 lg:px-8">
+      <div className="flex-1 flex flex-col items-center justify-center relative z-10 w-full px-4 sm:px-6 lg:px-8 pt-20 sm:pt-24 pb-8">
         {/* Availability badge */}
         <div className="hero-fade-in flex items-center justify-center gap-2 mb-3 sm:mb-4">
           <span className="relative flex h-2 w-2 shrink-0">
@@ -196,7 +196,7 @@ export default function Hero() {
           </span>
         </div>
 
-        <h1 className="hero-fade-in delay-100 font-heading font-normal text-[32px] xs:text-[42px] sm:text-[68px] md:text-[88px] lg:text-[108px] xl:text-[128px] 2xl:text-[148px] leading-[1.02] tracking-[-0.024em] text-text-primary text-center">
+        <h1 className="hero-fade-in delay-100 font-heading font-normal text-[40px] min-[380px]:text-[48px] min-[480px]:text-[56px] sm:text-[76px] md:text-[96px] lg:text-[116px] xl:text-[136px] 2xl:text-[156px] leading-[1.02] tracking-[-0.024em] text-text-primary text-center">
           Piyush{' '}
           <span
             className="bg-clip-text text-transparent bg-linear-to-l"
@@ -208,18 +208,18 @@ export default function Hero() {
 
         {/* Role tag */}
         <div className="hero-fade-in delay-200 mt-3 sm:mt-4 flex justify-center">
-          <p className="font-heading text-[0.55rem] sm:text-[0.65rem] md:text-[0.68rem] font-bold uppercase tracking-[0.15em] sm:tracking-[0.22em] text-neutral-700 mt-1 text-center px-2 max-w-3xl mx-auto leading-relaxed flex flex-wrap justify-center items-center gap-y-1 select-none">
-            <span className="inline-block whitespace-nowrap">AI Engineer</span>
-            <span className="text-neutral-300 mx-2 sm:mx-3">|</span>
-            <span className="inline-block whitespace-nowrap">Machine Learning</span>
-            <span className="text-neutral-300 mx-2 sm:mx-3">|</span>
-            <span className="inline-block whitespace-nowrap">Deep Learning</span>
-            <span className="text-neutral-300 mx-2 sm:mx-3">|</span>
-            <span className="inline-block whitespace-nowrap">Generative AI</span>
-            <span className="text-neutral-300 mx-2 sm:mx-3">|</span>
-            <span className="inline-block whitespace-nowrap">LLMs</span>
-            <span className="text-neutral-300 mx-2 sm:mx-3">|</span>
-            <span className="inline-block whitespace-nowrap">AWS</span>
+          <p className="font-heading text-[0.58rem] sm:text-[0.65rem] md:text-[0.68rem] font-bold uppercase tracking-[0.12em] sm:tracking-[0.22em] text-neutral-600 mt-1 text-center px-4 max-w-3xl mx-auto leading-relaxed flex flex-wrap justify-center items-center gap-x-2 gap-y-1.5 select-none">
+            <span className="inline-block px-2.5 py-0.5 bg-neutral-100/50 rounded-md border border-neutral-200/30 text-neutral-700 whitespace-nowrap">AI Engineer</span>
+            <span className="text-neutral-300 hidden sm:inline">|</span>
+            <span className="inline-block px-2.5 py-0.5 bg-neutral-100/50 rounded-md border border-neutral-200/30 text-neutral-700 whitespace-nowrap">Machine Learning</span>
+            <span className="text-neutral-300 hidden sm:inline">|</span>
+            <span className="inline-block px-2.5 py-0.5 bg-neutral-100/50 rounded-md border border-neutral-200/30 text-neutral-700 whitespace-nowrap">Deep Learning</span>
+            <span className="text-neutral-300 hidden sm:inline">|</span>
+            <span className="inline-block px-2.5 py-0.5 bg-neutral-100/50 rounded-md border border-neutral-200/30 text-neutral-700 whitespace-nowrap">Generative AI</span>
+            <span className="text-neutral-300 hidden sm:inline">|</span>
+            <span className="inline-block px-2.5 py-0.5 bg-neutral-100/50 rounded-md border border-neutral-200/30 text-neutral-700 whitespace-nowrap">LLMs</span>
+            <span className="text-neutral-300 hidden sm:inline">|</span>
+            <span className="inline-block px-2.5 py-0.5 bg-neutral-100/50 rounded-md border border-neutral-200/30 text-neutral-700 whitespace-nowrap">AWS</span>
           </p>
         </div>
 
@@ -230,10 +230,10 @@ export default function Hero() {
         </p>
 
         {/* CTA buttons */}
-        <div className="hero-fade-in delay-400 flex items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-7 flex-wrap w-full px-4">
+        <div className="hero-fade-in delay-400 flex flex-col sm:flex-row items-center justify-center gap-3 mt-6 sm:mt-7 w-full max-w-xs sm:max-w-none px-4">
           <a
             href="#projects"
-            className="bg-black text-white hover:bg-neutral-800 rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-widest cursor-pointer shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 transition-all duration-150"
+            className="w-full sm:w-auto bg-black text-white hover:bg-neutral-800 rounded-full px-6 py-3 text-[0.7rem] sm:text-[0.72rem] font-bold uppercase tracking-widest cursor-pointer shadow-lg hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 transition-all duration-150"
           >
             <Search className="w-3.5 h-3.5" />
             Explore Projects
@@ -243,7 +243,7 @@ export default function Hero() {
             target="_blank"
             rel="noopener noreferrer"
             download
-            className="rounded-full px-5 sm:px-6 py-2.5 sm:py-3 text-[0.68rem] sm:text-[0.72rem] font-bold uppercase tracking-widest cursor-pointer flex items-center justify-center gap-2 border border-text-primary/25 text-text-primary/90 hover:text-text-primary hover:border-text-primary/40 hover:bg-text-primary/5 transition-all duration-200"
+            className="w-full sm:w-auto rounded-full px-6 py-3 text-[0.7rem] sm:text-[0.72rem] font-bold uppercase tracking-widest cursor-pointer flex items-center justify-center gap-2 border border-text-primary/25 text-text-primary/90 hover:text-text-primary hover:border-text-primary/40 hover:bg-text-primary/5 transition-all duration-200"
           >
             <Download className="w-3.5 h-3.5" />
             Download Resume

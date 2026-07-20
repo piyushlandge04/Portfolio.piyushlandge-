@@ -81,7 +81,7 @@ const skillCategories = [
 export default function About() {
   return (
     <section id="about" className="py-20 md:py-28 bg-white border-y border-neutral-100">
-      <div className="max-w-7xl mx-auto px-6 md:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         
         {/* Responsive 2-Column Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start text-left">
