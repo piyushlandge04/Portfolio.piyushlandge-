@@ -3,7 +3,6 @@ import { ReactLenis } from 'lenis/react';
 import Hero from './WebPages/Hero';
 import About from './WebPages/About';
 import Projects from './WebPages/Projects';
-import Certificates from './WebPages/Certificates';
 import Contact from './WebPages/Contact';
 
 function App() {
@@ -63,7 +62,6 @@ function App() {
         <Hero />
         <About />
         <Projects />
-        <Certificates />
         <Contact />
       </main>
     </ReactLenis>

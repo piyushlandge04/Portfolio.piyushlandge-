@@ -2,22 +2,7 @@ import { ExternalLink, Layers, MessageSquare, Terminal, Cpu, Code2, Sparkles } f
 import flyerScreenshot from '../assets/flyer_screenshot.png';
 import projPortfolio from '../assets/proj_portfolio.png';
 
-const Github = ({ size = 20, className }) => (
-  <svg
-    viewBox="0 0 24 24"
-    width={size}
-    height={size}
-    stroke="currentColor"
-    strokeWidth="2"
-    fill="none"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className={className}
-  >
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-);
+
 
 export default function Projects() {
 
@@ -77,17 +62,17 @@ export default function Projects() {
       upcoming: true
     },
     {
-      title: 'Neural Style Transfer',
-      description: 'A deep learning pipeline leveraging convolutional neural networks to synthesize artistic styles onto real-world target images in real-time.',
-      tags: ['Python', 'PyTorch', 'CNNs', 'Computer Vision'],
+      title: 'AI Prediction Model',
+      description: 'An advanced predictive model utilizing machine learning algorithms to forecast complex patterns, system behaviors, or market trends with high precision.',
+      tags: ['Python', 'Scikit-Learn', 'Pandas', 'Machine Learning'],
       categories: ['ai-ml'],
       github: '#',
       live: '#',
       icon: <Cpu size={13} className="text-neutral-600" />,
       metrics: {
-        engine: 'VGG-19',
-        latency: '42ms',
-        score: '0.94 SSIM'
+        engine: 'XGBoost',
+        latency: '15ms',
+        score: '96.2% Acc'
       },
       image: null,
       upcoming: true
@@ -109,18 +94,18 @@ export default function Projects() {
           <h2 className="text-4xl md:text-5xl font-heading font-black text-black text-center mb-4 tracking-tight">
             My Projects
           </h2>
-          <p className="text-center max-w-[600px] mx-auto text-text-secondary text-base md:text-lg font-sans leading-relaxed opacity-90">
+          <p className="text-center max-w-150 mx-auto text-text-secondary text-base md:text-lg font-sans leading-relaxed opacity-90">
             Explore some of my recent engineering projects, custom visual models, and interactive AI integrations.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-[480px]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 min-h-120">
           {projectsList.map((project, index) => {
             if (project.upcoming) {
               return (
                 <div 
                   key={project.title} 
-                  className="project-card flex flex-col items-center justify-center h-full min-h-[480px] rounded-[28px] border-2 border-dashed border-neutral-200/60 bg-neutral-50/10 p-8 text-center select-none animate-[fadeIn_0.4s_ease-out_forwards]"
+                  className="project-card flex flex-col items-center justify-center h-full min-h-120 rounded-[28px] border-2 border-dashed border-neutral-200/60 bg-neutral-50/10 p-8 text-center select-none animate-[fadeIn_0.4s_ease-out_forwards]"
                   style={{
                     animationDelay: `${index * 80}ms`
                   }}
@@ -159,44 +144,20 @@ export default function Projects() {
                   }}
                 />
 
-                {/* Project Card Image Banner / Styled Graphic */}
-                <div 
-                  className="h-[200px] w-full relative flex items-center justify-center transition-all duration-500 overflow-hidden shrink-0 bg-neutral-50/50 border-b border-text-primary/5" 
-                >
-                  {/* Tech wireframe grid pattern */}
-                  <div className="absolute w-full h-full bg-[radial-gradient(rgba(0,0,0,0.03)_1.5px,transparent_1.5px)] bg-size-[14px_14px] opacity-80 z-10"></div>
-                  
-                  {/* Visual Graphic Representation */}
-                  <div className="absolute inset-0 flex items-center justify-center p-4 z-20">
-                    <div className="w-[190px] h-[125px] bg-white border border-neutral-200/60 rounded-xl relative flex flex-col overflow-hidden shadow-[0_8px_30px_rgb(0,0,0,0.04)] transition-all duration-500">
-                      {/* Browser top bar */}
-                      <div className="h-5 border-b border-neutral-200/50 bg-neutral-50 px-2 flex justify-between items-center shrink-0 select-none">
-                        <div className="flex gap-0.5">
-                          <span className="w-1.2 h-1.2 rounded-full bg-neutral-300"></span>
-                          <span className="w-1.2 h-1.2 rounded-full bg-neutral-300"></span>
-                          <span className="w-1.2 h-1.2 rounded-full bg-neutral-300"></span>
-                        </div>
-                        <span className="text-[5px] font-mono text-neutral-400 font-bold truncate max-w-[100px]">
-                          {project.title.toLowerCase().replace(/ /g, '_')}.app
-                        </span>
-                      </div>
-                      {/* Screenshot image */}
-                      <div className="flex-1 relative overflow-hidden bg-white flex items-center justify-center">
-                        {project.image ? (
-                          <img 
-                            src={project.image} 
-                            alt={`${project.title} screenshot`} 
-                            className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                          />
-                        ) : (
-                          <div className="w-full h-full bg-neutral-50/50 flex flex-col items-center justify-center select-none font-mono text-[0.55rem] font-bold text-neutral-400 gap-1.5">
-                            <Code2 size={16} className="text-neutral-300" />
-                            <span>DEVELOPMENT</span>
-                          </div>
-                        )}
-                      </div>
+                {/* Project Card Image Banner */}
+                <div className="h-50 w-full relative overflow-hidden shrink-0 bg-neutral-50 border-b border-text-primary/5">
+                  {project.image ? (
+                    <img 
+                      src={project.image} 
+                      alt={`${project.title} screenshot`} 
+                      className="w-full h-full object-cover opacity-95 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out" 
+                    />
+                  ) : (
+                    <div className="w-full h-full flex flex-col items-center justify-center select-none font-mono text-[0.62rem] font-bold text-neutral-400 gap-1.5">
+                      <Code2 size={18} className="text-neutral-300" />
+                      <span>DEVELOPMENT STAGE</span>
                     </div>
-                  </div>
+                  )}
                 </div>
 
                 {/* Card Details */}
@@ -207,68 +168,25 @@ export default function Projects() {
                     </span>
                     <span>{project.title}</span>
                   </h3>
-                  <p className="font-sans text-[0.88rem] text-text-secondary leading-relaxed mb-5 grow opacity-90">
+                  <p className="font-sans text-[0.88rem] text-text-secondary leading-relaxed mb-6 grow opacity-90">
                     {project.description}
                   </p>
-                  
-                  {/* Technical Metrics Block */}
-                  <div className="grid grid-cols-3 gap-2.5 border-t border-text-primary/5 pt-4.5 mb-5 font-mono text-[0.65rem] text-text-muted select-none">
-                    <div className="bg-text-primary/1 border border-text-primary/5 rounded-lg p-1.5 text-center">
-                      <span className="block text-[0.52rem] text-text-muted uppercase font-bold tracking-wider mb-0.5">Engine</span>
-                      <span className="text-text-primary font-extrabold truncate block">{project.metrics.engine.split(' ')[0]}</span>
-                    </div>
-                    <div className="bg-text-primary/1 border border-text-primary/5 rounded-lg p-1.5 text-center">
-                      <span className="block text-[0.52rem] text-text-muted uppercase font-bold tracking-wider mb-0.5">Latency</span>
-                      <span className="text-text-primary font-extrabold truncate block">{project.metrics.latency}</span>
-                    </div>
-                    <div className="bg-text-primary/1 border border-text-primary/5 rounded-lg p-1.5 text-center">
-                      <span className="block text-[0.52rem] text-text-muted uppercase font-bold tracking-wider mb-0.5">Performance</span>
-                      <span className="text-text-primary font-extrabold truncate block">{project.metrics.score}</span>
-                    </div>
-                  </div>
-
-                  {/* Tech Tags */}
-                  <div className="flex flex-wrap gap-1.5 mb-6 select-none">
-                    {project.tags.map((tag) => (
-                      <span 
-                        key={tag} 
-                        className="text-[0.6rem] font-mono font-bold bg-white/40 border border-[#30363d]/60 px-2 py-0.5 rounded-md text-text-muted hover:text-text-primary hover:border-text-primary/20 transition-colors"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
 
                   {/* Action Buttons */}
-                  <div className="flex gap-2.5 border-t border-text-primary/5 pt-5 mt-auto font-mono text-[0.68rem] select-none items-center">
-                    {project.github && project.github !== '#' ? (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-purple-600 bg-purple-50/50 border border-purple-200/50 hover:bg-purple-100/50 shadow-sm transition-all duration-300 hover:-translate-y-0.5"
-                        aria-label="GitHub Repository"
-                      >
-                        <Github size={12} /> Repo
-                      </a>
-                    ) : (
-                      <span className="flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-text-muted bg-text-primary/5 border border-text-primary/5 cursor-not-allowed opacity-40">
-                        <Github size={12} /> Repo
-                      </span>
-                    )}
+                  <div className="flex border-t border-text-primary/5 pt-5 mt-auto font-mono text-[0.68rem] select-none items-center w-full">
                     {project.live && project.live !== '#' ? (
                       <a
                         href={project.live}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="ml-auto flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-white bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-md hover:shadow-purple-500/30 transition-all duration-300 hover:-translate-y-0.5"
+                        className="w-full flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full font-black uppercase tracking-wider text-white bg-linear-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 shadow-md hover:shadow-purple-500/30 transition-all duration-300 hover:-translate-y-0.5"
                         aria-label="Open Live Demo"
                       >
-                        <ExternalLink size={12} /> Open
+                        <ExternalLink size={12} /> Open Project
                       </a>
                     ) : (
-                      <span className="ml-auto flex items-center gap-1.5 px-4 py-1.5 rounded-full font-black uppercase tracking-wider text-text-muted bg-text-primary/5 border border-text-primary/5 cursor-not-allowed opacity-40">
-                        <ExternalLink size={12} /> Open
+                      <span className="w-full flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full font-black uppercase tracking-wider text-text-muted bg-text-primary/5 border border-text-primary/5 cursor-not-allowed opacity-40">
+                        <ExternalLink size={12} /> Open Project
                       </span>
                     )}
                   </div>

@@ -80,45 +80,48 @@ export default function Contact() {
     setIsSubmitting(true);
 
     try {
-      if (isSupabaseConfigured) {
-        const { error } = await supabase
-          .from('contact_messages')
-          .insert([
-            {
-              name: formData.name,
-              email: formData.email,
-              message: formData.message
-            }
-          ]);
-        if (error) throw error;
+      // 1. Always send email via Web3Forms to ensure mail reception
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          access_key: "df3f120f-1474-4070-ba46-54c32895755f",
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subject: `New Portfolio Message from ${formData.name}`
+        })
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // 2. Optionally back up the message in Supabase if configured
+        if (isSupabaseConfigured) {
+          try {
+            await supabase
+              .from('contact_messages')
+              .insert([
+                {
+                  name: formData.name,
+                  email: formData.email,
+                  message: formData.message
+                }
+              ]);
+          } catch (dbError) {
+            console.warn("Supabase logging failed (but email was sent successfully):", dbError);
+          }
+        }
+
         setSubmitted(true);
         setFormData({ name: '', email: '', message: '' });
         setTimeout(() => setSubmitted(false), 5000);
       } else {
-        const response = await fetch("https://api.web3forms.com/submit", {
-          method: "POST",
-          headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-          },
-          body: JSON.stringify({
-            access_key: "df3f120f-1474-4070-ba46-54c32895755f",
-            name: formData.name,
-            email: formData.email,
-            message: formData.message,
-            subject: `New Portfolio Message from ${formData.name}`
-          })
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-          setSubmitted(true);
-          setFormData({ name: '', email: '', message: '' });
-          setTimeout(() => setSubmitted(false), 5000);
-        } else {
-          alert(data.message || "Failed to send message. Please try again or contact me directly via email.");
-        }
+        console.error("Web3Forms submission failed:", data.message);
+        alert("Failed to send message. Please try again or contact me directly via email.");
       }
     } catch (error) {
       console.error("Error sending message:", error);
@@ -137,7 +140,7 @@ export default function Contact() {
         <h2 className="text-4xl md:text-6xl font-heading font-black text-black text-center mb-4 tracking-tight">
           Get in Touch
         </h2>
-        <p className="text-center max-w-[600px] mx-auto text-text-secondary text-base md:text-xl mb-8 md:mb-16 font-sans leading-relaxed opacity-90">
+        <p className="text-center max-w-150 mx-auto text-text-secondary text-base md:text-xl mb-8 md:mb-16 font-sans leading-relaxed opacity-90">
           Have an exciting project idea, a position to fill, or simply want to say hello? Drop me a message below.
         </p>
 
@@ -159,7 +162,7 @@ export default function Contact() {
                 </div>
                 <div>
                   <h4 className="text-[0.62rem] font-bold text-text-muted font-mono uppercase tracking-wider">Email</h4>
-                  <a href="mailto:piyushlandge4444@gmail.com" className="text-text-primary text-sm hover:underline font-semibold mt-0.5 block">piyushlandge4444@gmail.com</a>
+                  <a href="mailto:work.piyushlandge@gmail.com" className="text-text-primary text-sm hover:underline font-semibold mt-0.5 block">work.piyushlandge@gmail.com</a>
                 </div>
               </div>
 
@@ -196,7 +199,7 @@ export default function Contact() {
 
           {/* Form Column */}
           <div 
-            className="lg:col-span-7 contact-form-wrapper glass-card p-6 sm:p-9 md:p-11 rounded-[32px] border border-text-primary/5 relative overflow-hidden" 
+            className="lg:col-span-7 contact-form-wrapper glass-card p-6 sm:p-9 md:p-11 rounded-4xl border border-text-primary/5 relative overflow-hidden" 
             onMouseMove={handleMouseMove}
             style={{
               background: 'rgba(255, 255, 255, 0.4)',
@@ -217,7 +220,7 @@ export default function Contact() {
               <div className="flex flex-col items-center text-center py-12 gap-5 relative z-10">
                 <CheckCircle size={52} className="text-text-primary drop-shadow-[0_0_12px_rgba(0,0,0,0.3)] animate-[scaleIn_0.5s_cubic-bezier(0.16,1,0.3,1)_forwards]" />
                 <h3 className="text-2xl font-black text-text-primary font-heading">Message Dispatched</h3>
-                <p className="text-text-secondary max-w-[340px] text-sm leading-relaxed font-sans opacity-95">
+                <p className="text-text-secondary max-w-85 text-sm leading-relaxed font-sans opacity-95">
                   System sync successful. I have received your request and will establish communications shortly.
                 </p>
               </div>
@@ -339,7 +342,7 @@ export default function Contact() {
             <div className="md:col-span-3 flex flex-col gap-3 text-left">
               <span className="font-bold tracking-wider uppercase text-text-primary text-[0.62rem]">Connect</span>
               <div className="flex flex-col gap-2 font-bold tracking-wider uppercase text-text-muted">
-                <a href="mailto:piyushlandge4444@gmail.com" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">Email</a>
+                <a href="mailto:work.piyushlandge@gmail.com" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">Email</a>
                 <a href="https://github.com/piyushlandge04" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">GitHub</a>
                 <a href="https://www.linkedin.com/in/piyushlandge04/" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">LinkedIn</a>
                 <a href="https://www.instagram.com/piyushlandge_04/" target="_blank" rel="noopener noreferrer" className="hover:text-text-primary hover:translate-x-0.5 transition-all duration-200 block">Instagram</a>

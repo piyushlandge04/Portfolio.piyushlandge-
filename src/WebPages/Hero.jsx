@@ -168,13 +168,13 @@ export default function Hero() {
     <section id="home" className="min-h-dvh flex flex-col relative overflow-visible bg-bg-primary select-none">
       {/* Background Ambient Glows */}
       <div
-        className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-indigo-400/8 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none z-0 transition-transform duration-700 ease-out"
+        className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-75 sm:w-125 h-75 sm:h-125 bg-indigo-400/8 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none z-0 transition-transform duration-700 ease-out"
         style={{
           transform: `translate(calc(-50% + ${mousePos.x * 50}px), calc(-50% + ${mousePos.y * 50}px))`
         }}
       ></div>
       <div
-        className="absolute bottom-1/3 right-1/4 translate-x-1/2 translate-y-1/2 w-[250px] sm:w-[450px] h-[250px] sm:h-[450px] bg-purple-400/8 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none z-0 transition-transform duration-700 ease-out"
+        className="absolute bottom-1/3 right-1/4 translate-x-1/2 translate-y-1/2 w-62.5 sm:w-112.5 h-62.5 sm:h-112.5 bg-purple-400/8 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none z-0 transition-transform duration-700 ease-out"
         style={{
           transform: `translate(calc(50% + ${mousePos.x * -40}px), calc(50% + ${mousePos.y * -40}px))`
         }}

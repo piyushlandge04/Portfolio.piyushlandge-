@@ -1,7 +1,8 @@
 import { 
   MapPin, Briefcase, GraduationCap, Calendar,
   Terminal, Flame, BrainCircuit, Layers, Languages, Sparkles, 
-  Bot, Database, Zap, Cloud, GitBranch 
+  Bot, Database, Zap, Cloud, GitBranch,
+  Cpu, Eye, Workflow, Network, TrendingUp, BarChart2, PieChart, Binary, Layout, Lightbulb, Users
 } from 'lucide-react';
 
 const milestones = [
@@ -32,23 +33,47 @@ const skillCategories = [
   {
     title: 'AI & Machine Learning',
     skills: [
-      { name: 'Python', color: '#3776AB', icon: <Terminal size={12} /> },
-      { name: 'PyTorch', color: '#EE4C2C', icon: <Flame size={12} /> },
       { name: 'Machine Learning', color: '#a855f7', icon: <BrainCircuit size={12} /> },
       { name: 'Deep Learning', color: '#6366f1', icon: <Layers size={12} /> },
+      { name: 'PyTorch', color: '#EE4C2C', icon: <Flame size={12} /> },
+      { name: 'TensorFlow & Keras', color: '#FF6F00', icon: <Cpu size={12} /> },
+      { name: 'Computer Vision', color: '#00B0FF', icon: <Eye size={12} /> },
       { name: 'Natural Language Processing (NLP)', color: '#3b82f6', icon: <Languages size={12} /> },
       { name: 'Generative AI', color: '#ec4899', icon: <Sparkles size={12} /> },
-      { name: 'LLMs', color: '#00a294', icon: <Bot size={12} /> }
+      { name: 'Large Language Models (LLMs)', color: '#00a294', icon: <Bot size={12} /> },
+      { name: 'Prompt Engineering', color: '#FFD700', icon: <Terminal size={12} /> },
+      { name: 'Retrieval-Augmented Generation (RAG)', color: '#8e44ad', icon: <Network size={12} /> },
+      { name: 'Agentic AI', color: '#2ecc71', icon: <Workflow size={12} /> }
     ]
   },
   {
-    title: 'Backend & Cloud',
+    title: 'Data Science & Analytics',
+    skills: [
+      { name: 'Python', color: '#3776AB', icon: <Terminal size={12} /> },
+      { name: 'Statistics', color: '#1abc9c', icon: <TrendingUp size={12} /> },
+      { name: 'Data Analysis (NumPy, Pandas)', color: '#1565C0', icon: <BarChart2 size={12} /> },
+      { name: 'Data Visualization (Matplotlib, Seaborn)', color: '#2e7d32', icon: <PieChart size={12} /> },
+      { name: 'Big Data (PySpark, Hadoop)', color: '#E25A13', icon: <Binary size={12} /> },
+      { name: 'Tableau & Power BI', color: '#E9572B', icon: <Layout size={12} /> }
+    ]
+  },
+  {
+    title: 'Software & Cloud Engineering',
     skills: [
       { name: 'FastAPI', color: '#009688', icon: <Zap size={12} /> },
+      { name: 'Flask & REST APIs', color: '#000000', icon: <Terminal size={12} /> },
       { name: 'SQL', color: '#00758F', icon: <Database size={12} /> },
       { name: 'MongoDB', color: '#47A248', icon: <Database size={12} /> },
-      { name: 'AWS', color: '#FF9900', icon: <Cloud size={12} /> },
-      { name: 'Git', color: '#F05032', icon: <GitBranch size={12} /> }
+      { name: 'AWS & Azure', color: '#FF9900', icon: <Cloud size={12} /> },
+      { name: 'Git & GitHub', color: '#F05032', icon: <GitBranch size={12} /> }
+    ]
+  },
+  {
+    title: 'Collaboration & Productivity',
+    skills: [
+      { name: 'AI Tools (ChatGPT, Claude, Gemini, Copilot)', color: '#8a2be2', icon: <Sparkles size={12} /> },
+      { name: 'Problem Solving', color: '#e67e22', icon: <Lightbulb size={12} /> },
+      { name: 'Team Collaboration', color: '#34495e', icon: <Users size={12} /> }
     ]
   }
 ];
@@ -109,7 +134,7 @@ export default function About() {
               
               <div className="relative pl-6 sm:pl-8 space-y-6">
                 {/* Connecting Vertical Line (running from bottom item up to top item) */}
-                <div className="absolute left-[11px] sm:left-[15px] top-4 bottom-4 w-[2px] bg-linear-to-t from-neutral-100 via-indigo-200 to-purple-500" />
+                <div className="absolute left-2.75 sm:left-3.75 top-4 bottom-4 w-0.5 bg-linear-to-t from-neutral-100 via-indigo-200 to-purple-500" />
 
                 {milestones.map((m, idx) => (
                   <div 
@@ -117,7 +142,7 @@ export default function About() {
                     className="relative flex gap-4"
                   >
                     {/* Icon Node centered on the vertical line */}
-                    <div className="absolute left-[-23px] sm:left-[-27px] top-3.5 w-6 h-6 rounded-full border border-neutral-200 bg-white flex items-center justify-center shadow-2xs text-neutral-500 z-10 hover:border-purple-300 hover:text-purple-600 transition-colors">
+                    <div className="absolute -left-5.75 sm:-left-6.75 top-3.5 w-6 h-6 rounded-full border border-neutral-200 bg-white flex items-center justify-center shadow-2xs text-neutral-500 z-10 hover:border-purple-300 hover:text-purple-600 transition-colors">
                       {m.type === 'work' ? <Briefcase size={12} /> : <GraduationCap size={12} />}
                     </div>
 
@@ -148,53 +173,68 @@ export default function About() {
               </div>
             </div>
 
-            {/* Core Tech Stack Section */}
-            <div className="flex flex-col gap-5 border-t border-neutral-100 pt-6">
-              <h3 className="font-heading font-black text-sm uppercase tracking-widest text-neutral-800">
-                My Skills
-              </h3>
-              
-              <div className="flex flex-col gap-5">
-                {skillCategories.map((category) => (
-                  <div key={category.title} className="flex flex-col gap-2.5">
-                    <h4 className="text-[0.62rem] font-mono font-bold uppercase tracking-wider text-neutral-400">
-                      {category.title}
-                    </h4>
-                    <div className="flex flex-wrap gap-2">
-                      {category.skills.map((skill) => (
-                        <span 
-                          key={skill.name}
-                          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-[0.7rem] font-mono font-bold border border-neutral-200/80 text-neutral-600 bg-white transition-all duration-300 shadow-2xs select-none hover:-translate-y-0.5 hover:scale-[1.02] cursor-default"
-                          onMouseEnter={(e) => {
-                            e.currentTarget.style.borderColor = skill.color;
-                            e.currentTarget.style.color = skill.color;
-                            e.currentTarget.style.backgroundColor = `${skill.color}0b`;
-                            e.currentTarget.style.boxShadow = `0 4px 12px ${skill.color}15`;
-                          }}
-                          onMouseLeave={(e) => {
-                            e.currentTarget.style.borderColor = 'rgba(229, 229, 229, 0.8)';
-                            e.currentTarget.style.color = '#525252';
-                            e.currentTarget.style.backgroundColor = '#ffffff';
-                            e.currentTarget.style.boxShadow = 'none';
-                          }}
-                        >
-                          <span 
-                            className="transition-colors duration-300 flex items-center justify-center"
-                            style={{ color: 'inherit' }}
-                          >
-                            {skill.icon}
-                          </span>
-                          <span>{skill.name}</span>
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+
 
           </div>
 
+        </div>
+
+        {/* Standalone Horizontal My Skills Section */}
+        <div className="flex flex-col gap-6 border-t border-neutral-100 pt-12 mt-16">
+          <div className="flex items-center gap-3">
+            <div className="p-1.5 rounded-lg bg-purple-50 text-purple-600">
+              <BrainCircuit size={18} />
+            </div>
+            <h3 className="font-heading font-black text-lg text-neutral-900 tracking-tight">
+              My Skills
+            </h3>
+          </div>
+          
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {skillCategories.map((category, catIdx) => {
+              const catStyles = [
+                { border: 'hover:border-purple-200', text: 'text-purple-600' },
+                { border: 'hover:border-blue-200', text: 'text-blue-600' },
+                { border: 'hover:border-emerald-200', text: 'text-emerald-600' },
+                { border: 'hover:border-amber-200', text: 'text-amber-600' }
+              ][catIdx] || { border: 'hover:border-neutral-200', text: 'text-neutral-600' };
+
+              return (
+                <div 
+                  key={category.title} 
+                  className={`p-5 rounded-2xl border border-neutral-100 bg-neutral-50/20 hover:bg-white transition-all duration-300 flex flex-col gap-4 shadow-3xs ${catStyles.border}`}
+                >
+                  <h4 className={`text-[0.62rem] font-heading font-black tracking-wider uppercase flex items-center gap-2 ${catStyles.text}`}>
+                    <span className="h-1.5 w-1.5 rounded-full bg-current"></span>
+                    {category.title}
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {category.skills.map((skill) => (
+                      <span 
+                        key={skill.name}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[0.68rem] font-mono font-bold border border-neutral-100 text-neutral-600 bg-white/60 backdrop-blur-xs transition-all duration-200 cursor-default select-none hover:-translate-y-0.5 hover:shadow-3xs"
+                        onMouseEnter={(e) => {
+                          e.currentTarget.style.borderColor = skill.color;
+                          e.currentTarget.style.color = skill.color;
+                          e.currentTarget.style.backgroundColor = `${skill.color}08`;
+                        }}
+                        onMouseLeave={(e) => {
+                          e.currentTarget.style.borderColor = '#f5f5f5';
+                          e.currentTarget.style.color = '#525252';
+                          e.currentTarget.style.backgroundColor = 'rgba(255, 255, 255, 0.6)';
+                        }}
+                      >
+                        <span className="flex items-center justify-center animate-pulse" style={{ color: 'inherit' }}>
+                          {skill.icon}
+                        </span>
+                        <span>{skill.name}</span>
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
       </div>
