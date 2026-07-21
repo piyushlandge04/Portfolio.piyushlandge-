@@ -208,18 +208,18 @@ export default function Hero() {
 
         {/* Role tag */}
         <div className="hero-fade-in delay-200 mt-3 sm:mt-4 flex justify-center">
-          <p className="font-heading text-[0.55rem] sm:text-[0.65rem] md:text-[0.68rem] font-bold uppercase tracking-[0.15em] sm:tracking-[0.22em] text-neutral-700 mt-1 text-center px-4 max-w-3xl mx-auto leading-relaxed flex flex-wrap justify-center items-center gap-y-1 select-none">
-            <span className="inline-block whitespace-nowrap">AI Engineer</span>
-            <span className="text-neutral-300 mx-2 sm:mx-3">|</span>
-            <span className="inline-block whitespace-nowrap">Machine Learning</span>
-            <span className="text-neutral-300 mx-2 sm:mx-3">|</span>
-            <span className="inline-block whitespace-nowrap">Deep Learning</span>
-            <span className="text-neutral-300 mx-2 sm:mx-3">|</span>
-            <span className="inline-block whitespace-nowrap">Generative AI</span>
-            <span className="text-neutral-300 mx-2 sm:mx-3">|</span>
-            <span className="inline-block whitespace-nowrap">LLMs</span>
-            <span className="text-neutral-300 mx-2 sm:mx-3">|</span>
-            <span className="inline-block whitespace-nowrap">AWS</span>
+          <p className="font-heading text-[0.58rem] sm:text-[0.65rem] md:text-[0.68rem] font-bold uppercase tracking-[0.12em] sm:tracking-[0.22em] text-neutral-600 mt-1 text-center px-4 max-w-3xl mx-auto leading-relaxed flex flex-wrap justify-center items-center gap-x-2 gap-y-1.5 select-none">
+            <span className="inline-block px-2.5 py-0.5 bg-neutral-100/50 rounded-md border border-neutral-200/30 text-neutral-700 whitespace-nowrap">AI Engineer</span>
+            <span className="text-neutral-300 hidden sm:inline">|</span>
+            <span className="inline-block px-2.5 py-0.5 bg-neutral-100/50 rounded-md border border-neutral-200/30 text-neutral-700 whitespace-nowrap">Machine Learning</span>
+            <span className="text-neutral-300 hidden sm:inline">|</span>
+            <span className="inline-block px-2.5 py-0.5 bg-neutral-100/50 rounded-md border border-neutral-200/30 text-neutral-700 whitespace-nowrap">Deep Learning</span>
+            <span className="text-neutral-300 hidden sm:inline">|</span>
+            <span className="inline-block px-2.5 py-0.5 bg-neutral-100/50 rounded-md border border-neutral-200/30 text-neutral-700 whitespace-nowrap">Generative AI</span>
+            <span className="text-neutral-300 hidden sm:inline">|</span>
+            <span className="inline-block px-2.5 py-0.5 bg-neutral-100/50 rounded-md border border-neutral-200/30 text-neutral-700 whitespace-nowrap">LLMs</span>
+            <span className="text-neutral-300 hidden sm:inline">|</span>
+            <span className="inline-block px-2.5 py-0.5 bg-neutral-100/50 rounded-md border border-neutral-200/30 text-neutral-700 whitespace-nowrap">AWS</span>
           </p>
         </div>
 
